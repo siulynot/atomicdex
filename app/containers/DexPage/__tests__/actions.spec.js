@@ -10,7 +10,9 @@ import {
   timeoutSwap,
   makeANewSwap,
   openDetailModal,
-  closeDetailModal
+  closeDetailModal,
+  openSelectCoinModal,
+  closeSelectCoinModal
 } from '../actions';
 import {
   LOAD_PRICE,
@@ -24,7 +26,9 @@ import {
   SWAP_TIMEOUT,
   SWAP_MAKE_A_NEW,
   SWAP_DETAIL_MODAL_OPEN,
-  SWAP_DETAIL_MODAL_CLOSE
+  SWAP_DETAIL_MODAL_CLOSE,
+  SELECT_COIN_MODAL_OPEN,
+  SELECT_COIN_MODAL_CLOSE
 } from '../constants';
 
 describe('containers/DexPage/actions/loadPrice', () => {
@@ -249,5 +253,33 @@ describe('containers/DexPage/actions/closeDetailModal', () => {
     };
 
     expect(closeDetailModal()).toEqual(expectedResult);
+  });
+});
+
+describe('containers/DexPage/actions/openSelectCoinModal', () => {
+  it('should openSelectCoinModal should create openSelectCoinModal action', () => {
+    expect(openSelectCoinModal()).toMatchSnapshot();
+  });
+
+  it('should return the correct type and the passed name', () => {
+    const expectedResult = {
+      type: SELECT_COIN_MODAL_OPEN
+    };
+
+    expect(openSelectCoinModal()).toEqual(expectedResult);
+  });
+});
+
+describe('containers/DexPage/actions/closeSelectCoinModal', () => {
+  it('should closeSelectCoinModal should create closeSelectCoinModal action', () => {
+    expect(closeSelectCoinModal()).toMatchSnapshot();
+  });
+
+  it('should return the correct type and the passed name', () => {
+    const expectedResult = {
+      type: SELECT_COIN_MODAL_CLOSE
+    };
+
+    expect(closeSelectCoinModal()).toEqual(expectedResult);
   });
 });

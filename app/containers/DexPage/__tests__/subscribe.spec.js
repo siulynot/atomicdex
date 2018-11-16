@@ -1,8 +1,11 @@
 import { fromJS } from 'immutable';
 import buySubscribe from '../subscribe';
-import { LOAD_RECENT_SWAPS_DATA_FROM_WEBSOCKET } from '../constants';
+import {
+  LOAD_RECENT_SWAPS_DATA_FROM_WEBSOCKET,
+  APP_STATE_NAME
+} from '../constants';
 import { LOAD_SWAP_SUCCESS } from '../../App/constants';
-import data from '../saga/__tests__/fake-data';
+import data from '../../__tests__/app-state.json';
 import {
   WEBSOCKET_STATE_ZERO,
   WEBSOCKET_STATE_ONE,
@@ -20,7 +23,10 @@ describe('containers/DexPage/subscribe', () => {
     expect(typeof buySubscribe).toEqual('function');
 
     let store = fromJS(data);
-    store = store.setIn(['buy', 'swaps', 'processingList'], fromJS([uuid]));
+    store = store.setIn(
+      [APP_STATE_NAME, 'swaps', 'processingList'],
+      fromJS([uuid])
+    );
 
     let dispatched = [];
 

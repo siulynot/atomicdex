@@ -18,6 +18,12 @@ Object {
 }
 `;
 
+exports[`containers/DexPage/actions/closeSelectCoinModal should closeSelectCoinModal should create closeSelectCoinModal action 1`] = `
+Object {
+  "type": "dicoapp/DexPage/SELECT_COIN_MODAL_CLOSE",
+}
+`;
+
 exports[`containers/DexPage/actions/loadBestPrice should loadBestPrice should create loadBestPrice action 1`] = `
 Object {
   "payload": Object {
@@ -100,6 +106,12 @@ Object {
     "uuid": "uuid",
   },
   "type": "dicoapp/DexPage/SWAP_DETAIL_MODAL_OPEN",
+}
+`;
+
+exports[`containers/DexPage/actions/openSelectCoinModal should openSelectCoinModal should create openSelectCoinModal action 1`] = `
+Object {
+  "type": "dicoapp/DexPage/SELECT_COIN_MODAL_OPEN",
 }
 `;
 

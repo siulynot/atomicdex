@@ -6,13 +6,14 @@ import { runSaga } from 'redux-saga';
 import api from '../../../../lib/barter-dex-api';
 import loadBuyCoinProcess from '../load-buy-coin-process';
 import { LOAD_BUY_COIN_SUCCESS } from '../../constants';
-import data, {
+import {
   listunspentstep1,
   listunspentstep2,
   buy1,
   buy2,
   buyAppropriateError
 } from './fake-data';
+import data from '../../../__tests__/app-state.json';
 
 const TEST_URL = 'http://127.0.0.1:7783';
 

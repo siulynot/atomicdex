@@ -123,7 +123,7 @@ class PlaceOrder extends Component<Props, State> {
               }
             />
             {/* <Divider className={classes.hr} /> */}
-            <CurrencySection balance={balance} onClick={this.onReloadPrices} />
+            <CurrencySection balance={balance} />
           </CardContent>
           <CardContent className={classes.cardContent}>
             <PageSectionTitle

@@ -20,6 +20,7 @@ import MyOrdersTab from './MyOrdersTab';
 import PlaceOrderTab from './PlaceOrderTab';
 import ProgressBar from './ProgressBar';
 import SwapDetailModal from './SwapDetailModal';
+import CoinsSelectionModal from './CoinsSelectionModal';
 import { APP_STATE_NAME } from './constants';
 import reducer from './reducer';
 import handleTimeoutEvent from './saga/handle-timeout-event';
@@ -78,6 +79,8 @@ class DexPage extends React.Component<Props, State> {
             </TabContainer>
           </ErrorBoundary>
           <TestSwap />
+
+          <CoinsSelectionModal />
         </NavigationLayout>
       </React.Fragment>
     );

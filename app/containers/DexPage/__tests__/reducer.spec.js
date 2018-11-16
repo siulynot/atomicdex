@@ -8,7 +8,9 @@ import {
   loadRecentSwapsDataFromWebsocket,
   loadRecentSwapsCoin,
   timeoutSwap,
-  makeANewSwap
+  makeANewSwap,
+  openSelectCoinModal,
+  closeSelectCoinModal
 } from '../actions';
 import { SWAP_TX_DEFAULT } from '../constants';
 import {
@@ -763,5 +765,31 @@ describe('containers/DexPage/reducers/makeANewSwap', () => {
     expect(store).toEqual(expectedResult);
     store = buyReducer(store, makeANewSwap());
     expect(store).toEqual(expectedResult);
+  });
+});
+
+describe('containers/DexPage/reducers/openSelectCoinModal', () => {
+  it('should handle the openSelectCoinModal action correctly', () => {
+    const expectedResult = initialState.setIn(
+      ['selectCoinModal', 'open'],
+      true
+    );
+
+    expect(buyReducer(initialState, openSelectCoinModal())).toEqual(
+      expectedResult
+    );
+  });
+});
+
+describe('containers/DexPage/reducers/closeSelectCoinModal', () => {
+  it('should handle the closeSelectCoinModal action correctly', () => {
+    const expectedResult = initialState.setIn(
+      ['selectCoinModal', 'open'],
+      false
+    );
+
+    expect(buyReducer(initialState, closeSelectCoinModal())).toEqual(
+      expectedResult
+    );
   });
 });

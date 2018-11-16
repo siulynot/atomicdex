@@ -1,8 +1,12 @@
 import { fromJS } from 'immutable';
 import { runSaga } from 'redux-saga';
-import data from './fake-data';
 import { checkUpdateSwapEvent } from '../handle-update-swap-event';
-import { CHECK_UPDATE_SWAP_EVENT, LOAD_RECENT_SWAPS } from '../../constants';
+import {
+  CHECK_UPDATE_SWAP_EVENT,
+  LOAD_RECENT_SWAPS,
+  APP_STATE_NAME
+} from '../../constants';
+import data from '../../../__tests__/app-state.json';
 import { SWAP_STATE_ZERO } from '../../../__tests__/fake-data';
 
 const TIMEOUT = 20 * 1000;
@@ -25,9 +29,13 @@ describe('containers/DexPage/saga/handle-update-swap-event', () => {
     async done => {
       const dispatched = [];
       let store = fromJS(data);
-      let processingList = store.getIn(['buy', 'swaps', 'processingList']);
+      let processingList = store.getIn([
+        APP_STATE_NAME,
+        'swaps',
+        'processingList'
+      ]);
       processingList = processingList.push(uuid);
-      let entities = store.getIn(['buy', 'swaps', 'entities']);
+      let entities = store.getIn([APP_STATE_NAME, 'swaps', 'entities']);
       const entity = fromJS({
         id: tradeid,
         uuid,
@@ -42,8 +50,11 @@ describe('containers/DexPage/saga/handle-update-swap-event', () => {
         status: 'pending'
       });
       entities = entities.set(uuid, entity);
-      store = store.setIn(['buy', 'swaps', 'processingList'], processingList);
-      store = store.setIn(['buy', 'swaps', 'entities'], entities);
+      store = store.setIn(
+        [APP_STATE_NAME, 'swaps', 'processingList'],
+        processingList
+      );
+      store = store.setIn([APP_STATE_NAME, 'swaps', 'entities'], entities);
 
       const saga = await runSaga(
         {

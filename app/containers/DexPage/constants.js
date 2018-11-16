@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-export const APP_STATE_NAME = 'buy';
+export const APP_STATE_NAME = 'dex';
 export const LOAD_PRICES = 'dicoapp/DexPage/LOAD_PRICES';
 export const LOAD_PRICES_SUCCESS = 'dicoapp/DexPage/LOAD_PRICES_SUCCESS';
 export const LOAD_PRICES_ERROR = 'dicoapp/DexPage/LOAD_PRICES_ERROR';
@@ -42,3 +42,7 @@ export const SWAP_MAKE_A_NEW = 'dicoapp/DexPage/SWAP_MAKE_A_NEW';
 export const SWAP_DETAIL_MODAL_OPEN = 'dicoapp/DexPage/SWAP_DETAIL_MODAL_OPEN';
 export const SWAP_DETAIL_MODAL_CLOSE =
   'dicoapp/DexPage/SWAP_DETAIL_MODAL_CLOSE';
+
+export const SELECT_COIN_MODAL_OPEN = 'dicoapp/DexPage/SELECT_COIN_MODAL_OPEN';
+export const SELECT_COIN_MODAL_CLOSE =
+  'dicoapp/DexPage/SELECT_COIN_MODAL_CLOSE';

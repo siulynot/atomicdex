@@ -1,8 +1,12 @@
 import { fromJS } from 'immutable';
 import { runSaga } from 'redux-saga';
-import data from './fake-data';
 import { checkTimeoutEvent } from '../handle-timeout-event';
-import { CHECK_TIMEOUT_EVENT, SWAP_TIMEOUT } from '../../constants';
+import {
+  CHECK_TIMEOUT_EVENT,
+  SWAP_TIMEOUT,
+  APP_STATE_NAME
+} from '../../constants';
+import data from '../../../__tests__/app-state.json';
 import { SWAP_STATE_ZERO } from '../../../__tests__/fake-data';
 
 const TIMEOUT = 10 * 100;
@@ -24,9 +28,13 @@ describe('containers/DexPage/saga/handle-timeout-event', () => {
     async done => {
       const dispatched = [];
       let store = fromJS(data);
-      let processingList = store.getIn(['buy', 'swaps', 'processingList']);
+      let processingList = store.getIn([
+        APP_STATE_NAME,
+        'swaps',
+        'processingList'
+      ]);
       processingList = processingList.push(uuid);
-      let entities = store.getIn(['buy', 'swaps', 'entities']);
+      let entities = store.getIn([APP_STATE_NAME, 'swaps', 'entities']);
       const entity = fromJS({
         id: tradeid,
         uuid,
@@ -41,8 +49,11 @@ describe('containers/DexPage/saga/handle-timeout-event', () => {
         status: 'pending'
       });
       entities = entities.set(uuid, entity);
-      store = store.setIn(['buy', 'swaps', 'processingList'], processingList);
-      store = store.setIn(['buy', 'swaps', 'entities'], entities);
+      store = store.setIn(
+        [APP_STATE_NAME, 'swaps', 'processingList'],
+        processingList
+      );
+      store = store.setIn([APP_STATE_NAME, 'swaps', 'entities'], entities);
 
       const saga = await runSaga(
         {
@@ -83,10 +94,14 @@ describe('containers/DexPage/saga/handle-timeout-event', () => {
     async done => {
       const dispatched = [];
       let store = fromJS(data);
-      let processingList = store.getIn(['buy', 'swaps', 'processingList']);
+      let processingList = store.getIn([
+        APP_STATE_NAME,
+        'swaps',
+        'processingList'
+      ]);
       processingList = processingList.push(uuid);
       processingList = processingList.push(uuid);
-      let entities = store.getIn(['buy', 'swaps', 'entities']);
+      let entities = store.getIn([APP_STATE_NAME, 'swaps', 'entities']);
       const entity = fromJS({
         id: tradeid,
         uuid,
@@ -101,8 +116,11 @@ describe('containers/DexPage/saga/handle-timeout-event', () => {
         status: 'pending'
       });
       entities = entities.set(uuid, entity);
-      store = store.setIn(['buy', 'swaps', 'processingList'], processingList);
-      store = store.setIn(['buy', 'swaps', 'entities'], entities);
+      store = store.setIn(
+        [APP_STATE_NAME, 'swaps', 'processingList'],
+        processingList
+      );
+      store = store.setIn([APP_STATE_NAME, 'swaps', 'entities'], entities);
 
       const saga = await runSaga(
         {

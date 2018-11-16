@@ -17,7 +17,9 @@ import {
   SWAP_MAKE_A_NEW,
   SWAP_DETAIL_MODAL_OPEN,
   SWAP_DETAIL_MODAL_CLOSE,
-  SWAP_TX_DEFAULT
+  SWAP_TX_DEFAULT,
+  SELECT_COIN_MODAL_OPEN,
+  SELECT_COIN_MODAL_CLOSE
 } from './constants';
 
 import { LOGOUT } from '../App/constants';
@@ -51,6 +53,11 @@ export const initialState = fromJS({
   },
 
   swapDetailModal: {
+    open: false,
+    uuid: null
+  },
+
+  selectCoinModal: {
     open: false,
     uuid: null
   }
@@ -538,6 +545,12 @@ const buyReducer = handleActions(
 
     [SWAP_DETAIL_MODAL_CLOSE]: state =>
       state.setIn(['swapDetailModal', 'open'], false),
+
+    [SELECT_COIN_MODAL_OPEN]: state =>
+      state.setIn(['selectCoinModal', 'open'], true),
+
+    [SELECT_COIN_MODAL_CLOSE]: state =>
+      state.setIn(['selectCoinModal', 'open'], false),
 
     [LOGOUT]: () => initialState
   },

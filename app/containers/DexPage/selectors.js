@@ -90,6 +90,9 @@ const makeSelectBalanceList = () =>
     return balanceList.filter(e => e !== symbol);
   });
 
+const makeSelectCoinModal = () =>
+  createSelector(selectBuy, buyState => buyState.get('selectCoinModal'));
+
 export {
   selectBuy,
   makeSelectPrices,
@@ -107,5 +110,6 @@ export {
   makeSelectCurrentSwap,
   makeSelectSwapDetailModal,
   makeSelectSwapInDetailModal,
-  makeSelectBalanceList
+  makeSelectBalanceList,
+  makeSelectCoinModal
 };
