@@ -7,11 +7,9 @@ import type { Map } from 'immutable';
 import { createStructuredSelector } from 'reselect';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import List from '@material-ui/core/List';
+import DialogContent from '@material-ui/core/DialogContent';
 import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,52 +17,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Slide from '@material-ui/core/Slide';
 import InputBase from '@material-ui/core/InputBase';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import * as JsSearch from 'js-search';
-import { getCoinIcon } from '../../components/CryptoIcons';
-import { covertSymbolToName } from '../../utils/coin';
-import { makeSelectCoinModal } from './selectors';
-import { closeSelectCoinModal } from './actions';
-
-const FAKE_DATA = ['BTC', 'KMD', 'EQL', 'LTC', 'PIZZA', 'BEER', 'COQUI'];
-
-const BTC = {
-  isbn: 1,
-  name: 'Bitcoin',
-  symbol: 'BTC',
-  market_cap: 97822306639.0
-};
-
-const BCH = {
-  isbn: 2,
-  name: 'Bitcoin Cash',
-  symbol: 'BCH',
-  market_cap: 7358710909.0
-};
-
-const LTC = {
-  isbn: 3,
-  name: 'Litecoin',
-  symbol: 'LTC',
-  market_cap: 2578993869.0
-};
-
-const KMD = {
-  isbn: 4,
-  name: 'Komodo',
-  symbol: 'KMD',
-  market_cap: 107340275.0
-};
-
-const search = new JsSearch.Search('isbn');
-// this index strategy is built for all substrings matches.
-search.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
-search.addIndex('name');
-search.addIndex('symbol');
-search.addDocuments([BTC, BCH, LTC, KMD]);
-console.log(search.search('Bitcoin'));
-console.log(search.search('te'));
-console.log(search.search('o'));
-console.log(search.search('k'));
+import CoinSelectable from '../components/CoinSelectable';
+import { getCoin } from '../../../components/CryptoIcons';
+import { covertSymbolToName } from '../../../utils/coin';
+import { makeSelectCoinModal } from '../selectors';
+import { closeSelectCoinModal, clickSelectCoinModal } from '../actions';
+import type { SelectCoinPayload } from '../schema';
+import search from './search-api';
 
 const debug = require('debug')(
   'dicoapp:containers:DexPage:CoinsSelectionModal'
@@ -76,10 +35,14 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   selectCoinModal: Map<*, *>,
   // eslint-disable-next-line flowtype/no-weak-types
-  dispatchCloseSelectCoinModal: Function
+  dispatchCloseSelectCoinModal: Function,
+  // eslint-disable-next-line flowtype/no-weak-types
+  dispatchClickSelectCoinModal: Function
 };
 
-type State = {};
+type State = {
+  input: string
+};
 
 const styles = theme => ({
   appBar: {
@@ -122,6 +85,14 @@ const styles = theme => ({
     padding: theme.spacing.unit,
     transition: theme.transitions.create('width'),
     width: '100%'
+  },
+  appBar__button: {
+    width: '100%',
+    height: '100%',
+    minHeight: 152
+  },
+  appBar__content: {
+    padding: '24px 42px'
   }
 });
 
@@ -130,36 +101,56 @@ function Transition(props) {
 }
 
 class CoinsSelectionModal extends React.Component<Props, State> {
+  state = {
+    input: ''
+  };
+
+  handleSelectCoin = (evt: SyntheticInputEvent<>) => {
+    evt.preventDefault();
+    const { value } = evt.target;
+    const { dispatchClickSelectCoinModal } = this.props;
+    dispatchClickSelectCoinModal({
+      name: value.name,
+      symbol: value.symbol
+    });
+  };
+
   handleClose = (evt: SyntheticInputEvent<>) => {
     evt.preventDefault();
     const { dispatchCloseSelectCoinModal } = this.props;
     dispatchCloseSelectCoinModal();
   };
 
-  renderListItem = coin => {
+  onChange = (evt: SyntheticInputEvent<>) => {
+    evt.preventDefault();
+    const { value } = evt.target;
+    this.setState({
+      input: value
+    });
+  };
+
+  renderListItem = e => {
     const { classes } = this.props;
-    const CIcon = getCoinIcon(coin);
+    const CIcon = getCoin(e.symbol);
     return (
-      <ListItem
-        key={`coins_select_key_${coin}`}
-        button
-        classes={{
-          secondaryAction: classes.withdraw__listItem
-        }}
-      >
-        <ListItemText primary={covertSymbolToName(coin)} secondary={coin} />
-        <ListItemSecondaryAction
-          className={classes.withdraw__listItemSecondaryLogo}
-        >
-          <IconButton aria-label="coin-icon">{CIcon}</IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
+      <Grid item xs={3}>
+        <CoinSelectable
+          className={classes.appBar__button}
+          key={`coinsSelectionModal${e.symbol}`}
+          icon={<CIcon width={56} height={56} viewBox="0 0 32 32" />}
+          subTitle={covertSymbolToName(e.symbol)}
+          onClick={this.handleSelectCoin}
+          data={e}
+        />
+      </Grid>
     );
   };
 
   render() {
     debug(`render`);
     const { classes, selectCoinModal } = this.props;
+    const { input } = this.state;
+    const data = search(input);
 
     return (
       <React.Fragment>
@@ -168,6 +159,7 @@ class CoinsSelectionModal extends React.Component<Props, State> {
           open={selectCoinModal.get('open')}
           onClose={this.handleClose}
           TransitionComponent={Transition}
+          scroll="paper"
         >
           <AppBar color="default" className={classes.appBar}>
             <Toolbar>
@@ -180,17 +172,23 @@ class CoinsSelectionModal extends React.Component<Props, State> {
               </IconButton>
               <div className={classes.appBar__search}>
                 <InputBase
+                  value={input}
                   placeholder="Search by asset name or symbol"
                   classes={{
                     root: classes.appBar__inputRoot,
                     input: classes.appBar__inputInput
                   }}
+                  onChange={this.onChange}
                 />
               </div>
             </Toolbar>
             <Divider className={classes.appBar__divider} />
           </AppBar>
-          <List>{FAKE_DATA.map(this.renderListItem)}</List>
+          <DialogContent className={classes.appBar__content}>
+            <Grid container spacing={24}>
+              {data.map(this.renderListItem)}
+            </Grid>
+          </DialogContent>
         </Dialog>
       </React.Fragment>
     );
@@ -202,6 +200,9 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
   return {
     dispatchCloseSelectCoinModal: () => {
       dispatch(closeSelectCoinModal());
+    },
+    dispatchClickSelectCoinModal: (coin: SelectCoinPayload) => {
+      dispatch(clickSelectCoinModal(coin));
     }
   };
 }

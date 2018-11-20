@@ -93,6 +93,9 @@ const makeSelectBalanceList = () =>
 const makeSelectCoinModal = () =>
   createSelector(selectBuy, buyState => buyState.get('selectCoinModal'));
 
+const makeSelectCurrency = () =>
+  createSelector(selectBuy, buyState => buyState.get('currency'));
+
 export {
   selectBuy,
   makeSelectPrices,
@@ -111,5 +114,6 @@ export {
   makeSelectSwapDetailModal,
   makeSelectSwapInDetailModal,
   makeSelectBalanceList,
-  makeSelectCoinModal
+  makeSelectCoinModal,
+  makeSelectCurrency
 };

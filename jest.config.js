@@ -6,7 +6,8 @@ module.exports = {
       '<rootDir>/internals/mocks/fileMock.js',
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     'electron-util': '<rootDir>/__mocks__/electron-util.js',
-    config$: '<rootDir>/__mocks__/config.js'
+    'electron-better-ipc': '<rootDir>/__mocks__/electron-better-ipc.js',
+    'utils/config$': '<rootDir>/__mocks__/config.js'
   },
   moduleFileExtensions: ['js'],
   moduleDirectories: ['node_modules', 'app/node_modules'],

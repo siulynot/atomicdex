@@ -46,3 +46,5 @@ export const SWAP_DETAIL_MODAL_CLOSE =
 export const SELECT_COIN_MODAL_OPEN = 'dicoapp/DexPage/SELECT_COIN_MODAL_OPEN';
 export const SELECT_COIN_MODAL_CLOSE =
   'dicoapp/DexPage/SELECT_COIN_MODAL_CLOSE';
+export const SELECT_COIN_MODAL_CLICK =
+  'dicoapp/DexPage/SELECT_COIN_MODAL_CLICK';

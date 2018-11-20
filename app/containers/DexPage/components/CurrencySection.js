@@ -2,19 +2,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import type { Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import AddIcon from '@material-ui/icons/Add';
-// import { getCoinIcon } from '../../../components/CryptoIcons';
-// import { Line } from '../../../components/placeholder';
-// import { floor } from '../utils';
-import getConfig from '../../../utils/config';
+// import getConfig from '../../../utils/config';
+import { getCoinIcon } from '../../../components/CryptoIcons';
 import { openSelectCoinModal } from '../actions';
+import { makeSelectCurrency } from '../selectors';
 import CoinSelectable from './CoinSelectable';
 
 const debug = require('debug')('dicoapp:containers:DexPage:CurrencySection');
 
-const config = getConfig();
-const COIN_BASE = config.get('marketmaker.tokenconfig');
-const symbol = COIN_BASE.coin;
 // const line = (
 //   <Line
 //     width={60}
@@ -28,7 +25,9 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   balance: Object,
   // eslint-disable-next-line flowtype/no-weak-types
-  dispatchOpenSelectCoinModal: Function
+  dispatchOpenSelectCoinModal: Function,
+  // eslint-disable-next-line flowtype/no-weak-types
+  currency: Object
 };
 
 class CurrencySection extends React.PureComponent<Props> {
@@ -42,12 +41,26 @@ class CurrencySection extends React.PureComponent<Props> {
 
   render() {
     debug(`render`);
-    const { dispatchOpenSelectCoinModal, ...rest } = this.props;
+    const { dispatchOpenSelectCoinModal, currency, ...rest } = this.props;
+    if (!currency.get('name'))
+      return (
+        <CoinSelectable
+          key="baseCoinAddIcon"
+          icon={<AddIcon color="primary" />}
+          onClick={this.onClick}
+          {...rest}
+        />
+      );
+    const icon = getCoinIcon(currency.get('symbol'));
     return (
       <CoinSelectable
-        key={`baseCoin${symbol}`}
-        icon={<AddIcon color="primary" />}
+        key={`baseCoin${currency.get('symbol')}`}
+        selected
+        data={currency.get('symbol')}
+        icon={icon}
+        title={currency.get('name')}
         onClick={this.onClick}
+        // subTitle={`${floor(b.get('balance'), 3)} ${b.get('coin')}`}
         {...rest}
       />
     );
@@ -65,8 +78,12 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
   };
 }
 
+const mapStateToProps = createStructuredSelector({
+  currency: makeSelectCurrency()
+});
+
 const withConnect = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 );
 

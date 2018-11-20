@@ -22,12 +22,14 @@ import {
   SWAP_DETAIL_MODAL_OPEN,
   SWAP_DETAIL_MODAL_CLOSE,
   SELECT_COIN_MODAL_OPEN,
-  SELECT_COIN_MODAL_CLOSE
+  SELECT_COIN_MODAL_CLOSE,
+  SELECT_COIN_MODAL_CLICK
 } from './constants';
 import type {
   BuyCoinPayload,
   BestPricePayload,
-  TimeoutPayload
+  TimeoutPayload,
+  SelectCoinPayload
 } from './schema';
 
 export function loadPrice(coin: string) {
@@ -177,5 +179,12 @@ export function openSelectCoinModal() {
 export function closeSelectCoinModal() {
   return {
     type: SELECT_COIN_MODAL_CLOSE
+  };
+}
+
+export function clickSelectCoinModal(payload: SelectCoinPayload) {
+  return {
+    type: SELECT_COIN_MODAL_CLICK,
+    payload
   };
 }

@@ -123,9 +123,7 @@ class DICDrawer extends Component<Props, State> {
       },
       () => {
         const { history } = this.props;
-        setTimeout(() => {
-          history.push(router);
-        }, 0);
+        history.push(router);
       }
     );
   };

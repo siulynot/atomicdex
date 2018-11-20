@@ -28,35 +28,6 @@ import COQUIIcon from './coqui.svg';
 import BEERIcon from './beer.svg';
 import PIZZAIcon from './pizza.svg';
 
-export {
-  AionIcon as AION,
-  BTCIcon as BTC,
-  EQLIcon as EQL,
-  ETHIcon as ETH,
-  CHIPSIcon as CHIPS,
-  BCHIcon as BCH,
-  BNBIcon as BNB,
-  EOSIcon as EOS,
-  KNCIcon as KNC,
-  LTCIcon as LTC,
-  NEOIcon as NEO,
-  OMGIcon as OMG,
-  WAVESIcon as WAVES,
-  XRPIcon as XRP,
-  XLMIcon as XLM,
-  RDNIcon as RDN,
-  ZILIcon as ZIL,
-  NANOIcon as NANO,
-  USDTIcon as USDT,
-  MONEROIcon as XMR,
-  CARDANOIcon as ADA,
-  KMDIcon as KMD,
-  UNKNOWIcon as UNKNOW,
-  COQUIIcon as COQUI,
-  BEERIcon as BEER,
-  PIZZAIcon as PIZZA
-};
-
 const coins = {
   aion: AionIcon,
   btc: BTCIcon,
@@ -168,6 +139,43 @@ const coinsRender = {
   BEER: <BEERIcon />,
   PIZZA: <PIZZAIcon />
 };
+
+export {
+  AionIcon as AION,
+  BTCIcon as BTC,
+  EQLIcon as EQL,
+  ETHIcon as ETH,
+  CHIPSIcon as CHIPS,
+  BCHIcon as BCH,
+  BNBIcon as BNB,
+  EOSIcon as EOS,
+  KNCIcon as KNC,
+  LTCIcon as LTC,
+  NEOIcon as NEO,
+  OMGIcon as OMG,
+  WAVESIcon as WAVES,
+  XRPIcon as XRP,
+  XLMIcon as XLM,
+  RDNIcon as RDN,
+  ZILIcon as ZIL,
+  NANOIcon as NANO,
+  USDTIcon as USDT,
+  MONEROIcon as XMR,
+  CARDANOIcon as ADA,
+  KMDIcon as KMD,
+  UNKNOWIcon as UNKNOW,
+  COQUIIcon as COQUI,
+  BEERIcon as BEER,
+  PIZZAIcon as PIZZA
+};
+
+export function getCoin(symbol) {
+  const c = coins[symbol];
+  if (c) {
+    return c;
+  }
+  return coins.UNKNOW;
+}
 
 export function getCoinIcon(symbol) {
   const c = coinsRender[symbol];

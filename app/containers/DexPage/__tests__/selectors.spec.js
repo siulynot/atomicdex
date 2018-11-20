@@ -17,7 +17,8 @@ import {
   makeSelectFinishedSwaps,
   makeSelectSwapInDetailModal,
   makeSelectSwapDetailModal,
-  makeSelectCoinModal
+  makeSelectCoinModal,
+  makeSelectCurrency
 } from '../selectors';
 
 describe('containers/DexPage/selectors/selectBuy', () => {
@@ -176,5 +177,16 @@ describe('containers/DexPage/selectors/makeSelectCoinModal', () => {
     });
     const selectCoinModal = makeSelectCoinModal();
     expect(selectCoinModal(mockedState)).toEqual(store.get('selectCoinModal'));
+  });
+});
+
+describe('containers/DexPage/selectors/makeSelectCurrency', () => {
+  it('should select the makeSelectCurrency state', () => {
+    const store = initialState;
+    const mockedState = fromJS({
+      [APP_STATE_NAME]: store
+    });
+    const selectCurrency = makeSelectCurrency();
+    expect(selectCurrency(mockedState)).toEqual(store.get('currency'));
   });
 });

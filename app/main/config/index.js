@@ -18,7 +18,7 @@ export default function setup() {
   loadSymbol(config);
 
   // listen ipc event here
-  ipc.answerRenderer('config:get', () => config.get());
+  ipc.answerRenderer('config:get', path => config.get(path));
 
   return config;
 }

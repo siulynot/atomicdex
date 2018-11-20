@@ -15,7 +15,8 @@ const data = [
         port: 10001
       }
     ],
-    active: 1
+    active: 1,
+    market_cap: 107340275.0
   },
   {
     coin: 'BTC',
@@ -30,7 +31,8 @@ const data = [
         port: 10000
       }
     ],
-    active: 1
+    active: 1,
+    market_cap: 97822306639.0
   },
   {
     coin: 'EQL',
@@ -47,7 +49,8 @@ const data = [
         port: 10801
       }
     ],
-    active: 1
+    active: 1,
+    market_cap: 0
   },
   {
     coin: 'LTC',
@@ -67,7 +70,8 @@ const data = [
         port: 10065
       }
     ],
-    active: 1
+    active: 1,
+    market_cap: 2578993869.0
   },
   {
     coin: 'PIZZA',
@@ -84,7 +88,8 @@ const data = [
         port: 10024
       }
     ],
-    active: 1
+    active: 1,
+    market_cap: 0
   },
   {
     coin: 'BEER',
@@ -101,7 +106,8 @@ const data = [
         port: 10022
       }
     ],
-    active: 1
+    active: 1,
+    market_cap: 0
   },
   {
     coin: 'COQUI',
@@ -118,7 +124,8 @@ const data = [
         port: 10011
       }
     ],
-    active: 1
+    active: 1,
+    market_cap: 0
   }
 ];
 

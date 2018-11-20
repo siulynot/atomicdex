@@ -13,10 +13,7 @@ const styles = () => ({
   btn: {
     width: 184,
     height: 152,
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 30,
-    paddingRight: 30,
+    padding: '20px 30px',
     marginRight: 20,
     marginBottom: 20,
     border: '1px solid #dadce0',

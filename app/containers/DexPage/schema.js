@@ -86,4 +86,15 @@ type TimeoutPayload = {
   alice: string // eg: KMD, BTC, LTC
 };
 
-export type { BuyCoinPayload, BestPricePayload, SwapCoin, TimeoutPayload };
+type SelectCoinPayload = {
+  name: string,
+  symbol: string
+};
+
+export type {
+  BuyCoinPayload,
+  BestPricePayload,
+  SwapCoin,
+  TimeoutPayload,
+  SelectCoinPayload
+};

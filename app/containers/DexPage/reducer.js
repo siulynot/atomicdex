@@ -19,7 +19,8 @@ import {
   SWAP_DETAIL_MODAL_CLOSE,
   SWAP_TX_DEFAULT,
   SELECT_COIN_MODAL_OPEN,
-  SELECT_COIN_MODAL_CLOSE
+  SELECT_COIN_MODAL_CLOSE,
+  SELECT_COIN_MODAL_CLICK
 } from './constants';
 
 import { LOGOUT } from '../App/constants';
@@ -60,6 +61,11 @@ export const initialState = fromJS({
   selectCoinModal: {
     open: false,
     uuid: null
+  },
+
+  currency: {
+    name: null,
+    symbol: null
   }
 });
 
@@ -551,6 +557,12 @@ const buyReducer = handleActions(
 
     [SELECT_COIN_MODAL_CLOSE]: state =>
       state.setIn(['selectCoinModal', 'open'], false),
+
+    [SELECT_COIN_MODAL_CLICK]: (state, { payload }) =>
+      state
+        .setIn(['selectCoinModal', 'open'], false)
+        .setIn(['currency', 'name'], payload.name)
+        .setIn(['currency', 'symbol'], payload.symbol),
 
     [LOGOUT]: () => initialState
   },

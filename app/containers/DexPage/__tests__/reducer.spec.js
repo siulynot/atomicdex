@@ -10,7 +10,8 @@ import {
   timeoutSwap,
   makeANewSwap,
   openSelectCoinModal,
-  closeSelectCoinModal
+  closeSelectCoinModal,
+  clickSelectCoinModal
 } from '../actions';
 import { SWAP_TX_DEFAULT } from '../constants';
 import {
@@ -791,5 +792,25 @@ describe('containers/DexPage/reducers/closeSelectCoinModal', () => {
     expect(buyReducer(initialState, closeSelectCoinModal())).toEqual(
       expectedResult
     );
+  });
+});
+
+describe('containers/DexPage/reducers/clickSelectCoinModal', () => {
+  const name = 'Komodo';
+  const symbol = 'KMD';
+  it('should handle the clickSelectCoinModal action correctly', () => {
+    const expectedResult = initialState
+      .setIn(['selectCoinModal', 'open'], false)
+      .setIn(['currency', 'name'], name)
+      .setIn(['currency', 'symbol'], symbol);
+    expect(
+      buyReducer(
+        initialState,
+        clickSelectCoinModal({
+          name,
+          symbol
+        })
+      )
+    ).toEqual(expectedResult);
   });
 });
