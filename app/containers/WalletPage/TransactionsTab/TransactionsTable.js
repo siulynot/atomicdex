@@ -2,6 +2,7 @@
 import React from 'react';
 import { shell } from 'electron';
 import type { List } from 'immutable';
+import { MemoizedRender } from 'react-memoize';
 import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import TableCell from '@material-ui/core/TableCell';
@@ -80,41 +81,58 @@ class TransactionsTable extends React.PureComponent<Props> {
 
   renderRecord = (t, k) => {
     if (!t) return null;
-    const linkExplorer = explorer.tx(t.get('txid'), t.get('coin'));
     const { classes } = this.props;
     return (
-      <TableRow key={t.get('txid')}>
-        <TableCell>{k + 1}</TableCell>
-        <TableCell>{t.get('coin')}</TableCell>
-        {t.get('category') === 'receive' && (
-          <TableCell className={classes.transactionTable__cellSuccess}>
-            + {t.get('amount')}
-          </TableCell>
-        )}
-        {t.get('category') === 'send' && (
-          <TableCell className={classes.transactionTable__cellDanger}>
-            - {Math.abs(t.get('amount'))}
-          </TableCell>
-        )}
-        <TableCell>
-          {formatDate(t.get('blocktime') * 1000, 'yyyy-MM-dd HH:mm:ss')}
-        </TableCell>
-        <TableCell>
-          {/* eslint-disable-next-line react/jsx-no-target-blank */}
-          {linkExplorer && (
-            <a
-              style={{ color: '#000' }}
-              href={linkExplorer}
-              // target="_blank"
-              // rel="noopener noreferrer"
-              onClick={this.onClickTranstactions}
-            >
-              Open tx in explorer
-            </a>
-          )}
-          {!linkExplorer && t.get('txid')}
-        </TableCell>
-      </TableRow>
+      <MemoizedRender
+        value={{
+          data: t,
+          key: k,
+          className: classes
+        }}
+        key={t.get('txid')}
+      >
+        {state => {
+          const { data, key, className } = state;
+          const linkExplorer = explorer.tx(data.get('txid'), data.get('coin'));
+          return (
+            <TableRow>
+              <TableCell>{key + 1}</TableCell>
+              <TableCell>{data.get('coin')}</TableCell>
+              {data.get('category') === 'receive' && (
+                <TableCell className={className.transactionTable__cellSuccess}>
+                  + {data.get('amount')}
+                </TableCell>
+              )}
+              {data.get('category') === 'send' && (
+                <TableCell className={className.transactionTable__cellDanger}>
+                  - {Math.abs(data.get('amount'))}
+                </TableCell>
+              )}
+              <TableCell>
+                {formatDate(
+                  data.get('blocktime') * 1000,
+                  'yyyy-MM-dd HH:mm:ss'
+                )}
+              </TableCell>
+              <TableCell>
+                {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                {linkExplorer && (
+                  <a
+                    style={{ color: '#000' }}
+                    href={linkExplorer}
+                    // target="_blank"
+                    // rel="noopener noreferrer"
+                    onClick={this.onClickTranstactions}
+                  >
+                    Open tx in explorer
+                  </a>
+                )}
+                {!linkExplorer && data.get('txid')}
+              </TableCell>
+            </TableRow>
+          );
+        }}
+      </MemoizedRender>
     );
   };
 

@@ -1,6 +1,7 @@
 // @flow
 import * as JsSearch from 'js-search';
 import isNumber from 'lodash/isNumber';
+// import concat from 'lodash/concat';
 import getConfig from '../../../utils/config';
 
 const config = getConfig();
@@ -13,6 +14,24 @@ const data = COIN_DATA.map((e, k) => ({
 }))
   .filter(e => isNumber(e.market_cap))
   .sort((a, b) => b.market_cap - a.market_cap);
+
+// TESTED DATA
+// for (let i = 0; i <= 13; i += 1) {
+//   data = concat(
+//     data,
+//     COIN_DATA.map((e, k) => ({
+//       id: `${i}${k}`,
+//       name: e.name,
+//       symbol: e.coin,
+//       market_cap: e.market_cap
+//     }))
+//       .filter(e => isNumber(e.market_cap))
+//       .sort((a, b) => b.market_cap - a.market_cap)
+//   );
+// }
+// data = data
+//   .filter(e => isNumber(e.market_cap))
+//   .sort((a, b) => b.market_cap - a.market_cap);
 
 let api = null;
 

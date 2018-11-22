@@ -6,7 +6,6 @@ import type { Dispatch } from 'redux';
 import type { Map } from 'immutable';
 import { createStructuredSelector } from 'reselect';
 import { withStyles } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,18 +14,28 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Slide from '@material-ui/core/Slide';
-import InputBase from '@material-ui/core/InputBase';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { Circle, Line } from '../../../components/placeholder';
 import CoinSelectable from '../components/CoinSelectable';
-import { getCoin } from '../../../components/CryptoIcons';
-import { covertSymbolToName } from '../../../utils/coin';
 import { makeSelectCoinModal } from '../selectors';
 import { closeSelectCoinModal, clickSelectCoinModal } from '../actions';
 import type { SelectCoinPayload } from '../schema';
+import ModalContent from './ModalContent';
+import InputSearch from './InputSearch';
 import search from './search-api';
 
 const debug = require('debug')(
   'dicoapp:containers:DexPage:CoinsSelectionModal'
+);
+
+const circle = <Circle />;
+const line = (
+  <Line
+    width={60}
+    style={{
+      margin: '10px auto'
+    }}
+  />
 );
 
 type Props = {
@@ -41,7 +50,9 @@ type Props = {
 };
 
 type State = {
-  input: string
+  // eslint-disable-next-line flowtype/no-weak-types
+  input: Object,
+  show: boolean
 };
 
 const styles = theme => ({
@@ -64,35 +75,42 @@ const styles = theme => ({
   appBar__search: {
     flex: 1,
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
     marginRight: theme.spacing.unit * 2,
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing.unit * 3,
+      marginRight: 68,
       width: 'auto'
     }
   },
   appBar__inputRoot: {
     color: 'inherit',
-    width: '100%'
+    width: '100%',
+    background: '#f1f3f4',
+    height: 48,
+    margin: '12px 0',
+    borderRadius: 8
   },
   appBar__inputInput: {
-    padding: theme.spacing.unit,
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`,
     transition: theme.transitions.create('width'),
-    width: '100%'
+    width: '100%',
+    letterSpacing: '0.00625em',
+    fontWeight: 500
   },
   appBar__button: {
     width: '100%',
     height: '100%',
-    minHeight: 152
+    minHeight: 152,
+    '&:hover': {
+      borderColor: '#80BB41'
+    }
+    // background: '#f1f3f4',
+    // border: 'none'
   },
   appBar__content: {
-    padding: '24px 42px'
+    padding: '24px 94px'
   }
 });
 
@@ -101,9 +119,16 @@ function Transition(props) {
 }
 
 class CoinsSelectionModal extends React.Component<Props, State> {
-  state = {
-    input: ''
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      input: search(''),
+      show: false
+    };
+
+    this.input = React.createRef();
+  }
 
   handleSelectCoin = (evt: SyntheticInputEvent<>) => {
     evt.preventDefault();
@@ -121,36 +146,32 @@ class CoinsSelectionModal extends React.Component<Props, State> {
     dispatchCloseSelectCoinModal();
   };
 
-  onChange = (evt: SyntheticInputEvent<>) => {
-    evt.preventDefault();
-    const { value } = evt.target;
+  handleSearchRequest = input => {
+    const data = search(input);
     this.setState({
-      input: value
+      input: data
     });
   };
 
-  renderListItem = e => {
-    const { classes } = this.props;
-    const CIcon = getCoin(e.symbol);
-    return (
-      <Grid item xs={3}>
-        <CoinSelectable
-          className={classes.appBar__button}
-          key={`coinsSelectionModal${e.symbol}`}
-          icon={<CIcon width={56} height={56} viewBox="0 0 32 32" />}
-          subTitle={covertSymbolToName(e.symbol)}
-          onClick={this.handleSelectCoin}
-          data={e}
-        />
-      </Grid>
-    );
+  showContent = () => {
+    const searchInput = this.input.current;
+
+    this.setState({
+      show: true,
+      input: search(searchInput.state.input)
+    });
+  };
+
+  hideContent = () => {
+    this.setState({
+      show: false
+    });
   };
 
   render() {
     debug(`render`);
     const { classes, selectCoinModal } = this.props;
-    const { input } = this.state;
-    const data = search(input);
+    const { input, show } = this.state;
 
     return (
       <React.Fragment>
@@ -160,6 +181,8 @@ class CoinsSelectionModal extends React.Component<Props, State> {
           onClose={this.handleClose}
           TransitionComponent={Transition}
           scroll="paper"
+          onEntered={this.showContent}
+          onExited={this.hideContent}
         >
           <AppBar color="default" className={classes.appBar}>
             <Toolbar>
@@ -171,14 +194,11 @@ class CoinsSelectionModal extends React.Component<Props, State> {
                 <ArrowBackIcon />
               </IconButton>
               <div className={classes.appBar__search}>
-                <InputBase
-                  value={input}
-                  placeholder="Search by asset name or symbol"
-                  classes={{
-                    root: classes.appBar__inputRoot,
-                    input: classes.appBar__inputInput
-                  }}
-                  onChange={this.onChange}
+                <InputSearch
+                  ref={this.input}
+                  handleSearchRequest={this.handleSearchRequest}
+                  inputRoot={classes.appBar__inputRoot}
+                  inputInput={classes.appBar__inputInput}
                 />
               </div>
             </Toolbar>
@@ -186,7 +206,45 @@ class CoinsSelectionModal extends React.Component<Props, State> {
           </AppBar>
           <DialogContent className={classes.appBar__content}>
             <Grid container spacing={24}>
-              {data.map(this.renderListItem)}
+              {!show && (
+                <React.Fragment>
+                  <Grid item xs={3}>
+                    <CoinSelectable
+                      className={classes.appBar__button}
+                      icon={circle}
+                      subTitle={line}
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <CoinSelectable
+                      className={classes.appBar__button}
+                      icon={circle}
+                      subTitle={line}
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <CoinSelectable
+                      className={classes.appBar__button}
+                      icon={circle}
+                      subTitle={line}
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <CoinSelectable
+                      className={classes.appBar__button}
+                      icon={circle}
+                      subTitle={line}
+                    />
+                  </Grid>
+                </React.Fragment>
+              )}
+              {show && (
+                <ModalContent
+                  data={input}
+                  className={classes.appBar__button}
+                  handleSelectCoin={this.handleSelectCoin}
+                />
+              )}
             </Grid>
           </DialogContent>
         </Dialog>
