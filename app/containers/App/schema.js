@@ -18,4 +18,35 @@ type BalancePayload = {
   // utxo: Array<UTXOType>
 };
 
-export type { UTXOType, BalancePayload };
+type EelectrumServerType = {
+  host: string,
+  port: number
+};
+
+type CoinConfigType = {
+  id: string,
+  coin: string,
+  name: string,
+  electrumServers: Array<EelectrumServerType>,
+  marketCap: number,
+  active: number
+};
+
+export type { UTXOType, BalancePayload, CoinConfigType };
+
+// {
+//   coin: 'KMD',
+//   name: 'Komodo',
+//   electrumServers: [
+//     {
+//       host: 'electrum1.cipig.net',
+//       port: 10001
+//     },
+//     {
+//       host: 'electrum2.cipig.net',
+//       port: 10001
+//     }
+//   ],
+//   active: 1,
+//   market_cap: 107340275.0
+// }

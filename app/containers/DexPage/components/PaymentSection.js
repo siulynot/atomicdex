@@ -6,16 +6,16 @@ import type { List, Map } from 'immutable';
 import { createStructuredSelector } from 'reselect';
 import { getCoinIcon } from '../../../components/CryptoIcons';
 import { Line, Circle } from '../../../components/placeholder';
-import getConfig from '../../../utils/config';
 import { covertSymbolToName } from '../../../utils/coin';
 import { floor } from '../utils';
 import CoinSelectable from './CoinSelectable';
-import { makeSelectBalanceList, makeSelectPricesEntities } from '../selectors';
+import {
+  makeSelectBalanceList,
+  makeSelectPricesEntities,
+  makeSelectCurrency
+} from '../selectors';
 
 const debug = require('debug')('dicoapp:containers:DexPage:PaymentSection');
-
-const config = getConfig();
-const COIN_BASE = config.get('marketmaker.tokenconfig');
 
 const line = (
   <Line
@@ -63,7 +63,8 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   balance: Object,
   entities: Map<*, *>,
-  list: List<*>
+  list: List<*>,
+  currency: Map<*, *>
 };
 
 class PaymentSection extends React.PureComponent<Props> {
@@ -75,7 +76,8 @@ class PaymentSection extends React.PureComponent<Props> {
       paymentCoin,
       entities,
       balance,
-      dispatchLoadPrice
+      dispatchLoadPrice,
+      currency
     } = this.props;
     const c = entities.get(symbol);
     const b = balance.get(symbol);
@@ -106,7 +108,9 @@ class PaymentSection extends React.PureComponent<Props> {
         icon={icon}
         title={name}
         subTitle={`${floor(b.get('balance'), 3)} ${b.get('coin')}`}
-        price={`1 ${COIN_BASE.coin} = ${c.get('bestPrice')} ${symbol}`}
+        price={`1 ${currency.get('symbol') || 'NaN'} = ${c.get(
+          'bestPrice'
+        )} ${symbol}`}
         onClick={onClick}
       />
     );
@@ -136,7 +140,8 @@ PaymentSection.displayName = 'PaymentSection';
 
 const mapStateToProps = createStructuredSelector({
   list: makeSelectBalanceList(),
-  entities: makeSelectPricesEntities()
+  entities: makeSelectPricesEntities(),
+  currency: makeSelectCurrency()
 });
 
 const withConnect = connect(

@@ -24,7 +24,6 @@ import { getCoinIcon } from '../../../components/CryptoIcons';
 import { requiredNumber } from '../../../components/Form/helper';
 import validate from '../../../components/Form/validate';
 import { makeSelectBalanceEntities } from '../../App/selectors';
-import getConfig from '../../../utils/config';
 import type { BuyCoinPayload } from '../schema';
 import { AUTO_HIDE_SNACKBAR_TIME, STATE_SWAPS } from '../constants';
 import {
@@ -41,15 +40,14 @@ import {
   makeSelectPricesEntities,
   makeSelectBuyingLoading,
   makeSelectBuyingError,
-  makeSelectCurrentSwap
+  makeSelectCurrentSwap,
+  makeSelectCurrency
 } from '../selectors';
 import BuyButton from '../../../components/BuyButton';
 import CoinSelectable from './CoinSelectable';
 
 const debug = require('debug')('dicoapp:containers:DexPage:AmountSection');
 
-const config = getConfig();
-const COIN_BASE = config.get('marketmaker.tokenconfig');
 const line = (
   <Line
     width={60}
@@ -182,6 +180,7 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   balance: Object,
   entities: Map<*, *>,
+  currency: Map<*, *>,
   buyingLoading: boolean,
   // eslint-dis,able-next-line flowtype/no-weak-types
   // buyingError: boolean | Object,
@@ -330,12 +329,12 @@ class AmountSection extends React.Component<Props, State> {
 
   onClickBuyCoinButton = async (evt: SyntheticInputEvent<>) => {
     evt.preventDefault();
-    const { dispatchLoadBuyCoin, paymentCoin } = this.props;
+    const { dispatchLoadBuyCoin, paymentCoin, currency } = this.props;
     const baseInput = this.baseInput.current;
     const base = await baseInput.value();
 
     dispatchLoadBuyCoin({
-      basecoin: COIN_BASE.coin,
+      basecoin: currency.get('symbol'),
       paymentcoin: paymentCoin,
       amount: Number(base)
     });
@@ -348,7 +347,7 @@ class AmountSection extends React.Component<Props, State> {
   };
 
   renderSubmitForm = () => {
-    const { classes, paymentCoin, buyingLoading, intl } = this.props;
+    const { classes, paymentCoin, buyingLoading, intl, currency } = this.props;
     const { disabledBuyButton } = this.state;
     const disabled = paymentCoin === '';
     let label = intl.formatMessage({
@@ -364,8 +363,8 @@ class AmountSection extends React.Component<Props, State> {
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           {/* <form className={classes.withdraw__form}> */}
           <ValidationBaseInput
-            label={COIN_BASE.coin}
-            id={COIN_BASE.coin}
+            label={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+            id={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
             type="number"
             disabled={disabled}
             className={classes.amountform__formFirstItem}
@@ -409,7 +408,7 @@ class AmountSection extends React.Component<Props, State> {
             onClick={this.onClickBuyCoinButton}
           >
             <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
-              {(...content) => `${content} (${COIN_BASE.coin})`}
+              {(...content) => `${content} (${currency.get('symbol')})`}
             </FormattedMessage>
           </BuyButton>
           {/* </form> */}
@@ -634,7 +633,8 @@ const mapStateToProps = createStructuredSelector({
   balance: makeSelectBalanceEntities(),
   buyingLoading: makeSelectBuyingLoading(),
   buyingError: makeSelectBuyingError(),
-  entity: makeSelectCurrentSwap()
+  entity: makeSelectCurrentSwap(),
+  currency: makeSelectCurrency()
 });
 
 const withConnect = connect(

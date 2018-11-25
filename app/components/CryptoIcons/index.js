@@ -171,18 +171,12 @@ export {
 
 export function getCoin(symbol) {
   const c = coins[symbol];
-  if (c) {
-    return c;
-  }
-  return coins.UNKNOW;
+  return c || UNKNOWIcon;
 }
 
 export function getCoinIcon(symbol) {
   const c = coinsRender[symbol];
-  if (c) {
-    return c;
-  }
-  return coinsRender.UNKNOW;
+  return c || coinsRender.UNKNOW;
 }
 
 export default coins;

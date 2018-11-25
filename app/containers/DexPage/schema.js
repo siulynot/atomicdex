@@ -91,10 +91,17 @@ type SelectCoinPayload = {
   symbol: string
 };
 
+type PriceType = {
+  id: string,
+  symbol: string,
+  name: string
+};
+
 export type {
   BuyCoinPayload,
   BestPricePayload,
   SwapCoin,
   TimeoutPayload,
-  SelectCoinPayload
+  SelectCoinPayload,
+  PriceType
 };

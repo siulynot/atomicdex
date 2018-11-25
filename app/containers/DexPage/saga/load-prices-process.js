@@ -3,7 +3,7 @@ import { CANCEL } from 'redux-saga';
 import getConfig from '../../../utils/config';
 import api from '../../../lib/barter-dex-api';
 import { loadBestPrice, loadPricesSuccess, loadPricesError } from '../actions';
-import { makeSelectBalanceList } from '../selectors';
+import { makeSelectBalanceList, makeSelectCurrency } from '../selectors';
 
 const config = getConfig();
 const COIN_BASE = config.get('marketmaker.tokenconfig');
@@ -13,22 +13,30 @@ const debug = require('debug')(
 );
 
 export function* loadPrice(coin) {
+  // name: "Komodo"
+  // symbol: "KMD"
+  const currency = yield select(makeSelectCurrency());
+
   const getprices = {
-    base: COIN_BASE.coin,
+    base: currency.get('symbol'),
     rel: coin
   };
   const buf = 1.08 * numcoin;
-  const bob = COIN_BASE.pubkey;
   let bestprice = 0;
   let request = null;
   try {
+    if (!currency.get('symbol')) {
+      throw new Error('not found the currency');
+    }
+    if (coin === currency.get('symbol')) {
+      throw new Error('coin is equal to currency');
+    }
     request = api.orderbook(getprices);
     const result = yield request;
-    const ask = result.asks.find(e => e.pubkey === bob);
+    const ask = result.asks.find(e => e.maxvolume > 0);
     if (!ask) {
-      throw new Error('dICO Bob is offline!');
+      throw new Error('not found the best price');
     }
-
     bestprice = Number((ask.price * numcoin).toFixed(0));
     bestprice = Number(
       (((buf / numcoin) * bestprice) / numcoin).toFixed(8) * numcoin

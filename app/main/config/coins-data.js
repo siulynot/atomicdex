@@ -1,4 +1,7 @@
 // https://www.atomicexplorer.com/#/faucet/coqui
+// https://github.com/jl777/coins/tree/master/electrums
+// https://github.com/jl777/coins/blob/master/coins
+
 const tokenconfig = require('./tokenconfig');
 
 const data = [
@@ -126,6 +129,48 @@ const data = [
     ],
     active: 1,
     market_cap: 0
+  },
+  {
+    coin: 'CHIPS',
+    name: 'Chips',
+    electrumServers: [
+      {
+        host: 'electrum1.cipig.net',
+        port: 10053
+      },
+      {
+        host: 'electrum2.cipig.net',
+        port: 10053
+      }
+    ],
+    active: 1,
+    market_cap: 1609044,
+    rpcport: 57776,
+    pubtype: 60,
+    p2shtype: 85,
+    wiftype: 188,
+    txfee: 10000
+  },
+  {
+    coin: 'VRSC',
+    name: 'VerusCoin',
+    electrumServers: [
+      {
+        host: 'el0.vrsc.0x03.services',
+        port: 10000
+      },
+      {
+        host: 'el1.vrsc.0x03.services',
+        port: 10000
+      },
+      {
+        host: 'el2.vrsc.0x03.services',
+        port: 10000
+      }
+    ],
+    active: 1,
+    market_cap: 1609044,
+    rpcport: 27486
   }
 ];
 

@@ -87,17 +87,25 @@ const styles = theme => ({
   appBar__inputRoot: {
     color: 'inherit',
     width: '100%',
-    background: '#f1f3f4',
     height: 48,
-    margin: '12px 0',
-    borderRadius: 8
+    margin: '12px 0'
+    // borderRadius: 8,
+    // background: '#f1f3f4'
   },
   appBar__inputInput: {
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`,
+    padding: `${theme.spacing.unit}px 0px`,
     transition: theme.transitions.create('width'),
     width: '100%',
-    letterSpacing: '0.00625em',
-    fontWeight: 500
+    fontSize: '1.25rem',
+    fontWeight: 500,
+    lineHeight: 1.6,
+    letterSpacing: '0.0075em',
+    '&:before': {
+      borderBottom: 'none !important'
+    },
+    '&:after': {
+      bottom: -12
+    }
   },
   appBar__button: {
     width: '100%',

@@ -39,7 +39,7 @@ class ModalContent extends React.PureComponent<Props, State> {
               <CoinSelectable
                 className={state.className}
                 icon={<CIcon width={56} height={56} viewBox="0 0 32 32" />}
-                subTitle={covertSymbolToName(state.data.symbol)}
+                title={covertSymbolToName(state.data.symbol)}
                 onClick={state.handleSelectCoin}
                 data={state.data}
               />

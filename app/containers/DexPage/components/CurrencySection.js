@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import AddIcon from '@material-ui/icons/Add';
 // import getConfig from '../../../utils/config';
 import { getCoinIcon } from '../../../components/CryptoIcons';
+import { floor } from '../utils';
 import { openSelectCoinModal } from '../actions';
 import { makeSelectCurrency } from '../selectors';
 import CoinSelectable from './CoinSelectable';
@@ -41,7 +42,12 @@ class CurrencySection extends React.PureComponent<Props> {
 
   render() {
     debug(`render`);
-    const { dispatchOpenSelectCoinModal, currency, ...rest } = this.props;
+    const {
+      dispatchOpenSelectCoinModal,
+      currency,
+      balance,
+      ...rest
+    } = this.props;
     if (!currency.get('name'))
       return (
         <CoinSelectable
@@ -52,6 +58,7 @@ class CurrencySection extends React.PureComponent<Props> {
         />
       );
     const icon = getCoinIcon(currency.get('symbol'));
+    const b = balance.get(currency.get('symbol'));
     return (
       <CoinSelectable
         key={`baseCoin${currency.get('symbol')}`}
@@ -60,7 +67,7 @@ class CurrencySection extends React.PureComponent<Props> {
         icon={icon}
         title={currency.get('name')}
         onClick={this.onClick}
-        // subTitle={`${floor(b.get('balance'), 3)} ${b.get('coin')}`}
+        subTitle={`${floor(b.get('balance'), 3)} ${b.get('coin')}`}
         {...rest}
       />
     );
