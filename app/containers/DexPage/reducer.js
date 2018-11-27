@@ -20,7 +20,8 @@ import {
   SWAP_TX_DEFAULT,
   SELECT_COIN_MODAL_OPEN,
   SELECT_COIN_MODAL_CLOSE,
-  SELECT_COIN_MODAL_CLICK
+  SELECT_COIN_MODAL_CLICK,
+  COIN_PAYMENT_SELECT
 } from './constants';
 
 import { LOGOUT } from '../App/constants';
@@ -64,6 +65,11 @@ export const initialState = fromJS({
   },
 
   currency: {
+    name: null,
+    symbol: null
+  },
+
+  payment: {
     name: null,
     symbol: null
   }
@@ -562,7 +568,14 @@ const buyReducer = handleActions(
       state
         .setIn(['selectCoinModal', 'open'], false)
         .setIn(['currency', 'name'], payload.name)
-        .setIn(['currency', 'symbol'], payload.symbol),
+        .setIn(['currency', 'symbol'], payload.symbol)
+        .setIn(['payment', 'name'], null)
+        .setIn(['payment', 'symbol'], null),
+
+    [COIN_PAYMENT_SELECT]: (state, { payload }) =>
+      state
+        .setIn(['payment', 'name'], payload.name)
+        .setIn(['payment', 'symbol'], payload.symbol),
 
     [LOGOUT]: () => initialState
   },

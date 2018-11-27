@@ -13,7 +13,8 @@ import {
   closeDetailModal,
   openSelectCoinModal,
   closeSelectCoinModal,
-  clickSelectCoinModal
+  clickSelectCoinModal,
+  selectCoinPayment
 } from '../actions';
 import {
   LOAD_PRICE,
@@ -30,7 +31,8 @@ import {
   SWAP_DETAIL_MODAL_CLOSE,
   SELECT_COIN_MODAL_OPEN,
   SELECT_COIN_MODAL_CLOSE,
-  SELECT_COIN_MODAL_CLICK
+  SELECT_COIN_MODAL_CLICK,
+  COIN_PAYMENT_SELECT
 } from '../constants';
 
 describe('containers/DexPage/actions/loadPrice', () => {
@@ -309,6 +311,36 @@ describe('containers/DexPage/actions/clickSelectCoinModal', () => {
 
     expect(
       clickSelectCoinModal({
+        name,
+        symbol
+      })
+    ).toEqual(expectedResult);
+  });
+});
+
+describe('containers/DexPage/actions/selectCoinPayment', () => {
+  const name = 'Komodo';
+  const symbol = 'KMD';
+  it('should selectCoinPayment should create selectCoinPayment action', () => {
+    expect(
+      selectCoinPayment({
+        name,
+        symbol
+      })
+    ).toMatchSnapshot();
+  });
+
+  it('should return the correct type and the passed name', () => {
+    const expectedResult = {
+      type: COIN_PAYMENT_SELECT,
+      payload: {
+        name,
+        symbol
+      }
+    };
+
+    expect(
+      selectCoinPayment({
         name,
         symbol
       })

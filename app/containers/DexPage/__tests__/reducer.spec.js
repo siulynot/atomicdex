@@ -11,7 +11,8 @@ import {
   makeANewSwap,
   openSelectCoinModal,
   closeSelectCoinModal,
-  clickSelectCoinModal
+  clickSelectCoinModal,
+  selectCoinPayment
 } from '../actions';
 import { SWAP_TX_DEFAULT } from '../constants';
 import {
@@ -799,14 +800,39 @@ describe('containers/DexPage/reducers/clickSelectCoinModal', () => {
   const name = 'Komodo';
   const symbol = 'KMD';
   it('should handle the clickSelectCoinModal action correctly', () => {
+    const store = initialState
+      .setIn(['selectCoinModal', 'open'], false)
+      .setIn(['currency', 'name'], name)
+      .setIn(['currency', 'symbol'], symbol)
+      .setIn(['payment', 'name'], name)
+      .setIn(['payment', 'symbol'], symbol);
     const expectedResult = initialState
       .setIn(['selectCoinModal', 'open'], false)
       .setIn(['currency', 'name'], name)
       .setIn(['currency', 'symbol'], symbol);
     expect(
       buyReducer(
-        initialState,
+        store,
         clickSelectCoinModal({
+          name,
+          symbol
+        })
+      )
+    ).toEqual(expectedResult);
+  });
+});
+
+describe('containers/DexPage/reducers/selectCoinPayment', () => {
+  const name = 'Komodo';
+  const symbol = 'KMD';
+  it('should handle the selectCoinPayment action correctly', () => {
+    const expectedResult = initialState
+      .setIn(['payment', 'name'], name)
+      .setIn(['payment', 'symbol'], symbol);
+    expect(
+      buyReducer(
+        initialState,
+        selectCoinPayment({
           name,
           symbol
         })

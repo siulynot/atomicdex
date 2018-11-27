@@ -23,7 +23,8 @@ import {
   SWAP_DETAIL_MODAL_CLOSE,
   SELECT_COIN_MODAL_OPEN,
   SELECT_COIN_MODAL_CLOSE,
-  SELECT_COIN_MODAL_CLICK
+  SELECT_COIN_MODAL_CLICK,
+  COIN_PAYMENT_SELECT
 } from './constants';
 import type {
   BuyCoinPayload,
@@ -185,6 +186,13 @@ export function closeSelectCoinModal() {
 export function clickSelectCoinModal(payload: SelectCoinPayload) {
   return {
     type: SELECT_COIN_MODAL_CLICK,
+    payload
+  };
+}
+
+export function selectCoinPayment(payload: SelectCoinPayload) {
+  return {
+    type: COIN_PAYMENT_SELECT,
     payload
   };
 }

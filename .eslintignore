@@ -54,3 +54,6 @@ __snapshots__
 # Package.json
 package.json
 .travis.yml
+
+build-renderer.json
+__mocks__/tw-data.json

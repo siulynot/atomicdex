@@ -125,6 +125,16 @@ Object {
 }
 `;
 
+exports[`containers/DexPage/actions/selectCoinPayment should selectCoinPayment should create selectCoinPayment action 1`] = `
+Object {
+  "payload": Object {
+    "name": "Komodo",
+    "symbol": "KMD",
+  },
+  "type": "dicoapp/DexPage/COIN_PAYMENT_SELECT",
+}
+`;
+
 exports[`containers/DexPage/actions/timeoutSwap should timeoutSwap should create timeoutSwap action 1`] = `
 Object {
   "payload": Object {

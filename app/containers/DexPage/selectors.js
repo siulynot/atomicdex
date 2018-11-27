@@ -96,6 +96,9 @@ const makeSelectCoinModal = () =>
 const makeSelectCurrency = () =>
   createSelector(selectBuy, buyState => buyState.get('currency'));
 
+const makeSelectPayment = () =>
+  createSelector(selectBuy, buyState => buyState.get('payment'));
+
 export {
   selectBuy,
   makeSelectPrices,
@@ -115,5 +118,6 @@ export {
   makeSelectSwapInDetailModal,
   makeSelectBalanceList,
   makeSelectCoinModal,
-  makeSelectCurrency
+  makeSelectCurrency,
+  makeSelectPayment
 };

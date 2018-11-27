@@ -354,7 +354,7 @@ class AmountSection extends React.Component<Props, State> {
       defaultMessage: 'SELECT YOUR PAYMENT',
       id: 'dicoapp.containers.DexPage.select_payment'
     });
-    if (paymentCoin !== '') {
+    if (paymentCoin !== null) {
       label = paymentCoin;
     }
 
