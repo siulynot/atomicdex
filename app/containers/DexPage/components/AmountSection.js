@@ -158,9 +158,18 @@ const styles = theme => ({
   },
 
   amountform__infoItem: {
+    width: '33.333333%',
+    margin: '0'
+  },
+
+  amountform__infoContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
+
+  amountform__infoBorder: {
     borderRight: '1px solid rgba(0, 0, 0, 0.1)',
-    borderLeft: '1px solid rgba(0, 0, 0, 0.1)',
-    padding: '0 12px'
+    borderLeft: '1px solid rgba(0, 0, 0, 0.1)'
   },
 
   amountform: {
@@ -574,45 +583,31 @@ class AmountSection extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <Grid container className={classes.amountform} spacing={24}>
-          {/* <Grid item xs={4} className={classes.amountform__itemCenter} style={{
-            background: 'red'
-          }}> */}
-          <Grid item xs={4} className={classes.amountform__itemCenter}>
-            <Typography variant="subtitle2" gutterBottom>
-              Deposit Min
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              0.001 BTC
-            </Typography>
-          </Grid>
-          {/* <Grid item xs={4} className={classes.amountform__itemCenter} style={{
-            background: 'green'
-          }}> */}
           <Grid
             item
-            xs={4}
+            xs={12}
             className={ClassNames(
-              classes.amountform__itemCenter,
-              classes.amountform__infoItem
+              classes.amountform__infoContainer,
+              classes.amountform__itemCenter
             )}
           >
-            <Typography variant="subtitle2" gutterBottom>
-              Deposit Max
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              0.1 BTC
-            </Typography>
-          </Grid>
-          {/* <Grid item xs={4} className={classes.amountform__itemCenter} style={{
-            background: 'blue'
-          }}> */}
-          <Grid item xs={4} className={classes.amountform__itemCenter}>
-            <Typography variant="subtitle2" gutterBottom>
-              Instant rate
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              1 BTC = 500 KMD
-            </Typography>
+            <div className={classes.amountform__infoItem}>
+              <Typography variant="subtitle2">Deposit Min</Typography>
+              <Typography variant="subtitle1">0.001 BTC</Typography>
+            </div>
+            <div
+              className={ClassNames(
+                classes.amountform__infoBorder,
+                classes.amountform__infoItem
+              )}
+            >
+              <Typography variant="subtitle2">Deposit Max</Typography>
+              <Typography variant="subtitle1">0.1 BTC</Typography>
+            </div>
+            <div className={classes.amountform__infoItem}>
+              <Typography variant="subtitle2">Instant rate</Typography>
+              <Typography variant="subtitle1">1 BTC = 500 KMD</Typography>
+            </div>
           </Grid>
           {!buyingLoading && this.renderSubmitForm()}
           {buyingLoading && this.renderProcessing()}
