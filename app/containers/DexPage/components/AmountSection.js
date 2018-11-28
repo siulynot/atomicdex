@@ -172,6 +172,10 @@ const styles = theme => ({
     borderLeft: '1px solid rgba(0, 0, 0, 0.1)'
   },
 
+  amountform__infosubtitle2: {
+    fontSize: 11
+  },
+
   amountform: {
     width: '50%',
     position: 'relative'
@@ -577,8 +581,9 @@ class AmountSection extends React.Component<Props, State> {
 
   render() {
     debug(`render`);
-    const { classes, buyingLoading } = this.props;
+    const { classes, buyingLoading, entities, paymentCoin } = this.props;
     const { openSnackbar, snackbarMessage } = this.state;
+    const bestPrice = entities.get(paymentCoin);
 
     return (
       <React.Fragment>
@@ -592,8 +597,12 @@ class AmountSection extends React.Component<Props, State> {
             )}
           >
             <div className={classes.amountform__infoItem}>
-              <Typography variant="subtitle2">Deposit Min</Typography>
-              <Typography variant="subtitle1">0.001 BTC</Typography>
+              <Typography variant="subtitle1">Deposit Min</Typography>
+              <span className={classes.amountform__infosubtitle2}>
+                {bestPrice
+                  ? `${bestPrice.get('avevolume')} ${bestPrice.get('base')}`
+                  : 'N/A'}
+              </span>
             </div>
             <div
               className={ClassNames(
@@ -601,12 +610,22 @@ class AmountSection extends React.Component<Props, State> {
                 classes.amountform__infoItem
               )}
             >
-              <Typography variant="subtitle2">Deposit Max</Typography>
-              <Typography variant="subtitle1">0.1 BTC</Typography>
+              <Typography variant="subtitle1">Deposit Max</Typography>
+              <span className={classes.amountform__infosubtitle2}>
+                {bestPrice
+                  ? `${bestPrice.get('maxvolume')} ${bestPrice.get('base')}`
+                  : 'N/A'}
+              </span>
             </div>
             <div className={classes.amountform__infoItem}>
-              <Typography variant="subtitle2">Instant rate</Typography>
-              <Typography variant="subtitle1">1 BTC = 500 KMD</Typography>
+              <Typography variant="subtitle1">Instant rate</Typography>
+              <span className={classes.amountform__infosubtitle2}>
+                {bestPrice
+                  ? `1 ${bestPrice.get('base')} = ${bestPrice.get(
+                      'bestPrice'
+                    )} ${bestPrice.get('rel')}`
+                  : 'N/A'}
+              </span>
             </div>
           </Grid>
           {!buyingLoading && this.renderSubmitForm()}

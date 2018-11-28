@@ -1,20 +1,15 @@
 import { call, put, select, all, cancelled } from 'redux-saga/effects';
 import { CANCEL } from 'redux-saga';
-import getConfig from '../../../utils/config';
 import api from '../../../lib/barter-dex-api';
 import { loadBestPrice, loadPricesSuccess, loadPricesError } from '../actions';
 import { makeSelectBalanceList, makeSelectCurrency } from '../selectors';
 
-const config = getConfig();
-const COIN_BASE = config.get('marketmaker.tokenconfig');
 const numcoin = 100000000;
 const debug = require('debug')(
   'dicoapp:containers:DexPage:saga:load-prices-process'
 );
 
 export function* loadPrice(coin) {
-  // name: "Komodo"
-  // symbol: "KMD"
   const currency = yield select(makeSelectCurrency());
 
   const getprices = {
@@ -49,7 +44,7 @@ export function* loadPrice(coin) {
         avevolume: ask.avevolume,
         maxvolume: ask.maxvolume,
         numutxos: ask.numutxos,
-        base: COIN_BASE.coin,
+        base: currency.get('symbol'),
         rel: coin,
         age: ask.age,
         zcredits: ask.zcredits,
@@ -67,7 +62,7 @@ export function* loadPrice(coin) {
         avevolume: 0,
         maxvolume: 0,
         numutxos: 0,
-        base: COIN_BASE.coin,
+        base: currency.get('symbol'),
         rel: coin,
         age: 0,
         zcredits: 0,
@@ -100,8 +95,6 @@ export function* loadPriceProcess({ payload }) {
 export default function* loadPricesProcess() {
   try {
     const balance = yield select(makeSelectBalanceList());
-
-    // const tokenconfig = config.get('marketmaker.tokenconfig');
 
     const requests = [];
     for (let i = 0; i < balance.size; i += 1) {
