@@ -157,6 +157,25 @@ const styles = theme => ({
     margin: 0
   },
 
+  amountform__infoItem: {
+    width: '33.333333%',
+    margin: '0'
+  },
+
+  amountform__infoContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
+
+  amountform__infoBorder: {
+    borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+    borderLeft: '1px solid rgba(0, 0, 0, 0.1)'
+  },
+
+  amountform__infosubtitle2: {
+    fontSize: 11
+  },
+
   amountform: {
     width: '50%',
     position: 'relative'
@@ -359,61 +378,59 @@ class AmountSection extends React.Component<Props, State> {
     }
 
     return (
-      <React.Fragment>
-        <Grid item xs={12} className={classes.amountform__itemCenter}>
-          {/* <form className={classes.withdraw__form}> */}
-          <ValidationBaseInput
-            label={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
-            id={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+      <Grid item xs={12} className={classes.amountform__itemCenter}>
+        {/* <form className={classes.withdraw__form}> */}
+        <ValidationBaseInput
+          label={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+          id={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+          type="number"
+          disabled={disabled}
+          className={classes.amountform__formFirstItem}
+          ref={this.baseInput}
+          onChange={this.onChangeBaseInput}
+        />
+        <SwapHorizIcon
+          className={ClassNames(
+            classes.amountform__formItem,
+            classes.amountform__formIcon
+          )}
+        />
+        {paymentCoin && (
+          <ValidationPaymentInput
+            label={label}
+            id={label}
             type="number"
+            balance={this.getBalance()}
             disabled={disabled}
-            className={classes.amountform__formFirstItem}
-            ref={this.baseInput}
-            onChange={this.onChangeBaseInput}
+            className={classes.amountform__formItem}
+            ref={this.paymentInput}
+            onChange={this.onChangePaymentInput}
           />
-          <SwapHorizIcon
-            className={ClassNames(
-              classes.amountform__formItem,
-              classes.amountform__formIcon
-            )}
+        )}
+        {!paymentCoin && (
+          <TextField
+            label={label}
+            id={label}
+            type="number"
+            variant="outlined"
+            disabled={disabled}
+            className={classes.amountform__formItem}
+            margin="dense"
           />
-          {paymentCoin && (
-            <ValidationPaymentInput
-              label={label}
-              id={label}
-              type="number"
-              balance={this.getBalance()}
-              disabled={disabled}
-              className={classes.amountform__formItem}
-              ref={this.paymentInput}
-              onChange={this.onChangePaymentInput}
-            />
-          )}
-          {!paymentCoin && (
-            <TextField
-              label={label}
-              id={label}
-              type="number"
-              variant="outlined"
-              disabled={disabled}
-              className={classes.amountform__formItem}
-              margin="dense"
-            />
-          )}
-          <BuyButton
-            disabled={disabledBuyButton || buyingLoading}
-            color="primary"
-            variant="contained"
-            className={classes.amountform__formEndItem}
-            onClick={this.onClickBuyCoinButton}
-          >
-            <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
-              {(...content) => `${content} (${currency.get('symbol')})`}
-            </FormattedMessage>
-          </BuyButton>
-          {/* </form> */}
-        </Grid>
-      </React.Fragment>
+        )}
+        <BuyButton
+          disabled={disabledBuyButton || buyingLoading}
+          color="primary"
+          variant="contained"
+          className={classes.amountform__formEndItem}
+          onClick={this.onClickBuyCoinButton}
+        >
+          <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
+            {(...content) => `${content} (${currency.get('symbol')})`}
+          </FormattedMessage>
+        </BuyButton>
+        {/* </form> */}
+      </Grid>
     );
   };
 
@@ -564,12 +581,53 @@ class AmountSection extends React.Component<Props, State> {
 
   render() {
     debug(`render`);
-    const { classes, buyingLoading } = this.props;
+    const { classes, buyingLoading, entities, paymentCoin } = this.props;
     const { openSnackbar, snackbarMessage } = this.state;
+    const bestPrice = entities.get(paymentCoin);
 
     return (
       <React.Fragment>
         <Grid container className={classes.amountform} spacing={24}>
+          <Grid
+            item
+            xs={12}
+            className={ClassNames(
+              classes.amountform__infoContainer,
+              classes.amountform__itemCenter
+            )}
+          >
+            <div className={classes.amountform__infoItem}>
+              <Typography variant="subtitle1">Deposit Min</Typography>
+              <span className={classes.amountform__infosubtitle2}>
+                {bestPrice
+                  ? `${bestPrice.get('avevolume')} ${bestPrice.get('base')}`
+                  : 'N/A'}
+              </span>
+            </div>
+            <div
+              className={ClassNames(
+                classes.amountform__infoBorder,
+                classes.amountform__infoItem
+              )}
+            >
+              <Typography variant="subtitle1">Deposit Max</Typography>
+              <span className={classes.amountform__infosubtitle2}>
+                {bestPrice
+                  ? `${bestPrice.get('maxvolume')} ${bestPrice.get('base')}`
+                  : 'N/A'}
+              </span>
+            </div>
+            <div className={classes.amountform__infoItem}>
+              <Typography variant="subtitle1">Instant rate</Typography>
+              <span className={classes.amountform__infosubtitle2}>
+                {bestPrice
+                  ? `1 ${bestPrice.get('base')} = ${bestPrice.get(
+                      'bestPrice'
+                    )} ${bestPrice.get('rel')}`
+                  : 'N/A'}
+              </span>
+            </div>
+          </Grid>
           {!buyingLoading && this.renderSubmitForm()}
           {buyingLoading && this.renderProcessing()}
           {/* {this.renderSubmitForm()} */}
