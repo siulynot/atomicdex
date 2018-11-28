@@ -108,7 +108,7 @@ class PaymentSection extends React.PureComponent<Props> {
         icon={icon}
         title={name}
         subTitle={`${floor(b.get('balance'), 3)} ${b.get('coin')}`}
-        price={`1 ${currency.get('symbol') || 'NaN'} = ${c.get(
+        price={`1 ${currency.get('symbol') || 'N/A'} = ${c.get(
           'bestPrice'
         )} ${symbol}`}
         onClick={onClick}

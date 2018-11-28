@@ -157,6 +157,12 @@ const styles = theme => ({
     margin: 0
   },
 
+  amountform__infoItem: {
+    borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+    borderLeft: '1px solid rgba(0, 0, 0, 0.1)',
+    padding: '0 12px'
+  },
+
   amountform: {
     width: '50%',
     position: 'relative'
@@ -359,61 +365,59 @@ class AmountSection extends React.Component<Props, State> {
     }
 
     return (
-      <React.Fragment>
-        <Grid item xs={12} className={classes.amountform__itemCenter}>
-          {/* <form className={classes.withdraw__form}> */}
-          <ValidationBaseInput
-            label={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
-            id={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+      <Grid item xs={12} className={classes.amountform__itemCenter}>
+        {/* <form className={classes.withdraw__form}> */}
+        <ValidationBaseInput
+          label={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+          id={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+          type="number"
+          disabled={disabled}
+          className={classes.amountform__formFirstItem}
+          ref={this.baseInput}
+          onChange={this.onChangeBaseInput}
+        />
+        <SwapHorizIcon
+          className={ClassNames(
+            classes.amountform__formItem,
+            classes.amountform__formIcon
+          )}
+        />
+        {paymentCoin && (
+          <ValidationPaymentInput
+            label={label}
+            id={label}
             type="number"
+            balance={this.getBalance()}
             disabled={disabled}
-            className={classes.amountform__formFirstItem}
-            ref={this.baseInput}
-            onChange={this.onChangeBaseInput}
+            className={classes.amountform__formItem}
+            ref={this.paymentInput}
+            onChange={this.onChangePaymentInput}
           />
-          <SwapHorizIcon
-            className={ClassNames(
-              classes.amountform__formItem,
-              classes.amountform__formIcon
-            )}
+        )}
+        {!paymentCoin && (
+          <TextField
+            label={label}
+            id={label}
+            type="number"
+            variant="outlined"
+            disabled={disabled}
+            className={classes.amountform__formItem}
+            margin="dense"
           />
-          {paymentCoin && (
-            <ValidationPaymentInput
-              label={label}
-              id={label}
-              type="number"
-              balance={this.getBalance()}
-              disabled={disabled}
-              className={classes.amountform__formItem}
-              ref={this.paymentInput}
-              onChange={this.onChangePaymentInput}
-            />
-          )}
-          {!paymentCoin && (
-            <TextField
-              label={label}
-              id={label}
-              type="number"
-              variant="outlined"
-              disabled={disabled}
-              className={classes.amountform__formItem}
-              margin="dense"
-            />
-          )}
-          <BuyButton
-            disabled={disabledBuyButton || buyingLoading}
-            color="primary"
-            variant="contained"
-            className={classes.amountform__formEndItem}
-            onClick={this.onClickBuyCoinButton}
-          >
-            <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
-              {(...content) => `${content} (${currency.get('symbol')})`}
-            </FormattedMessage>
-          </BuyButton>
-          {/* </form> */}
-        </Grid>
-      </React.Fragment>
+        )}
+        <BuyButton
+          disabled={disabledBuyButton || buyingLoading}
+          color="primary"
+          variant="contained"
+          className={classes.amountform__formEndItem}
+          onClick={this.onClickBuyCoinButton}
+        >
+          <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
+            {(...content) => `${content} (${currency.get('symbol')})`}
+          </FormattedMessage>
+        </BuyButton>
+        {/* </form> */}
+      </Grid>
     );
   };
 
@@ -570,6 +574,46 @@ class AmountSection extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <Grid container className={classes.amountform} spacing={24}>
+          {/* <Grid item xs={4} className={classes.amountform__itemCenter} style={{
+            background: 'red'
+          }}> */}
+          <Grid item xs={4} className={classes.amountform__itemCenter}>
+            <Typography variant="subtitle2" gutterBottom>
+              Deposit Min
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              0.001 BTC
+            </Typography>
+          </Grid>
+          {/* <Grid item xs={4} className={classes.amountform__itemCenter} style={{
+            background: 'green'
+          }}> */}
+          <Grid
+            item
+            xs={4}
+            className={ClassNames(
+              classes.amountform__itemCenter,
+              classes.amountform__infoItem
+            )}
+          >
+            <Typography variant="subtitle2" gutterBottom>
+              Deposit Max
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              0.1 BTC
+            </Typography>
+          </Grid>
+          {/* <Grid item xs={4} className={classes.amountform__itemCenter} style={{
+            background: 'blue'
+          }}> */}
+          <Grid item xs={4} className={classes.amountform__itemCenter}>
+            <Typography variant="subtitle2" gutterBottom>
+              Instant rate
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              1 BTC = 500 KMD
+            </Typography>
+          </Grid>
           {!buyingLoading && this.renderSubmitForm()}
           {buyingLoading && this.renderProcessing()}
           {/* {this.renderSubmitForm()} */}
