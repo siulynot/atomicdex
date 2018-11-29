@@ -23,7 +23,6 @@ import { Circle, Line } from '../../../components/placeholder';
 import { getCoinIcon } from '../../../components/CryptoIcons';
 import { requiredNumber } from '../../../components/Form/helper';
 import validate from '../../../components/Form/validate';
-import { makeSelectBalanceEntities } from '../../App/selectors';
 import type { BuyCoinPayload } from '../schema';
 import { AUTO_HIDE_SNACKBAR_TIME, STATE_SWAPS } from '../constants';
 import {
@@ -41,7 +40,8 @@ import {
   makeSelectBuyingLoading,
   makeSelectBuyingError,
   makeSelectCurrentSwap,
-  makeSelectCurrency
+  makeSelectCurrency,
+  makeSelectPayment
 } from '../selectors';
 import BuyButton from '../../../components/BuyButton';
 import CoinSelectable from './CoinSelectable';
@@ -51,6 +51,14 @@ const debug = require('debug')('dicoapp:containers:DexPage:AmountSection');
 const line = (
   <Line
     width={60}
+    style={{
+      margin: '10px auto'
+    }}
+  />
+);
+const line470 = (
+  <Line
+    width={470}
     style={{
       margin: '10px auto'
     }}
@@ -98,7 +106,7 @@ const styles = theme => ({
   amountform__switchBtn: {
     position: 'absolute',
     textAlign: 'center',
-    top: '35%',
+    top: '45%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     fontSize: 25,
@@ -185,7 +193,6 @@ const styles = theme => ({
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   classes: Object,
-  paymentCoin: string,
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchLoadBuyCoin: Function,
   // eslint-disable-next-line flowtype/no-weak-types
@@ -200,6 +207,7 @@ type Props = {
   balance: Object,
   entities: Map<*, *>,
   currency: Map<*, *>,
+  payment: Map<*, *>,
   buyingLoading: boolean,
   // eslint-dis,able-next-line flowtype/no-weak-types
   // buyingError: boolean | Object,
@@ -260,10 +268,10 @@ class AmountSection extends React.Component<Props, State> {
     dispatchLoadRecentSwaps();
   };
 
-  // componentDidUpdate(prevProps) {
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const {
       entity,
+      currency,
       dispatchCheckUpdateSwapEvent,
       dispatchCheckTimeoutEvent
     } = this.props;
@@ -275,6 +283,14 @@ class AmountSection extends React.Component<Props, State> {
     ) {
       dispatchCheckUpdateSwapEvent();
       dispatchCheckTimeoutEvent();
+    }
+    if (currency.get('symbol') !== prevProps.currency.get('symbol')) {
+      // reset value when user change currency
+      const baseInput = this.baseInput.current;
+      baseInput.reset();
+      // FIXME: It can be cause an infinite loop. Is there any bestter way?
+      // https://reactjs.org/docs/react-component.html#componentdidupdate
+      this.controlBuyButton(true);
     }
   }
 
@@ -292,16 +308,16 @@ class AmountSection extends React.Component<Props, State> {
   };
 
   getBestPrice = () => {
-    const { entities, paymentCoin } = this.props;
-    const c = entities.get(paymentCoin);
+    const { entities, payment } = this.props;
+    const c = entities.get(payment.get('symbol'));
     return c.get('bestPrice');
   };
 
   getBalance = () => {
-    const { balance, paymentCoin } = this.props;
-    if (!balance || !paymentCoin) return 0;
+    const { balance, payment } = this.props;
+    if (!balance || !payment.get('symbol')) return 0;
 
-    const b = balance.get(paymentCoin);
+    const b = balance.get(payment.get('symbol'));
     return b.get('balance');
   };
 
@@ -348,13 +364,13 @@ class AmountSection extends React.Component<Props, State> {
 
   onClickBuyCoinButton = async (evt: SyntheticInputEvent<>) => {
     evt.preventDefault();
-    const { dispatchLoadBuyCoin, paymentCoin, currency } = this.props;
+    const { dispatchLoadBuyCoin, payment, currency } = this.props;
     const baseInput = this.baseInput.current;
     const base = await baseInput.value();
 
     dispatchLoadBuyCoin({
       basecoin: currency.get('symbol'),
-      paymentcoin: paymentCoin,
+      paymentcoin: payment.get('symbol'),
       amount: Number(base)
     });
   };
@@ -366,15 +382,15 @@ class AmountSection extends React.Component<Props, State> {
   };
 
   renderSubmitForm = () => {
-    const { classes, paymentCoin, buyingLoading, intl, currency } = this.props;
+    const { classes, payment, buyingLoading, intl, currency } = this.props;
     const { disabledBuyButton } = this.state;
-    const disabled = paymentCoin === null;
+    const disabled = payment.get('symbol') === null;
     let labelForPayment = intl.formatMessage({
       defaultMessage: 'SELECT YOUR PAYMENT',
       id: 'dicoapp.containers.DexPage.select_payment'
     });
-    if (paymentCoin !== null) {
-      labelForPayment = paymentCoin;
+    if (payment.get('symbol') !== null) {
+      labelForPayment = payment.get('symbol');
     }
     let labelForCurrency = intl.formatMessage({
       defaultMessage: 'SELECT YOUR CURRENCY',
@@ -387,22 +403,35 @@ class AmountSection extends React.Component<Props, State> {
     return (
       <Grid item xs={12} className={classes.amountform__itemCenter}>
         {/* <form className={classes.withdraw__form}> */}
-        <ValidationBaseInput
-          label={labelForCurrency}
-          id={labelForCurrency}
-          type="number"
-          disabled={disabled}
-          className={classes.amountform__formFirstItem}
-          ref={this.baseInput}
-          onChange={this.onChangeBaseInput}
-        />
+        {!currency.get('symbol') && (
+          <ValidationBaseInput
+            label={labelForCurrency}
+            id={labelForCurrency}
+            type="number"
+            variant="outlined"
+            disabled={disabled}
+            className={classes.amountform__formFirstItem}
+            margin="dense"
+          />
+        )}
+        {currency.get('symbol') && (
+          <ValidationBaseInput
+            label={labelForCurrency}
+            id={labelForCurrency}
+            type="number"
+            disabled={disabled}
+            className={classes.amountform__formFirstItem}
+            ref={this.baseInput}
+            onChange={this.onChangeBaseInput}
+          />
+        )}
         <SwapHorizIcon
           className={ClassNames(
             classes.amountform__formItem,
             classes.amountform__formIcon
           )}
         />
-        {!paymentCoin && (
+        {!payment.get('symbol') && (
           <TextField
             label={labelForPayment}
             id={labelForPayment}
@@ -413,7 +442,7 @@ class AmountSection extends React.Component<Props, State> {
             margin="dense"
           />
         )}
-        {paymentCoin && (
+        {payment.get('symbol') && (
           <ValidationPaymentInput
             label={labelForPayment}
             id={labelForPayment}
@@ -433,7 +462,7 @@ class AmountSection extends React.Component<Props, State> {
           onClick={this.onClickBuyCoinButton}
         >
           <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
-            {(...content) => `${content} (${currency.get('symbol')})`}
+            {(...content) => `${content} (${currency.get('symbol') || 'N/A'})`}
           </FormattedMessage>
         </BuyButton>
         {/* </form> */}
@@ -464,6 +493,9 @@ class AmountSection extends React.Component<Props, State> {
           <LinearProgress color="primary" variant="determinate" value={0} />
         </Grid>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
+          {line470}
+        </Grid>
+        <Grid item xs={12} className={classes.amountform__itemCenter}>
           <BuyButton
             disabled
             color="primary"
@@ -488,7 +520,7 @@ class AmountSection extends React.Component<Props, State> {
       <React.Fragment>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography gutterBottom className={classes.amountform__warning}>
-            The swap is running, don't exit the application
+            {"The swap is running, don't exit the application"}
           </Typography>
         </Grid>
 
@@ -588,9 +620,9 @@ class AmountSection extends React.Component<Props, State> {
 
   render() {
     debug(`render`);
-    const { classes, buyingLoading, entities, paymentCoin } = this.props;
+    const { classes, buyingLoading, entities, payment } = this.props;
     const { openSnackbar, snackbarMessage } = this.state;
-    const bestPrice = entities.get(paymentCoin);
+    const bestPrice = entities.get(payment.get('symbol'));
 
     return (
       <React.Fragment>
@@ -637,18 +669,8 @@ class AmountSection extends React.Component<Props, State> {
           </Grid>
           {!buyingLoading && this.renderSubmitForm()}
           {buyingLoading && this.renderProcessing()}
-          {/* {this.renderSubmitForm()} */}
         </Grid>
-        {/* <Grid
-          container
-          className={classes.amountform}
-          spacing={24}
-          style={{
-            position: 'relative'
-          }}
-        >
-          {this.renderProcessing()}
-        </Grid> */}
+
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
@@ -695,11 +717,11 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectPricesLoading(),
   entities: makeSelectPricesEntities(),
-  balance: makeSelectBalanceEntities(),
   buyingLoading: makeSelectBuyingLoading(),
   buyingError: makeSelectBuyingError(),
   entity: makeSelectCurrentSwap(),
-  currency: makeSelectCurrency()
+  currency: makeSelectCurrency(),
+  payment: makeSelectPayment()
 });
 
 const withConnect = connect(

@@ -11,7 +11,6 @@ import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import PageSectionTitle from '../../components/PageSectionTitle';
-import { covertSymbolToName } from '../../utils/coin';
 import {
   makeSelectBalanceEntities,
   makeSelectBalanceLoading
@@ -20,9 +19,7 @@ import { loadBalance } from '../App/actions';
 import AmountSection from './components/AmountSection';
 import CurrencySection from './components/CurrencySection';
 import PaymentSection from './components/PaymentSection';
-import { loadPrices, loadPrice, selectCoinPayment } from './actions';
-import { makeSelectPayment } from './selectors';
-import type { SelectCoinPayload } from './schema';
+import { loadPrices } from './actions';
 
 const debug = require('debug')('dicoapp:containers:DexPage:PlaceOrder');
 
@@ -62,15 +59,9 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchLoadPrices: Function,
   // eslint-disable-next-line flowtype/no-weak-types
-  dispatchLoadPrice: Function,
-  // eslint-disable-next-line flowtype/no-weak-types
   dispatchLoadBalance: Function,
   // eslint-disable-next-line flowtype/no-weak-types
-  dispatchSelectCoinPayment: Function,
-  // eslint-disable-next-line flowtype/no-weak-types
-  balance: Object,
-  // eslint-disable-next-line flowtype/no-weak-types
-  payment: Object
+  balance: Object
 };
 
 type State = {};
@@ -91,28 +82,10 @@ class PlaceOrder extends Component<Props, State> {
     dispatchLoadPrices();
   };
 
-  onClickPaymentCoin = (evt: SyntheticInputEvent<>) => {
-    evt.preventDefault();
-    const { value } = evt.target;
-    const { payment, dispatchSelectCoinPayment } = this.props;
-    if (value !== payment.get('symbol')) {
-      dispatchSelectCoinPayment({
-        name: covertSymbolToName(value),
-        symbol: value
-      });
-    }
-  };
-
   render() {
     debug('render');
 
-    const {
-      classes,
-      balanceLoading,
-      balance,
-      payment,
-      dispatchLoadPrice
-    } = this.props;
+    const { classes, balanceLoading, balance } = this.props;
 
     return (
       <Grid container spacing={0} className={classes.container}>
@@ -148,13 +121,7 @@ class PlaceOrder extends Component<Props, State> {
               <Icon>cached</Icon>
             </IconButton>
             {/* <Divider className={classes.hr} /> */}
-            <PaymentSection
-              onClick={this.onClickPaymentCoin}
-              paymentCoin={payment.get('symbol')}
-              balance={balance}
-              dispatchLoadPrice={dispatchLoadPrice}
-              loading={balanceLoading}
-            />
+            <PaymentSection balance={balance} loading={balanceLoading} />
           </CardContent>
           <CardContent className={classes.cardContent}>
             <PageSectionTitle
@@ -165,7 +132,7 @@ class PlaceOrder extends Component<Props, State> {
               }
             />
             {/* <Divider className={classes.hr} /> */}
-            <AmountSection paymentCoin={payment.get('symbol')} />
+            <AmountSection balance={balance} />
           </CardContent>
         </Grid>
       </Grid>
@@ -177,17 +144,13 @@ class PlaceOrder extends Component<Props, State> {
 export function mapDispatchToProps(dispatch: Dispatch<Object>) {
   return {
     dispatchLoadPrices: () => dispatch(loadPrices()),
-    dispatchLoadPrice: (coin: string) => dispatch(loadPrice(coin)),
-    dispatchLoadBalance: () => dispatch(loadBalance()),
-    dispatchSelectCoinPayment: (payment: SelectCoinPayload) =>
-      dispatch(selectCoinPayment(payment))
+    dispatchLoadBalance: () => dispatch(loadBalance())
   };
 }
 
 const mapStateToProps = createStructuredSelector({
   balance: makeSelectBalanceEntities(),
-  balanceLoading: makeSelectBalanceLoading(),
-  payment: makeSelectPayment()
+  balanceLoading: makeSelectBalanceLoading()
 });
 
 const withConnect = connect(
