@@ -14,9 +14,7 @@ import {
   openSelectCoinModal,
   closeSelectCoinModal,
   clickSelectCoinModal,
-  selectCoinPayment,
-  updateBobInput,
-  updateAliceInput
+  selectCoinPayment
 } from '../actions';
 import {
   LOAD_PRICE,
@@ -34,9 +32,7 @@ import {
   SELECT_COIN_MODAL_OPEN,
   SELECT_COIN_MODAL_CLOSE,
   SELECT_COIN_MODAL_CLICK,
-  COIN_PAYMENT_SELECT,
-  BOB_INPUT_UPDATE,
-  ALICE_INPUT_UPDATE
+  COIN_PAYMENT_SELECT
 } from '../constants';
 
 describe('containers/DexPage/actions/loadPrice', () => {
@@ -349,41 +345,5 @@ describe('containers/DexPage/actions/selectCoinPayment', () => {
         symbol
       })
     ).toEqual(expectedResult);
-  });
-});
-
-describe('containers/DexPage/actions/updateBobInput', () => {
-  const amount = 0;
-  it('should updateBobInput should create updateBobInput action', () => {
-    expect(updateBobInput(amount)).toMatchSnapshot();
-  });
-
-  it('should return the correct type and the passed name', () => {
-    const expectedResult = {
-      type: BOB_INPUT_UPDATE,
-      payload: {
-        amount
-      }
-    };
-
-    expect(updateBobInput(amount)).toEqual(expectedResult);
-  });
-});
-
-describe('containers/DexPage/actions/updateAliceInput', () => {
-  const amount = 0;
-  it('should updateAliceInput should create updateAliceInput action', () => {
-    expect(updateAliceInput(amount)).toMatchSnapshot();
-  });
-
-  it('should return the correct type and the passed name', () => {
-    const expectedResult = {
-      type: ALICE_INPUT_UPDATE,
-      payload: {
-        amount
-      }
-    };
-
-    expect(updateAliceInput(amount)).toEqual(expectedResult);
   });
 });

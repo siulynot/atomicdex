@@ -32,9 +32,7 @@ import {
   clearBuyCoinError,
   checkUpdateSwapEvent,
   checkTimeoutEvent,
-  openDetailModal,
-  updateBobInput,
-  updateAliceInput
+  openDetailModal
 } from '../actions';
 import {
   makeSelectPricesLoading,
@@ -108,7 +106,7 @@ const styles = theme => ({
   amountform__switchBtn: {
     position: 'absolute',
     textAlign: 'center',
-    top: '35%',
+    top: '45%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     fontSize: 25,
@@ -206,10 +204,6 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchCheckTimeoutEvent: Function,
   // eslint-disable-next-line flowtype/no-weak-types
-  // dispatchUpdateBobInput: Function,
-  // eslint-disable-next-line flowtype/no-weak-types
-  // dispatchUpdateAliceInput: Function,
-  // eslint-disable-next-line flowtype/no-weak-types
   balance: Object,
   entities: Map<*, *>,
   currency: Map<*, *>,
@@ -274,10 +268,10 @@ class AmountSection extends React.Component<Props, State> {
     dispatchLoadRecentSwaps();
   };
 
-  // componentDidUpdate(prevProps) {
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const {
       entity,
+      currency,
       dispatchCheckUpdateSwapEvent,
       dispatchCheckTimeoutEvent
     } = this.props;
@@ -289,6 +283,14 @@ class AmountSection extends React.Component<Props, State> {
     ) {
       dispatchCheckUpdateSwapEvent();
       dispatchCheckTimeoutEvent();
+    }
+    if (currency.get('symbol') !== prevProps.currency.get('symbol')) {
+      // reset value when user change currency
+      const baseInput = this.baseInput.current;
+      baseInput.reset();
+      // FIXME: It can be cause an infinite loop. Is there any bestter way?
+      // https://reactjs.org/docs/react-component.html#componentdidupdate
+      this.controlBuyButton(true);
     }
   }
 
@@ -708,11 +710,7 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
     dispatchClearBuyCoinError: () => dispatch(clearBuyCoinError()),
     dispatchCheckUpdateSwapEvent: () => dispatch(checkUpdateSwapEvent()),
     dispatchCheckTimeoutEvent: () => dispatch(checkTimeoutEvent()),
-    dispatchOpenDetailModal: (uuid: string) => dispatch(openDetailModal(uuid)),
-    dispatchUpdateBobInput: (amount: number) =>
-      dispatch(updateBobInput(amount)),
-    dispatchUpdateAliceInput: (amount: number) =>
-      dispatch(updateAliceInput(amount))
+    dispatchOpenDetailModal: (uuid: string) => dispatch(openDetailModal(uuid))
   };
 }
 

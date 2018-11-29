@@ -148,21 +148,3 @@ Object {
   "type": "dicoapp/DexPage/SWAP_TIMEOUT",
 }
 `;
-
-exports[`containers/DexPage/actions/updateAliceInput should updateAliceInput should create updateAliceInput action 1`] = `
-Object {
-  "payload": Object {
-    "amount": 0,
-  },
-  "type": "dicoapp/DexPage/ALICE_INPUT_UPDATE",
-}
-`;
-
-exports[`containers/DexPage/actions/updateBobInput should updateBobInput should create updateBobInput action 1`] = `
-Object {
-  "payload": Object {
-    "amount": 0,
-  },
-  "type": "dicoapp/DexPage/BOB_INPUT_UPDATE",
-}
-`;

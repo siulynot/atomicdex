@@ -24,9 +24,7 @@ import {
   SELECT_COIN_MODAL_OPEN,
   SELECT_COIN_MODAL_CLOSE,
   SELECT_COIN_MODAL_CLICK,
-  COIN_PAYMENT_SELECT,
-  BOB_INPUT_UPDATE,
-  ALICE_INPUT_UPDATE
+  COIN_PAYMENT_SELECT
 } from './constants';
 import type {
   BuyCoinPayload,
@@ -196,23 +194,5 @@ export function selectCoinPayment(payload: SelectCoinPayload) {
   return {
     type: COIN_PAYMENT_SELECT,
     payload
-  };
-}
-
-export function updateBobInput(amount: number) {
-  return {
-    type: BOB_INPUT_UPDATE,
-    payload: {
-      amount
-    }
-  };
-}
-
-export function updateAliceInput(amount: number) {
-  return {
-    type: ALICE_INPUT_UPDATE,
-    payload: {
-      amount
-    }
   };
 }
