@@ -50,3 +50,5 @@ export const SELECT_COIN_MODAL_CLICK =
   'dicoapp/DexPage/SELECT_COIN_MODAL_CLICK';
 
 export const COIN_PAYMENT_SELECT = 'dicoapp/DexPage/COIN_PAYMENT_SELECT';
+export const BOB_INPUT_UPDATE = 'dicoapp/DexPage/BOB_INPUT_UPDATE';
+export const ALICE_INPUT_UPDATE = 'dicoapp/DexPage/ALICE_INPUT_UPDATE';
