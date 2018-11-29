@@ -20,7 +20,6 @@ import AmountSection from './components/AmountSection';
 import CurrencySection from './components/CurrencySection';
 import PaymentSection from './components/PaymentSection';
 import { loadPrices } from './actions';
-import { makeSelectPayment } from './selectors';
 
 const debug = require('debug')('dicoapp:containers:DexPage:PlaceOrder');
 
@@ -62,9 +61,7 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchLoadBalance: Function,
   // eslint-disable-next-line flowtype/no-weak-types
-  balance: Object,
-  // eslint-disable-next-line flowtype/no-weak-types
-  payment: Object
+  balance: Object
 };
 
 type State = {};
@@ -88,7 +85,7 @@ class PlaceOrder extends Component<Props, State> {
   render() {
     debug('render');
 
-    const { classes, balanceLoading, balance, payment } = this.props;
+    const { classes, balanceLoading, balance } = this.props;
 
     return (
       <Grid container spacing={0} className={classes.container}>
@@ -135,7 +132,7 @@ class PlaceOrder extends Component<Props, State> {
               }
             />
             {/* <Divider className={classes.hr} /> */}
-            <AmountSection paymentCoin={payment.get('symbol')} />
+            <AmountSection balance={balance} />
           </CardContent>
         </Grid>
       </Grid>
@@ -153,8 +150,7 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
 
 const mapStateToProps = createStructuredSelector({
   balance: makeSelectBalanceEntities(),
-  balanceLoading: makeSelectBalanceLoading(),
-  payment: makeSelectPayment()
+  balanceLoading: makeSelectBalanceLoading()
 });
 
 const withConnect = connect(

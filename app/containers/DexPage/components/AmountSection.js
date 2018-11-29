@@ -23,7 +23,6 @@ import { Circle, Line } from '../../../components/placeholder';
 import { getCoinIcon } from '../../../components/CryptoIcons';
 import { requiredNumber } from '../../../components/Form/helper';
 import validate from '../../../components/Form/validate';
-import { makeSelectBalanceEntities } from '../../App/selectors';
 import type { BuyCoinPayload } from '../schema';
 import { AUTO_HIDE_SNACKBAR_TIME, STATE_SWAPS } from '../constants';
 import {
@@ -186,7 +185,6 @@ const styles = theme => ({
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   classes: Object,
-  paymentCoin: string,
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchLoadBuyCoin: Function,
   // eslint-disable-next-line flowtype/no-weak-types
@@ -201,7 +199,7 @@ type Props = {
   balance: Object,
   entities: Map<*, *>,
   currency: Map<*, *>,
-  // payment: Map<*, *>,
+  payment: Map<*, *>,
   buyingLoading: boolean,
   // eslint-dis,able-next-line flowtype/no-weak-types
   // buyingError: boolean | Object,
@@ -294,16 +292,16 @@ class AmountSection extends React.Component<Props, State> {
   };
 
   getBestPrice = () => {
-    const { entities, paymentCoin } = this.props;
-    const c = entities.get(paymentCoin);
+    const { entities, payment } = this.props;
+    const c = entities.get(payment.get('symbol'));
     return c.get('bestPrice');
   };
 
   getBalance = () => {
-    const { balance, paymentCoin } = this.props;
-    if (!balance || !paymentCoin) return 0;
+    const { balance, payment } = this.props;
+    if (!balance || !payment.get('symbol')) return 0;
 
-    const b = balance.get(paymentCoin);
+    const b = balance.get(payment.get('symbol'));
     return b.get('balance');
   };
 
@@ -350,13 +348,13 @@ class AmountSection extends React.Component<Props, State> {
 
   onClickBuyCoinButton = async (evt: SyntheticInputEvent<>) => {
     evt.preventDefault();
-    const { dispatchLoadBuyCoin, paymentCoin, currency } = this.props;
+    const { dispatchLoadBuyCoin, payment, currency } = this.props;
     const baseInput = this.baseInput.current;
     const base = await baseInput.value();
 
     dispatchLoadBuyCoin({
       basecoin: currency.get('symbol'),
-      paymentcoin: paymentCoin,
+      paymentcoin: payment.get('symbol'),
       amount: Number(base)
     });
   };
@@ -368,15 +366,15 @@ class AmountSection extends React.Component<Props, State> {
   };
 
   renderSubmitForm = () => {
-    const { classes, paymentCoin, buyingLoading, intl, currency } = this.props;
+    const { classes, payment, buyingLoading, intl, currency } = this.props;
     const { disabledBuyButton } = this.state;
-    const disabled = paymentCoin === '';
+    const disabled = payment.get('symbol') === null;
     let label = intl.formatMessage({
       defaultMessage: 'SELECT YOUR PAYMENT',
       id: 'dicoapp.containers.DexPage.select_payment'
     });
-    if (paymentCoin !== null) {
-      label = paymentCoin;
+    if (payment.get('symbol') !== null) {
+      label = payment.get('symbol');
     }
 
     return (
@@ -397,7 +395,18 @@ class AmountSection extends React.Component<Props, State> {
             classes.amountform__formIcon
           )}
         />
-        {paymentCoin && (
+        {!payment.get('symbol') && (
+          <TextField
+            label={label}
+            id={label}
+            type="number"
+            variant="outlined"
+            disabled={disabled}
+            className={classes.amountform__formItem}
+            margin="dense"
+          />
+        )}
+        {payment.get('symbol') && (
           <ValidationPaymentInput
             label={label}
             id={label}
@@ -407,17 +416,6 @@ class AmountSection extends React.Component<Props, State> {
             className={classes.amountform__formItem}
             ref={this.paymentInput}
             onChange={this.onChangePaymentInput}
-          />
-        )}
-        {!paymentCoin && (
-          <TextField
-            label={label}
-            id={label}
-            type="number"
-            variant="outlined"
-            disabled={disabled}
-            className={classes.amountform__formItem}
-            margin="dense"
           />
         )}
         <BuyButton
@@ -583,9 +581,9 @@ class AmountSection extends React.Component<Props, State> {
 
   render() {
     debug(`render`);
-    const { classes, buyingLoading, entities, paymentCoin } = this.props;
+    const { classes, buyingLoading, entities, payment } = this.props;
     const { openSnackbar, snackbarMessage } = this.state;
-    const bestPrice = entities.get(paymentCoin);
+    const bestPrice = entities.get(payment.get('symbol'));
 
     return (
       <React.Fragment>
@@ -690,7 +688,6 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectPricesLoading(),
   entities: makeSelectPricesEntities(),
-  balance: makeSelectBalanceEntities(),
   buyingLoading: makeSelectBuyingLoading(),
   buyingError: makeSelectBuyingError(),
   entity: makeSelectCurrentSwap(),
