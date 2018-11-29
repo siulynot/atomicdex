@@ -17,9 +17,10 @@ import Slide from '@material-ui/core/Slide';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Circle, Line } from '../../../components/placeholder';
 import CoinSelectable from '../components/CoinSelectable';
-import { makeSelectCoinModal } from '../selectors';
+import { makeSelectCoinModal, makeSelectPricesLoading } from '../selectors';
 import { closeSelectCoinModal, clickSelectCoinModal } from '../actions';
 import type { SelectCoinPayload } from '../schema';
+import { makeSelectBalanceLoading } from '../../App/selectors';
 import ModalContent from './ModalContent';
 import InputSearch from './InputSearch';
 import search from './search-api';
@@ -46,7 +47,9 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchCloseSelectCoinModal: Function,
   // eslint-disable-next-line flowtype/no-weak-types
-  dispatchClickSelectCoinModal: Function
+  dispatchClickSelectCoinModal: Function,
+  balanceLoading: boolean,
+  priceLoading: boolean
 };
 
 type State = {
@@ -178,7 +181,12 @@ class CoinsSelectionModal extends React.Component<Props, State> {
 
   render() {
     debug(`render`);
-    const { classes, selectCoinModal } = this.props;
+    const {
+      classes,
+      selectCoinModal,
+      priceLoading,
+      balanceLoading
+    } = this.props;
     const { input, show } = this.state;
 
     return (
@@ -249,6 +257,7 @@ class CoinsSelectionModal extends React.Component<Props, State> {
               {show && (
                 <ModalContent
                   data={input}
+                  disabled={priceLoading || balanceLoading}
                   className={classes.appBar__button}
                   handleSelectCoin={this.handleSelectCoin}
                 />
@@ -274,7 +283,9 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  selectCoinModal: makeSelectCoinModal()
+  selectCoinModal: makeSelectCoinModal(),
+  priceLoading: makeSelectPricesLoading(),
+  balanceLoading: makeSelectBalanceLoading()
 });
 
 const withConnect = connect(

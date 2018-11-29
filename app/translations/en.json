@@ -12,6 +12,7 @@
   "dicoapp.containers.DexPage.payment": "Payment Method",
   "dicoapp.containers.DexPage.amount": "Amount",
   "dicoapp.containers.DexPage.select_payment": "SELECT YOUR PAYMENT",
+  "dicoapp.containers.DexPage.select_currency": "SELECT YOUR CURRENCY",
   "dicoapp.containers.DexPage.swap_successful_message": "Press here to make another swap",
   "dicoapp.containers.DexPage.execute_buy": "Buy",
   "dicoapp.containers.DexPage.loading": "Loading...",

@@ -12,6 +12,7 @@
   "dicoapp.containers.DexPage.payment": "Phương thức thanh toán",
   "dicoapp.containers.DexPage.amount": "Số lượng",
   "dicoapp.containers.DexPage.select_payment": "LỰA CHỌN PHƯƠNG THỨC THANH TOÁN",
+  "dicoapp.containers.DexPage.select_currency": "LỰA CHỌN ĐỒNG GIAO DỊCH",
   "dicoapp.containers.DexPage.swap_successful_message": "Click đây để thực hiện 1 swap khác",
   "dicoapp.containers.DexPage.execute_buy": "Mua",
   "dicoapp.containers.DexPage.loading": "Loading...",

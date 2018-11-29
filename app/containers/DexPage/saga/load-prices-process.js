@@ -1,8 +1,9 @@
 import { call, put, select, all, cancelled } from 'redux-saga/effects';
 import { CANCEL } from 'redux-saga';
 import api from '../../../lib/barter-dex-api';
+import { makeSelectBalanceList } from '../../App/selectors';
 import { loadBestPrice, loadPricesSuccess, loadPricesError } from '../actions';
-import { makeSelectBalanceList, makeSelectCurrency } from '../selectors';
+import { makeSelectCurrency } from '../selectors';
 
 const numcoin = 100000000;
 const debug = require('debug')(

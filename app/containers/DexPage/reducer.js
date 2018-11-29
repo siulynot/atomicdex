@@ -62,8 +62,7 @@ export const initialState = fromJS({
   },
 
   selectCoinModal: {
-    open: false,
-    uuid: null
+    open: false
   },
 
   currency: {
