@@ -214,7 +214,6 @@ const buyReducer = handleActions(
         destamount,
         sentflags,
         status,
-
         alicedexfee,
         bobdeposit,
         alicepayment,
@@ -296,14 +295,16 @@ const buyReducer = handleActions(
         alicedexfee !== entity.getIn(['myfee', 'tx'])
       ) {
         const d = txChain.find(e => e.stage === 'myfee');
-        entity = entity.set(
-          'myfee',
-          fromJS({
-            coin: d.coin,
-            tx: d.txid,
-            value: d.amount
-          })
-        );
+        if (d) {
+          entity = entity.set(
+            'myfee',
+            fromJS({
+              coin: d.coin,
+              tx: d.txid,
+              value: d.amount
+            })
+          );
+        }
       }
 
       if (
@@ -311,14 +312,16 @@ const buyReducer = handleActions(
         bobdeposit !== entity.getIn(['bobdeposit', 'tx'])
       ) {
         const d = txChain.find(e => e.stage === 'bobdeposit');
-        entity = entity.set(
-          'bobdeposit',
-          fromJS({
-            coin: d.coin,
-            tx: d.txid,
-            value: d.amount
-          })
-        );
+        if (d) {
+          entity = entity.set(
+            'bobdeposit',
+            fromJS({
+              coin: d.coin,
+              tx: d.txid,
+              value: d.amount
+            })
+          );
+        }
       }
 
       if (
@@ -326,14 +329,16 @@ const buyReducer = handleActions(
         alicepayment !== entity.getIn(['alicepayment', 'tx'])
       ) {
         const d = txChain.find(e => e.stage === 'alicepayment');
-        entity = entity.set(
-          'alicepayment',
-          fromJS({
-            coin: d.coin,
-            tx: d.txid,
-            value: d.amount
-          })
-        );
+        if (d) {
+          entity = entity.set(
+            'alicepayment',
+            fromJS({
+              coin: d.coin,
+              tx: d.txid,
+              value: d.amount
+            })
+          );
+        }
       }
 
       if (
@@ -341,14 +346,16 @@ const buyReducer = handleActions(
         bobpayment !== entity.getIn(['bobpayment', 'tx'])
       ) {
         const d = txChain.find(e => e.stage === 'bobpayment');
-        entity = entity.set(
-          'bobpayment',
-          fromJS({
-            coin: d.coin,
-            tx: d.txid,
-            value: d.amount
-          })
-        );
+        if (d) {
+          entity = entity.set(
+            'bobpayment',
+            fromJS({
+              coin: d.coin,
+              tx: d.txid,
+              value: d.amount
+            })
+          );
+        }
       }
 
       if (
@@ -356,14 +363,16 @@ const buyReducer = handleActions(
         paymentspent !== entity.getIn(['alicespend', 'tx'])
       ) {
         const d = txChain.find(e => e.stage === 'alicespend');
-        entity = entity.set(
-          'alicespend',
-          fromJS({
-            coin: d.coin,
-            tx: d.txid,
-            value: d.amount
-          })
-        );
+        if (d) {
+          entity = entity.set(
+            'alicespend',
+            fromJS({
+              coin: d.coin,
+              tx: d.txid,
+              value: d.amount
+            })
+          );
+        }
       }
 
       entities = entities.set(uuid, entity);
