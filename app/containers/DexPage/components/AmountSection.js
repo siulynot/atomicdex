@@ -58,6 +58,14 @@ const line = (
     }}
   />
 );
+const line470 = (
+  <Line
+    width={470}
+    style={{
+      margin: '10px auto'
+    }}
+  />
+);
 const circle = <Circle />;
 
 // eslint-disable-next-line react/prop-types
@@ -483,6 +491,9 @@ class AmountSection extends React.Component<Props, State> {
           <LinearProgress color="primary" variant="determinate" value={0} />
         </Grid>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
+          {line470}
+        </Grid>
+        <Grid item xs={12} className={classes.amountform__itemCenter}>
           <BuyButton
             disabled
             color="primary"
@@ -507,7 +518,7 @@ class AmountSection extends React.Component<Props, State> {
       <React.Fragment>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography gutterBottom className={classes.amountform__warning}>
-            The swap is running, don't exit the application
+            {"The swap is running, don't exit the application"}
           </Typography>
         </Grid>
 
@@ -656,18 +667,8 @@ class AmountSection extends React.Component<Props, State> {
           </Grid>
           {!buyingLoading && this.renderSubmitForm()}
           {buyingLoading && this.renderProcessing()}
-          {/* {this.renderSubmitForm()} */}
         </Grid>
-        {/* <Grid
-          container
-          className={classes.amountform}
-          spacing={24}
-          style={{
-            position: 'relative'
-          }}
-        >
-          {this.renderProcessing()}
-        </Grid> */}
+
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
