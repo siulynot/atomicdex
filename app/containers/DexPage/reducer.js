@@ -65,14 +65,14 @@ export const initialState = fromJS({
 
   currency: {
     name: null,
-    symbol: null,
-    amount: 0
+    symbol: null
+    // amount: 0
   },
 
   payment: {
     name: null,
-    symbol: null,
-    amount: 0
+    symbol: null
+    // amount: 0
   }
 });
 
