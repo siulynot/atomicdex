@@ -32,7 +32,9 @@ import {
   clearBuyCoinError,
   checkUpdateSwapEvent,
   checkTimeoutEvent,
-  openDetailModal
+  openDetailModal,
+  updateBobInput,
+  updateAliceInput
 } from '../actions';
 import {
   makeSelectPricesLoading,
@@ -195,6 +197,10 @@ type Props = {
   dispatchCheckUpdateSwapEvent: Function,
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchCheckTimeoutEvent: Function,
+  // eslint-disable-next-line flowtype/no-weak-types
+  // dispatchUpdateBobInput: Function,
+  // eslint-disable-next-line flowtype/no-weak-types
+  // dispatchUpdateAliceInput: Function,
   // eslint-disable-next-line flowtype/no-weak-types
   balance: Object,
   entities: Map<*, *>,
@@ -380,15 +386,18 @@ class AmountSection extends React.Component<Props, State> {
     return (
       <Grid item xs={12} className={classes.amountform__itemCenter}>
         {/* <form className={classes.withdraw__form}> */}
-        <ValidationBaseInput
-          label={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
-          id={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
-          type="number"
-          disabled={disabled}
-          className={classes.amountform__formFirstItem}
-          ref={this.baseInput}
-          onChange={this.onChangeBaseInput}
-        />
+        {!currency.get('symbol') && (
+          <ValidationBaseInput
+            label={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+            id={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+            type="number"
+            disabled={disabled}
+            className={classes.amountform__formFirstItem}
+            ref={this.baseInput}
+            onChange={this.onChangeBaseInput}
+          />
+        )}
+
         <SwapHorizIcon
           className={ClassNames(
             classes.amountform__formItem,
@@ -681,7 +690,11 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
     dispatchClearBuyCoinError: () => dispatch(clearBuyCoinError()),
     dispatchCheckUpdateSwapEvent: () => dispatch(checkUpdateSwapEvent()),
     dispatchCheckTimeoutEvent: () => dispatch(checkTimeoutEvent()),
-    dispatchOpenDetailModal: (uuid: string) => dispatch(openDetailModal(uuid))
+    dispatchOpenDetailModal: (uuid: string) => dispatch(openDetailModal(uuid)),
+    dispatchUpdateBobInput: (amount: number) =>
+      dispatch(updateBobInput(amount)),
+    dispatchUpdateAliceInput: (amount: number) =>
+      dispatch(updateAliceInput(amount))
   };
 }
 
