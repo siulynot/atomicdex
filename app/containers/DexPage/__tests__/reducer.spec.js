@@ -12,7 +12,9 @@ import {
   openSelectCoinModal,
   closeSelectCoinModal,
   clickSelectCoinModal,
-  selectCoinPayment
+  selectCoinPayment,
+  updateBobInput,
+  updateAliceInput
 } from '../actions';
 import { SWAP_TX_DEFAULT } from '../constants';
 import {
@@ -838,5 +840,25 @@ describe('containers/DexPage/reducers/selectCoinPayment', () => {
         })
       )
     ).toEqual(expectedResult);
+  });
+});
+
+describe('containers/DexPage/reducers/updateBobInput', () => {
+  const amount = 23;
+  it('should handle the updateBobInput action correctly', () => {
+    const expectedResult = initialState.setIn(['currency', 'amount'], amount);
+    expect(buyReducer(initialState, updateBobInput(amount))).toEqual(
+      expectedResult
+    );
+  });
+});
+
+describe('containers/DexPage/reducers/updateAliceInput', () => {
+  const amount = 23;
+  it('should handle the updateAliceInput action correctly', () => {
+    const expectedResult = initialState.setIn(['payment', 'amount'], amount);
+    expect(buyReducer(initialState, updateAliceInput(amount))).toEqual(
+      expectedResult
+    );
   });
 });

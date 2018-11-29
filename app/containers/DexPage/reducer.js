@@ -21,7 +21,9 @@ import {
   SELECT_COIN_MODAL_OPEN,
   SELECT_COIN_MODAL_CLOSE,
   SELECT_COIN_MODAL_CLICK,
-  COIN_PAYMENT_SELECT
+  COIN_PAYMENT_SELECT,
+  BOB_INPUT_UPDATE,
+  ALICE_INPUT_UPDATE
 } from './constants';
 
 import { LOGOUT } from '../App/constants';
@@ -578,6 +580,12 @@ const buyReducer = handleActions(
       state
         .setIn(['payment', 'name'], payload.name)
         .setIn(['payment', 'symbol'], payload.symbol),
+
+    [BOB_INPUT_UPDATE]: (state, { payload }) =>
+      state.setIn(['currency', 'amount'], payload.amount),
+
+    [ALICE_INPUT_UPDATE]: (state, { payload }) =>
+      state.setIn(['payment', 'amount'], payload.amount),
 
     [LOGOUT]: () => initialState
   },
