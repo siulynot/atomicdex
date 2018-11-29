@@ -393,15 +393,28 @@ class AmountSection extends React.Component<Props, State> {
     return (
       <Grid item xs={12} className={classes.amountform__itemCenter}>
         {/* <form className={classes.withdraw__form}> */}
-        <ValidationBaseInput
-          label={labelForCurrency}
-          id={labelForCurrency}
-          type="number"
-          disabled={disabled}
-          className={classes.amountform__formFirstItem}
-          ref={this.baseInput}
-          onChange={this.onChangeBaseInput}
-        />
+        {!currency.get('symbol') && (
+          <ValidationBaseInput
+            label={labelForCurrency}
+            id={labelForCurrency}
+            type="number"
+            variant="outlined"
+            disabled={disabled}
+            className={classes.amountform__formFirstItem}
+            margin="dense"
+          />
+        )}
+        {currency.get('symbol') && (
+          <ValidationBaseInput
+            label={labelForCurrency}
+            id={labelForCurrency}
+            type="number"
+            disabled={disabled}
+            className={classes.amountform__formFirstItem}
+            ref={this.baseInput}
+            onChange={this.onChangeBaseInput}
+          />
+        )}
         <SwapHorizIcon
           className={ClassNames(
             classes.amountform__formItem,
@@ -439,7 +452,7 @@ class AmountSection extends React.Component<Props, State> {
           onClick={this.onClickBuyCoinButton}
         >
           <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
-            {(...content) => `${content} (${currency.get('symbol')})`}
+            {(...content) => `${content} (${currency.get('symbol') || 'N/A'})`}
           </FormattedMessage>
         </BuyButton>
         {/* </form> */}

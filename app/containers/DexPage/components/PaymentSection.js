@@ -8,10 +8,10 @@ import { createStructuredSelector } from 'reselect';
 import { getCoinIcon } from '../../../components/CryptoIcons';
 import { Line, Circle } from '../../../components/placeholder';
 import { covertSymbolToName } from '../../../utils/coin';
+import { makeSelectBalanceList } from '../../App/selectors';
 import { floor } from '../utils';
 import { selectCoinPayment, loadPrice } from '../actions';
 import {
-  makeSelectBalanceList,
   makeSelectPricesEntities,
   makeSelectCurrency,
   makeSelectPayment
