@@ -2,18 +2,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import type { Dispatch } from 'redux';
 import type { List, Map } from 'immutable';
 import { createStructuredSelector } from 'reselect';
 import { getCoinIcon } from '../../../components/CryptoIcons';
 import { Line, Circle } from '../../../components/placeholder';
 import { covertSymbolToName } from '../../../utils/coin';
 import { floor } from '../utils';
-import CoinSelectable from './CoinSelectable';
+import { selectCoinPayment, loadPrice } from '../actions';
 import {
   makeSelectBalanceList,
   makeSelectPricesEntities,
-  makeSelectCurrency
+  makeSelectCurrency,
+  makeSelectPayment
 } from '../selectors';
+import type { SelectCoinPayload } from '../schema';
+import CoinSelectable from './CoinSelectable';
 
 const debug = require('debug')('dicoapp:containers:DexPage:PaymentSection');
 
@@ -58,22 +62,33 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchLoadPrice: Function,
   // eslint-disable-next-line flowtype/no-weak-types
-  onClick: Function,
-  paymentCoin: string,
+  dispatchSelectCoinPayment: Function,
   // eslint-disable-next-line flowtype/no-weak-types
   balance: Object,
   entities: Map<*, *>,
   list: List<*>,
-  currency: Map<*, *>
+  currency: Map<*, *>,
+  payment: Map<*, *>
 };
 
 class PaymentSection extends React.PureComponent<Props> {
   static defaultProps = {};
 
+  onClickPaymentCoin = (evt: SyntheticInputEvent<>) => {
+    evt.preventDefault();
+    const { value } = evt.target;
+    const { payment, dispatchSelectCoinPayment } = this.props;
+    if (value !== payment.get('symbol')) {
+      dispatchSelectCoinPayment({
+        name: covertSymbolToName(value),
+        symbol: value
+      });
+    }
+  };
+
   renderPaymentCoin = symbol => {
     const {
-      onClick,
-      paymentCoin,
+      payment,
       entities,
       balance,
       dispatchLoadPrice,
@@ -102,7 +117,7 @@ class PaymentSection extends React.PureComponent<Props> {
       <CoinSelectable
         dispatchLoadPrice={dispatchLoadPrice}
         disabled={c.get('bestPrice') === 0 || b.get('balance') === 0}
-        selected={paymentCoin === symbol}
+        selected={payment.get('symbol') === symbol}
         key={`paymentCoin${symbol}`}
         data={symbol}
         icon={icon}
@@ -111,7 +126,7 @@ class PaymentSection extends React.PureComponent<Props> {
         price={`1 ${currency.get('symbol') || 'N/A'} = ${c.get(
           'bestPrice'
         )} ${symbol}`}
-        onClick={onClick}
+        onClick={this.onClickPaymentCoin}
       />
     );
   };
@@ -138,15 +153,25 @@ class PaymentSection extends React.PureComponent<Props> {
 
 PaymentSection.displayName = 'PaymentSection';
 
+// eslint-disable-next-line flowtype/no-weak-types
+export function mapDispatchToProps(dispatch: Dispatch<Object>) {
+  return {
+    dispatchLoadPrice: (coin: string) => dispatch(loadPrice(coin)),
+    dispatchSelectCoinPayment: (payment: SelectCoinPayload) =>
+      dispatch(selectCoinPayment(payment))
+  };
+}
+
 const mapStateToProps = createStructuredSelector({
   list: makeSelectBalanceList(),
   entities: makeSelectPricesEntities(),
-  currency: makeSelectCurrency()
+  currency: makeSelectCurrency(),
+  payment: makeSelectPayment()
 });
 
 const withConnect = connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 );
 
 export default compose(withConnect)(PaymentSection);

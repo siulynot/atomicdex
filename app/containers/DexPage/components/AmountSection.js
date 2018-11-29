@@ -41,7 +41,8 @@ import {
   makeSelectBuyingLoading,
   makeSelectBuyingError,
   makeSelectCurrentSwap,
-  makeSelectCurrency
+  makeSelectCurrency,
+  makeSelectPayment
 } from '../selectors';
 import BuyButton from '../../../components/BuyButton';
 import CoinSelectable from './CoinSelectable';
@@ -200,6 +201,7 @@ type Props = {
   balance: Object,
   entities: Map<*, *>,
   currency: Map<*, *>,
+  // payment: Map<*, *>,
   buyingLoading: boolean,
   // eslint-dis,able-next-line flowtype/no-weak-types
   // buyingError: boolean | Object,
@@ -692,7 +694,8 @@ const mapStateToProps = createStructuredSelector({
   buyingLoading: makeSelectBuyingLoading(),
   buyingError: makeSelectBuyingError(),
   entity: makeSelectCurrentSwap(),
-  currency: makeSelectCurrency()
+  currency: makeSelectCurrency(),
+  payment: makeSelectPayment()
 });
 
 const withConnect = connect(
