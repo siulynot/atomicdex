@@ -15,20 +15,22 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   data: Map<*, *>,
   // eslint-disable-next-line flowtype/no-weak-types
-  handleSelectCoin: Function
+  handleSelectCoin: Function,
+  disabled: boolean
 };
 
 type State = {};
 
 class ModalContent extends React.PureComponent<Props, State> {
   renderListItem = e => {
-    const { className, handleSelectCoin } = this.props;
+    const { className, handleSelectCoin, disabled } = this.props;
     return (
       <MemoizedRender
         value={{
           data: e,
           handleSelectCoin,
-          className
+          className,
+          disabled
         }}
         key={`coinsSelectionModal${e.symbol}${e.id}`}
       >
@@ -37,6 +39,7 @@ class ModalContent extends React.PureComponent<Props, State> {
           return (
             <Grid item xs={3}>
               <CoinSelectable
+                disabled={state.disabled}
                 className={state.className}
                 icon={<CIcon width={56} height={56} viewBox="0 0 32 32" />}
                 title={covertSymbolToName(state.data.symbol)}

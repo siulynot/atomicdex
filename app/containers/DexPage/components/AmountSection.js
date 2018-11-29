@@ -368,21 +368,28 @@ class AmountSection extends React.Component<Props, State> {
   renderSubmitForm = () => {
     const { classes, paymentCoin, buyingLoading, intl, currency } = this.props;
     const { disabledBuyButton } = this.state;
-    const disabled = paymentCoin === '';
-    let label = intl.formatMessage({
+    const disabled = paymentCoin === null;
+    let labelForPayment = intl.formatMessage({
       defaultMessage: 'SELECT YOUR PAYMENT',
       id: 'dicoapp.containers.DexPage.select_payment'
     });
     if (paymentCoin !== null) {
-      label = paymentCoin;
+      labelForPayment = paymentCoin;
+    }
+    let labelForCurrency = intl.formatMessage({
+      defaultMessage: 'SELECT YOUR CURRENCY',
+      id: 'dicoapp.containers.DexPage.select_currency'
+    });
+    if (currency.get('symbol') !== null) {
+      labelForCurrency = currency.get('symbol');
     }
 
     return (
       <Grid item xs={12} className={classes.amountform__itemCenter}>
         {/* <form className={classes.withdraw__form}> */}
         <ValidationBaseInput
-          label={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
-          id={currency.get('symbol') || 'SELECT YOUR CURRENCY'}
+          label={labelForCurrency}
+          id={labelForCurrency}
           type="number"
           disabled={disabled}
           className={classes.amountform__formFirstItem}
@@ -395,27 +402,27 @@ class AmountSection extends React.Component<Props, State> {
             classes.amountform__formIcon
           )}
         />
+        {!paymentCoin && (
+          <TextField
+            label={labelForPayment}
+            id={labelForPayment}
+            type="number"
+            variant="outlined"
+            disabled={disabled}
+            className={classes.amountform__formItem}
+            margin="dense"
+          />
+        )}
         {paymentCoin && (
           <ValidationPaymentInput
-            label={label}
-            id={label}
+            label={labelForPayment}
+            id={labelForPayment}
             type="number"
             balance={this.getBalance()}
             disabled={disabled}
             className={classes.amountform__formItem}
             ref={this.paymentInput}
             onChange={this.onChangePaymentInput}
-          />
-        )}
-        {!paymentCoin && (
-          <TextField
-            label={label}
-            id={label}
-            type="number"
-            variant="outlined"
-            disabled={disabled}
-            className={classes.amountform__formItem}
-            margin="dense"
           />
         )}
         <BuyButton
@@ -440,7 +447,7 @@ class AmountSection extends React.Component<Props, State> {
       <React.Fragment>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography gutterBottom className={classes.amountform__warning}>
-            The swap is running, don't exit the application
+            {"The swap is running, don't exit the application"}
           </Typography>
         </Grid>
         <Grid item xs={6} className={classes.amountform__itemCenter}>

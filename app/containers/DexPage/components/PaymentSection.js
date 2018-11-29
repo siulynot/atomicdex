@@ -8,12 +8,9 @@ import { getCoinIcon } from '../../../components/CryptoIcons';
 import { Line, Circle } from '../../../components/placeholder';
 import { covertSymbolToName } from '../../../utils/coin';
 import { floor } from '../utils';
+import { makeSelectBalanceList } from '../../App/selectors';
+import { makeSelectPricesEntities, makeSelectCurrency } from '../selectors';
 import CoinSelectable from './CoinSelectable';
-import {
-  makeSelectBalanceList,
-  makeSelectPricesEntities,
-  makeSelectCurrency
-} from '../selectors';
 
 const debug = require('debug')('dicoapp:containers:DexPage:PaymentSection');
 
