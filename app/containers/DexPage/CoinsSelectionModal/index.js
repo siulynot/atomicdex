@@ -100,7 +100,7 @@ const styles = theme => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     fontSize: '1.25rem',
-    fontWeight: 500,
+    // fontWeight: 500,
     lineHeight: 1.6,
     letterSpacing: '0.0075em',
     '&:before': {

@@ -27,7 +27,8 @@ import type { BuyCoinPayload } from '../schema';
 import {
   AUTO_HIDE_SNACKBAR_TIME,
   STATE_SWAPS,
-  SWAP_WARNING_MESSAGE
+  SWAP_WARNING_MESSAGE,
+  NA
 } from '../constants';
 import {
   loadBuyCoin,
@@ -458,6 +459,15 @@ class AmountSection extends React.Component<Props, State> {
             onChange={this.onChangePaymentInput}
           />
         )}
+        <div
+          className={classes.amountform__infosubtitle2}
+          style={{
+            width: '100%',
+            textAlign: 'right'
+          }}
+        >
+          Dex Fee: {currency.get('symbol') || NA}
+        </div>
         <BuyButton
           disabled={disabledBuyButton || buyingLoading}
           color="primary"
@@ -466,7 +476,7 @@ class AmountSection extends React.Component<Props, State> {
           onClick={this.onClickBuyCoinButton}
         >
           <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
-            {(...content) => `${content} (${currency.get('symbol') || 'N/A'})`}
+            {(...content) => `${content} (${currency.get('symbol') || NA})`}
           </FormattedMessage>
         </BuyButton>
         {/* </form> */}
@@ -655,7 +665,7 @@ class AmountSection extends React.Component<Props, State> {
               <span className={classes.amountform__infosubtitle2}>
                 {bestPrice
                   ? `${bestPrice.get('avevolume')} ${bestPrice.get('base')}`
-                  : 'N/A'}
+                  : NA}
               </span>
             </div>
             <div
@@ -668,7 +678,7 @@ class AmountSection extends React.Component<Props, State> {
               <span className={classes.amountform__infosubtitle2}>
                 {bestPrice
                   ? `${bestPrice.get('maxvolume')} ${bestPrice.get('base')}`
-                  : 'N/A'}
+                  : NA}
               </span>
             </div>
             <div className={classes.amountform__infoItem}>
@@ -678,7 +688,7 @@ class AmountSection extends React.Component<Props, State> {
                   ? `1 ${bestPrice.get('base')} = ${bestPrice.get(
                       'bestPrice'
                     )} ${bestPrice.get('rel')}`
-                  : 'N/A'}
+                  : NA}
               </span>
             </div>
           </Grid>

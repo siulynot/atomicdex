@@ -53,3 +53,5 @@ export const COIN_PAYMENT_SELECT = 'dicoapp/DexPage/COIN_PAYMENT_SELECT';
 
 export const SWAP_WARNING_MESSAGE =
   "The swap is running, don't exit the application";
+
+export const NA = 'N/A';
