@@ -24,7 +24,11 @@ import { getCoinIcon } from '../../../components/CryptoIcons';
 import { requiredNumber } from '../../../components/Form/helper';
 import validate from '../../../components/Form/validate';
 import type { BuyCoinPayload } from '../schema';
-import { AUTO_HIDE_SNACKBAR_TIME, STATE_SWAPS } from '../constants';
+import {
+  AUTO_HIDE_SNACKBAR_TIME,
+  STATE_SWAPS,
+  SWAP_WARNING_MESSAGE
+} from '../constants';
 import {
   loadBuyCoin,
   loadRecentSwaps,
@@ -60,7 +64,7 @@ const line470 = (
   <Line
     width={470}
     style={{
-      margin: '10px auto'
+      margin: 'auto'
     }}
   />
 );
@@ -476,14 +480,25 @@ class AmountSection extends React.Component<Props, State> {
       <React.Fragment>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography gutterBottom className={classes.amountform__warning}>
-            {"The swap is running, don't exit the application"}
+            {SWAP_WARNING_MESSAGE}
           </Typography>
         </Grid>
         <Grid item xs={6} className={classes.amountform__itemCenter}>
-          <CoinSelectable icon={circle} title="Deposit" subTitle={line} />
+          <CoinSelectable
+            className={classes.amountform__button}
+            icon={circle}
+            title="Deposit"
+            subTitle={line}
+          />
         </Grid>
+        <SwapHorizIcon className={classes.amountform__switchBtn} />
         <Grid item xs={6} className={classes.amountform__itemCenter}>
-          <CoinSelectable icon={circle} title="Receive" subTitle={line} />
+          <CoinSelectable
+            className={classes.amountform__button}
+            icon={circle}
+            title="Receive"
+            subTitle={line}
+          />
         </Grid>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography variant="body2" gutterBottom>
@@ -520,7 +535,7 @@ class AmountSection extends React.Component<Props, State> {
       <React.Fragment>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography gutterBottom className={classes.amountform__warning}>
-            {"The swap is running, don't exit the application"}
+            {SWAP_WARNING_MESSAGE}
           </Typography>
         </Grid>
 
@@ -670,7 +685,9 @@ class AmountSection extends React.Component<Props, State> {
           {!buyingLoading && this.renderSubmitForm()}
           {buyingLoading && this.renderProcessing()}
         </Grid>
-
+        {/* <Grid container className={classes.amountform} spacing={24}>
+          {this.renderConfirmForm()}
+        </Grid> */}
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
