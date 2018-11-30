@@ -28,7 +28,8 @@ import {
   AUTO_HIDE_SNACKBAR_TIME,
   STATE_SWAPS,
   SWAP_WARNING_MESSAGE,
-  NA
+  NA,
+  DEXFEE
 } from '../constants';
 import {
   loadBuyCoin,
@@ -49,6 +50,7 @@ import {
   makeSelectPayment
 } from '../selectors';
 import BuyButton from '../../../components/BuyButton';
+import { floor } from '../utils';
 import CoinSelectable from './CoinSelectable';
 
 const debug = require('debug')('dicoapp:containers:DexPage:AmountSection');
@@ -229,7 +231,8 @@ type Props = {
 type State = {
   disabledBuyButton: boolean,
   openSnackbar: boolean,
-  snackbarMessage: string
+  snackbarMessage: string,
+  dexfee: number
 };
 
 class AmountSection extends React.Component<Props, State> {
@@ -243,7 +246,8 @@ class AmountSection extends React.Component<Props, State> {
     this.state = {
       disabledBuyButton: true,
       openSnackbar: false,
-      snackbarMessage: ''
+      snackbarMessage: '',
+      dexfee: 0
     };
 
     this.baseInput = React.createRef();
@@ -341,10 +345,13 @@ class AmountSection extends React.Component<Props, State> {
       const baseInput = this.baseInput.current;
       const base = await baseInput.value();
       this.controlBuyButton(false);
-
       const bestPrice = this.getBestPrice();
       const paymentInput = this.paymentInput.current;
-      await paymentInput.setValue(base * bestPrice);
+      const payment = base * bestPrice;
+      await paymentInput.setValue(payment);
+      this.setState({
+        dexfee: floor(payment / DEXFEE, 8)
+      });
     } catch (err) {
       this.controlBuyButton(true);
       debug(`onChangeBaseInput: ${err.message}`);
@@ -361,6 +368,9 @@ class AmountSection extends React.Component<Props, State> {
       const bestPrice = this.getBestPrice();
       const baseInput = this.baseInput.current;
       await baseInput.setValue(payment / bestPrice);
+      this.setState({
+        dexfee: floor(payment / DEXFEE, 8)
+      });
     } catch (err) {
       this.controlBuyButton(true);
       debug(`onChangePaymentInput: ${err.message}`);
@@ -388,7 +398,7 @@ class AmountSection extends React.Component<Props, State> {
 
   renderSubmitForm = () => {
     const { classes, payment, buyingLoading, intl, currency } = this.props;
-    const { disabledBuyButton } = this.state;
+    const { disabledBuyButton, dexfee } = this.state;
     const disabled = payment.get('symbol') === null;
     let labelForPayment = intl.formatMessage({
       defaultMessage: 'SELECT YOUR PAYMENT',
@@ -466,7 +476,8 @@ class AmountSection extends React.Component<Props, State> {
             textAlign: 'right'
           }}
         >
-          Dex Fee: {currency.get('symbol') || NA}
+          Dex Fee:{' '}
+          {payment.get('symbol') ? `${dexfee} ${payment.get('symbol')}` : NA}
         </div>
         <BuyButton
           disabled={disabledBuyButton || buyingLoading}

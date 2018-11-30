@@ -55,3 +55,5 @@ export const SWAP_WARNING_MESSAGE =
   "The swap is running, don't exit the application";
 
 export const NA = 'N/A';
+
+export const DEXFEE = 777;
