@@ -24,7 +24,13 @@ import { getCoinIcon } from '../../../components/CryptoIcons';
 import { requiredNumber } from '../../../components/Form/helper';
 import validate from '../../../components/Form/validate';
 import type { BuyCoinPayload } from '../schema';
-import { AUTO_HIDE_SNACKBAR_TIME, STATE_SWAPS } from '../constants';
+import {
+  AUTO_HIDE_SNACKBAR_TIME,
+  STATE_SWAPS,
+  SWAP_WARNING_MESSAGE,
+  NA,
+  DEXFEE
+} from '../constants';
 import {
   loadBuyCoin,
   loadRecentSwaps,
@@ -36,7 +42,7 @@ import {
 } from '../actions';
 import {
   makeSelectPricesLoading,
-  makeSelectPricesEntities,
+  makeSelectPriceEntities,
   makeSelectBuyingLoading,
   makeSelectBuyingError,
   makeSelectCurrentSwap,
@@ -44,6 +50,7 @@ import {
   makeSelectPayment
 } from '../selectors';
 import BuyButton from '../../../components/BuyButton';
+import { floor } from '../utils';
 import CoinSelectable from './CoinSelectable';
 
 const debug = require('debug')('dicoapp:containers:DexPage:AmountSection');
@@ -60,7 +67,7 @@ const line470 = (
   <Line
     width={470}
     style={{
-      margin: '10px auto'
+      margin: 'auto'
     }}
   />
 );
@@ -184,6 +191,11 @@ const styles = theme => ({
     fontSize: 11
   },
 
+  amountform__infofee: {
+    width: '100%',
+    textAlign: 'right'
+  },
+
   amountform: {
     width: '50%',
     position: 'relative'
@@ -205,7 +217,7 @@ type Props = {
   dispatchCheckTimeoutEvent: Function,
   // eslint-disable-next-line flowtype/no-weak-types
   balance: Object,
-  entities: Map<*, *>,
+  price: Map<*, *> | null,
   currency: Map<*, *>,
   payment: Map<*, *>,
   buyingLoading: boolean,
@@ -224,7 +236,8 @@ type Props = {
 type State = {
   disabledBuyButton: boolean,
   openSnackbar: boolean,
-  snackbarMessage: string
+  snackbarMessage: string,
+  dexfee: number
 };
 
 class AmountSection extends React.Component<Props, State> {
@@ -238,7 +251,8 @@ class AmountSection extends React.Component<Props, State> {
     this.state = {
       disabledBuyButton: true,
       openSnackbar: false,
-      snackbarMessage: ''
+      snackbarMessage: '',
+      dexfee: 0
     };
 
     this.baseInput = React.createRef();
@@ -308,9 +322,9 @@ class AmountSection extends React.Component<Props, State> {
   };
 
   getBestPrice = () => {
-    const { entities, payment } = this.props;
-    const c = entities.get(payment.get('symbol'));
-    return c.get('bestPrice');
+    //  entities, payment,
+    const { price } = this.props;
+    return price.get('bestPrice');
   };
 
   getBalance = () => {
@@ -321,13 +335,16 @@ class AmountSection extends React.Component<Props, State> {
     return b.get('balance');
   };
 
-  controlBuyButton = (state: boolean) => {
-    const { disabledBuyButton } = this.state;
-    if (disabledBuyButton !== state) {
-      this.setState({
-        disabledBuyButton: state
-      });
+  controlBuyButton = (state: boolean, fee?: number) => {
+    const { disabledBuyButton, dexfee } = this.state;
+    const s = {};
+    if (fee && dexfee !== fee) {
+      s.dexfee = fee;
     }
+    if (disabledBuyButton !== state) {
+      s.disabledBuyButton = state;
+    }
+    this.setState(s);
   };
 
   onChangeBaseInput = async () => {
@@ -335,11 +352,13 @@ class AmountSection extends React.Component<Props, State> {
       debug(`onChangeBaseInput`);
       const baseInput = this.baseInput.current;
       const base = await baseInput.value();
-      this.controlBuyButton(false);
 
       const bestPrice = this.getBestPrice();
       const paymentInput = this.paymentInput.current;
-      await paymentInput.setValue(base * bestPrice);
+      const payment = base * bestPrice;
+      await paymentInput.setValue(payment);
+
+      this.controlBuyButton(false, floor(payment / DEXFEE, 8));
     } catch (err) {
       this.controlBuyButton(true);
       debug(`onChangeBaseInput: ${err.message}`);
@@ -351,11 +370,12 @@ class AmountSection extends React.Component<Props, State> {
       debug(`onChangePaymentInput`);
       const paymentInput = this.paymentInput.current;
       const payment = await paymentInput.value();
-      this.controlBuyButton(false);
 
       const bestPrice = this.getBestPrice();
       const baseInput = this.baseInput.current;
       await baseInput.setValue(payment / bestPrice);
+
+      this.controlBuyButton(false, floor(payment / DEXFEE, 8));
     } catch (err) {
       this.controlBuyButton(true);
       debug(`onChangePaymentInput: ${err.message}`);
@@ -383,7 +403,7 @@ class AmountSection extends React.Component<Props, State> {
 
   renderSubmitForm = () => {
     const { classes, payment, buyingLoading, intl, currency } = this.props;
-    const { disabledBuyButton } = this.state;
+    const { disabledBuyButton, dexfee } = this.state;
     const disabled = payment.get('symbol') === null;
     let labelForPayment = intl.formatMessage({
       defaultMessage: 'SELECT YOUR PAYMENT',
@@ -454,6 +474,15 @@ class AmountSection extends React.Component<Props, State> {
             onChange={this.onChangePaymentInput}
           />
         )}
+        <div
+          className={ClassNames(
+            classes.amountform__infosubtitle2,
+            classes.amountform__infofee
+          )}
+        >
+          Dex Fee:{' '}
+          {payment.get('symbol') ? `${dexfee} ${payment.get('symbol')}` : NA}
+        </div>
         <BuyButton
           disabled={disabledBuyButton || buyingLoading}
           color="primary"
@@ -462,7 +491,7 @@ class AmountSection extends React.Component<Props, State> {
           onClick={this.onClickBuyCoinButton}
         >
           <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
-            {(...content) => `${content} (${currency.get('symbol') || 'N/A'})`}
+            {(...content) => `${content} (${currency.get('symbol') || NA})`}
           </FormattedMessage>
         </BuyButton>
         {/* </form> */}
@@ -476,14 +505,25 @@ class AmountSection extends React.Component<Props, State> {
       <React.Fragment>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography gutterBottom className={classes.amountform__warning}>
-            {"The swap is running, don't exit the application"}
+            {SWAP_WARNING_MESSAGE}
           </Typography>
         </Grid>
         <Grid item xs={6} className={classes.amountform__itemCenter}>
-          <CoinSelectable icon={circle} title="Deposit" subTitle={line} />
+          <CoinSelectable
+            className={classes.amountform__button}
+            icon={circle}
+            title="Deposit"
+            subTitle={line}
+          />
         </Grid>
+        <SwapHorizIcon className={classes.amountform__switchBtn} />
         <Grid item xs={6} className={classes.amountform__itemCenter}>
-          <CoinSelectable icon={circle} title="Receive" subTitle={line} />
+          <CoinSelectable
+            className={classes.amountform__button}
+            icon={circle}
+            title="Receive"
+            subTitle={line}
+          />
         </Grid>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography variant="body2" gutterBottom>
@@ -520,7 +560,7 @@ class AmountSection extends React.Component<Props, State> {
       <React.Fragment>
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography gutterBottom className={classes.amountform__warning}>
-            {"The swap is running, don't exit the application"}
+            {SWAP_WARNING_MESSAGE}
           </Typography>
         </Grid>
 
@@ -620,9 +660,8 @@ class AmountSection extends React.Component<Props, State> {
 
   render() {
     debug(`render`);
-    const { classes, buyingLoading, entities, payment } = this.props;
+    const { classes, buyingLoading, price } = this.props;
     const { openSnackbar, snackbarMessage } = this.state;
-    const bestPrice = entities.get(payment.get('symbol'));
 
     return (
       <React.Fragment>
@@ -638,9 +677,7 @@ class AmountSection extends React.Component<Props, State> {
             <div className={classes.amountform__infoItem}>
               <Typography variant="subtitle1">Deposit Min</Typography>
               <span className={classes.amountform__infosubtitle2}>
-                {bestPrice
-                  ? `${bestPrice.get('avevolume')} ${bestPrice.get('base')}`
-                  : 'N/A'}
+                {price ? `${price.get('avevolume')} ${price.get('base')}` : NA}
               </span>
             </div>
             <div
@@ -651,26 +688,26 @@ class AmountSection extends React.Component<Props, State> {
             >
               <Typography variant="subtitle1">Deposit Max</Typography>
               <span className={classes.amountform__infosubtitle2}>
-                {bestPrice
-                  ? `${bestPrice.get('maxvolume')} ${bestPrice.get('base')}`
-                  : 'N/A'}
+                {price ? `${price.get('maxvolume')} ${price.get('base')}` : NA}
               </span>
             </div>
             <div className={classes.amountform__infoItem}>
               <Typography variant="subtitle1">Instant rate</Typography>
               <span className={classes.amountform__infosubtitle2}>
-                {bestPrice
-                  ? `1 ${bestPrice.get('base')} = ${bestPrice.get(
+                {price
+                  ? `1 ${price.get('base')} = ${price.get(
                       'bestPrice'
-                    )} ${bestPrice.get('rel')}`
-                  : 'N/A'}
+                    )} ${price.get('rel')}`
+                  : NA}
               </span>
             </div>
           </Grid>
           {!buyingLoading && this.renderSubmitForm()}
           {buyingLoading && this.renderProcessing()}
         </Grid>
-
+        {/* <Grid container className={classes.amountform} spacing={24}>
+          {this.renderConfirmForm()}
+        </Grid> */}
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
@@ -716,7 +753,7 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectPricesLoading(),
-  entities: makeSelectPricesEntities(),
+  price: makeSelectPriceEntities(),
   buyingLoading: makeSelectBuyingLoading(),
   buyingError: makeSelectBuyingError(),
   entity: makeSelectCurrentSwap(),

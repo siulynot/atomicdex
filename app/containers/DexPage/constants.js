@@ -50,3 +50,10 @@ export const SELECT_COIN_MODAL_CLICK =
   'dicoapp/DexPage/SELECT_COIN_MODAL_CLICK';
 
 export const COIN_PAYMENT_SELECT = 'dicoapp/DexPage/COIN_PAYMENT_SELECT';
+
+export const SWAP_WARNING_MESSAGE =
+  "The swap is running, don't exit the application";
+
+export const NA = 'N/A';
+
+export const DEXFEE = 777;

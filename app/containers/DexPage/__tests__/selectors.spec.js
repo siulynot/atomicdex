@@ -9,6 +9,7 @@ import {
   makeSelectPricesLoading,
   makeSelectPricesError,
   makeSelectPricesEntities,
+  makeSelectPriceEntities,
   makeSelectBuying,
   makeSelectBuyingLoading,
   makeSelectBuyingError,
@@ -33,7 +34,7 @@ describe('containers/DexPage/selectors/selectBuy', () => {
 
 describe('containers/DexPage/selectors/makeSelectPrices', () => {
   it('should select the prices state', () => {
-    const mockedState = fromJS({
+    let mockedState = fromJS({
       [APP_STATE_NAME]: initialState
     });
     const selectSelectPrices = makeSelectPrices();
@@ -53,6 +54,24 @@ describe('containers/DexPage/selectors/makeSelectPrices', () => {
     expect(selectSelectPricesEntities(mockedState)).toEqual(
       initialState.getIn(['prices', 'entities'])
     );
+
+    const selectSelectPriceEntities = makeSelectPriceEntities();
+    expect(selectSelectPriceEntities(mockedState)).toEqual(null);
+    const KMD = {
+      hello: 'wold'
+    };
+    mockedState = fromJS({
+      [APP_STATE_NAME]: initialState
+        .setIn(['payment', 'name'], 'Komodo')
+        .setIn(['payment', 'symbol'], 'KMD')
+        .setIn(
+          ['prices', 'entities'],
+          fromJS({
+            KMD
+          })
+        )
+    });
+    expect(selectSelectPriceEntities(mockedState)).toEqual(fromJS(KMD));
   });
 });
 
