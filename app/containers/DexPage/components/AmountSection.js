@@ -191,6 +191,11 @@ const styles = theme => ({
     fontSize: 11
   },
 
+  amountform__infofee: {
+    width: '100%',
+    textAlign: 'right'
+  },
+
   amountform: {
     width: '50%',
     position: 'relative'
@@ -470,11 +475,10 @@ class AmountSection extends React.Component<Props, State> {
           />
         )}
         <div
-          className={classes.amountform__infosubtitle2}
-          style={{
-            width: '100%',
-            textAlign: 'right'
-          }}
+          className={ClassNames(
+            classes.amountform__infosubtitle2,
+            classes.amountform__infofee
+          )}
         >
           Dex Fee:{' '}
           {payment.get('symbol') ? `${dexfee} ${payment.get('symbol')}` : NA}
