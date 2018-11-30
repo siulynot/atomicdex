@@ -42,7 +42,7 @@ import {
 } from '../actions';
 import {
   makeSelectPricesLoading,
-  makeSelectPricesEntities,
+  makeSelectPriceEntities,
   makeSelectBuyingLoading,
   makeSelectBuyingError,
   makeSelectCurrentSwap,
@@ -212,7 +212,7 @@ type Props = {
   dispatchCheckTimeoutEvent: Function,
   // eslint-disable-next-line flowtype/no-weak-types
   balance: Object,
-  entities: Map<*, *>,
+  price: Map<*, *> | null,
   currency: Map<*, *>,
   payment: Map<*, *>,
   buyingLoading: boolean,
@@ -317,9 +317,9 @@ class AmountSection extends React.Component<Props, State> {
   };
 
   getBestPrice = () => {
-    const { entities, payment } = this.props;
-    const c = entities.get(payment.get('symbol'));
-    return c.get('bestPrice');
+    //  entities, payment,
+    const { price } = this.props;
+    return price.get('bestPrice');
   };
 
   getBalance = () => {
@@ -330,13 +330,16 @@ class AmountSection extends React.Component<Props, State> {
     return b.get('balance');
   };
 
-  controlBuyButton = (state: boolean) => {
-    const { disabledBuyButton } = this.state;
-    if (disabledBuyButton !== state) {
-      this.setState({
-        disabledBuyButton: state
-      });
+  controlBuyButton = (state: boolean, fee?: number) => {
+    const { disabledBuyButton, dexfee } = this.state;
+    const s = {};
+    if (fee && dexfee !== fee) {
+      s.dexfee = fee;
     }
+    if (disabledBuyButton !== state) {
+      s.disabledBuyButton = state;
+    }
+    this.setState(s);
   };
 
   onChangeBaseInput = async () => {
@@ -344,14 +347,13 @@ class AmountSection extends React.Component<Props, State> {
       debug(`onChangeBaseInput`);
       const baseInput = this.baseInput.current;
       const base = await baseInput.value();
-      this.controlBuyButton(false);
+
       const bestPrice = this.getBestPrice();
       const paymentInput = this.paymentInput.current;
       const payment = base * bestPrice;
       await paymentInput.setValue(payment);
-      this.setState({
-        dexfee: floor(payment / DEXFEE, 8)
-      });
+
+      this.controlBuyButton(false, floor(payment / DEXFEE, 8));
     } catch (err) {
       this.controlBuyButton(true);
       debug(`onChangeBaseInput: ${err.message}`);
@@ -363,14 +365,12 @@ class AmountSection extends React.Component<Props, State> {
       debug(`onChangePaymentInput`);
       const paymentInput = this.paymentInput.current;
       const payment = await paymentInput.value();
-      this.controlBuyButton(false);
 
       const bestPrice = this.getBestPrice();
       const baseInput = this.baseInput.current;
       await baseInput.setValue(payment / bestPrice);
-      this.setState({
-        dexfee: floor(payment / DEXFEE, 8)
-      });
+
+      this.controlBuyButton(false, floor(payment / DEXFEE, 8));
     } catch (err) {
       this.controlBuyButton(true);
       debug(`onChangePaymentInput: ${err.message}`);
@@ -656,9 +656,8 @@ class AmountSection extends React.Component<Props, State> {
 
   render() {
     debug(`render`);
-    const { classes, buyingLoading, entities, payment } = this.props;
+    const { classes, buyingLoading, price } = this.props;
     const { openSnackbar, snackbarMessage } = this.state;
-    const bestPrice = entities.get(payment.get('symbol'));
 
     return (
       <React.Fragment>
@@ -674,9 +673,7 @@ class AmountSection extends React.Component<Props, State> {
             <div className={classes.amountform__infoItem}>
               <Typography variant="subtitle1">Deposit Min</Typography>
               <span className={classes.amountform__infosubtitle2}>
-                {bestPrice
-                  ? `${bestPrice.get('avevolume')} ${bestPrice.get('base')}`
-                  : NA}
+                {price ? `${price.get('avevolume')} ${price.get('base')}` : NA}
               </span>
             </div>
             <div
@@ -687,18 +684,16 @@ class AmountSection extends React.Component<Props, State> {
             >
               <Typography variant="subtitle1">Deposit Max</Typography>
               <span className={classes.amountform__infosubtitle2}>
-                {bestPrice
-                  ? `${bestPrice.get('maxvolume')} ${bestPrice.get('base')}`
-                  : NA}
+                {price ? `${price.get('maxvolume')} ${price.get('base')}` : NA}
               </span>
             </div>
             <div className={classes.amountform__infoItem}>
               <Typography variant="subtitle1">Instant rate</Typography>
               <span className={classes.amountform__infosubtitle2}>
-                {bestPrice
-                  ? `1 ${bestPrice.get('base')} = ${bestPrice.get(
+                {price
+                  ? `1 ${price.get('base')} = ${price.get(
                       'bestPrice'
-                    )} ${bestPrice.get('rel')}`
+                    )} ${price.get('rel')}`
                   : NA}
               </span>
             </div>
@@ -754,7 +749,7 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectPricesLoading(),
-  entities: makeSelectPricesEntities(),
+  price: makeSelectPriceEntities(),
   buyingLoading: makeSelectBuyingLoading(),
   buyingError: makeSelectBuyingError(),
   entity: makeSelectCurrentSwap(),

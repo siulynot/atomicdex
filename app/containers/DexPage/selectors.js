@@ -17,6 +17,13 @@ const makeSelectPricesEntities = () =>
     pricesState.get('entities')
   );
 
+const makeSelectPriceEntities = () =>
+  createSelector(
+    makeSelectPricesEntities(),
+    makeSelectPayment(),
+    (entities, payment) => entities.get(payment.get('symbol')) || null
+  );
+
 const makeSelectBuying = () =>
   createSelector(selectBuy, buyState => buyState.get('buying'));
 
@@ -93,6 +100,7 @@ export {
   makeSelectPricesLoading,
   makeSelectPricesError,
   makeSelectPricesEntities,
+  makeSelectPriceEntities,
   makeSelectBuying,
   makeSelectBuyingLoading,
   makeSelectBuyingError,
