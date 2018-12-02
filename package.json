@@ -1,6 +1,6 @@
 {
-  "name": "dicoapp-e",
-  "productName": "dICOApp",
+  "name": "atomicdex",
+  "productName": "AtomicDex App",
   "version": "0.12.0",
   "description": "Lightweight GUI wallet with barterDEX swap capabilities",
   "scripts": {
@@ -28,8 +28,8 @@
     "prestart": "yarn build",
     "dev": "cross-env START_HOT=1 node -r @babel/register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
     "start": "cross-env NODE_ENV=production electron ./app/",
-    "start-main-dev": "cross-env DEBUG=dicoapp:* HOT=1 NODE_ENV=development electron -r @babel/register ./app/main.dev.js",
-    "start-renderer-dev": "cross-env DEBUG=dicoapp:* NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
+    "start-main-dev": "cross-env DEBUG=atomicapp:* HOT=1 NODE_ENV=development electron -r @babel/register ./app/main.dev.js",
+    "start-renderer-dev": "cross-env DEBUG=atomicapp:* NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 jest -i",
     "test-all": "yarn lint && yarn flow && yarn build && yarn test && yarn build-e2e && yarn test-e2e",
     "test-e2e": "node -r @babel/register ./internals/scripts/CheckBuiltsExist.js && cross-env NODE_ENV=test testcafe electron:./ ./test/e2e/HomePage.e2e.js",
@@ -59,9 +59,9 @@
   },
   "main": "./app/main.prod.js",
   "build": {
-    "productName": "dICOApp",
+    "productName": "AtomicDex",
     "compression": "maximum",
-    "appId": "com.komodoplatform.dICOApp",
+    "appId": "com.komodoplatform.AtomicDex",
     "asarUnpack": [
       "app/bin/marketmaker"
     ],
@@ -111,7 +111,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/particle4dev/dicoapp-e.git"
+    "url": "git+https://github.com/particle4dev/atomicdex.git"
   },
   "author": {
     "name": "Hoang Nam",
@@ -120,7 +120,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/particle4dev/dicoapp-e/issues"
+    "url": "https://github.com/particle4dev/atomicdex/issues"
   },
   "keywords": [
     "electron",
@@ -133,7 +133,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/particle4dev/dicoapp-e#readme",
+  "homepage": "https://github.com/particle4dev/atomicdex#readme",
   "devDependencies": {
     "@babel/core": "^7.1.5",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
