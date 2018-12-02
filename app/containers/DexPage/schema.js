@@ -63,7 +63,7 @@ type SwapCoin = {
     bobAmount: number,
     aliceAmount: number
   },
-  application: string, // where the request come from? eg: 'dICOapp'
+  application: string, // where the request come from? eg: 'AtomicDex'
   error?: SwapError,
   info?: SwapInfo,
 

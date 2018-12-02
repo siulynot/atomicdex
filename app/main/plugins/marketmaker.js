@@ -33,7 +33,7 @@ const MarketMaker = () => {
       const startparams = Object.assign({}, options, {
         client: 1,
         // canbind: 0,
-        gui: 'dICOapp-cm',
+        gui: 'AtomicDex',
         passphrase: 'default',
         userhome: config.get('paths.homeDir'),
         coins

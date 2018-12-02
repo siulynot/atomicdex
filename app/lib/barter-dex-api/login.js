@@ -16,7 +16,7 @@ export default function loginFactory(
         userhome: paths.homeDir,
         method: 'passphrase',
         passphrase,
-        gui: 'dICOapp-cm'
+        gui: 'AtomicDex'
         // netid:
         // seednode:
       };
