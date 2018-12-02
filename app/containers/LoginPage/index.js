@@ -93,7 +93,7 @@ const styles = () => ({
   }
 });
 
-const debug = require('debug')('dicoapp:containers:LoginPage');
+const debug = require('debug')('atomicapp:containers:LoginPage');
 
 type Props = {
   loading: boolean,

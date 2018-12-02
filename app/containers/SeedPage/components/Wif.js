@@ -33,7 +33,7 @@ const styles = () => ({
   }
 });
 
-const debug = require('debug')('dicoapp:containers:SeedPage:Wif');
+const debug = require('debug')('atomicapp:containers:SeedPage:Wif');
 
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types

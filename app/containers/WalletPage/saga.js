@@ -15,7 +15,7 @@ import {
   loadCoinTransactions
 } from './actions';
 
-const debug = require('debug')('dicoapp:containers:WalletPage:saga');
+const debug = require('debug')('atomicapp:containers:WalletPage:saga');
 
 export function* loadCoinTransactionsProcess(coin, address) {
   let request = null;

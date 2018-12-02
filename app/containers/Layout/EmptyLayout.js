@@ -5,7 +5,7 @@ import type { Node } from 'react';
 // import { centerWindow } from 'electron-util';
 // import { loginWindowSize } from '../../config/config-default';
 
-const debug = require('debug')('dicoapp:containers:layout:EmptyLayout');
+const debug = require('debug')('atomicapp:containers:layout:EmptyLayout');
 
 // const setLoginWindowBounds = (size = loginWindowSize) => {
 //   const win = remote.getCurrentWindow();

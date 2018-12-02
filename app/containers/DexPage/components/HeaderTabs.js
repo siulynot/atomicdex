@@ -10,7 +10,7 @@ import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import { makeSelectCurrentSwaps } from '../selectors';
 
-const debug = require('debug')('dicoapp:containers:DexPage:HeaderTabs');
+const debug = require('debug')('atomicapp:containers:DexPage:HeaderTabs');
 
 const styles = theme => ({
   buyTabs__tab: {

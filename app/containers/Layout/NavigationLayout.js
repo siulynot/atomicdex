@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 // import { minWindowSize } from '../../config/config-default';
 import DICDrawer from '../Drawer';
 
-const debug = require('debug')('dicoapp:containers:layout:NavigationLayout');
+const debug = require('debug')('atomicapp:containers:layout:NavigationLayout');
 
 // const setAppWindowBounds = (size = minWindowSize) => {
 //   const win = remote.getCurrentWindow();

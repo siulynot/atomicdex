@@ -31,7 +31,7 @@ type State = {
   hasError: boolean
 };
 
-const debug = require('debug')('dicoapp:components:ErrorBoundary');
+const debug = require('debug')('atomicapp:components:ErrorBoundary');
 
 class ErrorBoundary extends React.Component<Props, State> {
   state = {

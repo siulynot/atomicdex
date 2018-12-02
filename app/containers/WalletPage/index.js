@@ -50,7 +50,7 @@ const styles = () => ({
   }
 });
 
-const debug = require('debug')('dicoapp:containers:WalletPage');
+const debug = require('debug')('atomicapp:containers:WalletPage');
 
 class WalletPage extends Component<Props, State> {
   props: Props;

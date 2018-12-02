@@ -11,7 +11,7 @@ import CardActions from '@material-ui/core/CardActions';
 import { getCoinIcon } from '../../../components/CryptoIcons';
 import { covertSymbolToName } from '../../../utils/coin';
 
-const debug = require('debug')('dicoapp:containers:WalletPage:Asset');
+const debug = require('debug')('atomicapp:containers:WalletPage:Asset');
 
 const styles = theme => ({
   leftIcon: {

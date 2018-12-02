@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import getInjectors from './saga-injectors';
 
-const debug = require('debug')('dicoapp:utils:inject-saga');
+const debug = require('debug')('atomicapp:utils:inject-saga');
 
 /**
  * Dynamically injects a saga, passes component's props as saga arguments

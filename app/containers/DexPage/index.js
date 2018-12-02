@@ -28,7 +28,7 @@ import handleUpdateSwapEvent from './saga/handle-update-swap-event';
 import saga from './saga';
 import subscribe from './subscribe';
 
-const debug = require('debug')('dicoapp:containers:DexPage');
+const debug = require('debug')('atomicapp:containers:DexPage');
 
 const styles = () => ({});
 

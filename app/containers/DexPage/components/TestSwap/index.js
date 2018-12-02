@@ -14,7 +14,7 @@ import {
   LOAD_SWAP_SUCCESS
 } from '../../../__tests__/fake-data';
 
-const debug = require('debug')('dicoapp:containers:DexPage:TestSwap');
+const debug = require('debug')('atomicapp:containers:DexPage:TestSwap');
 
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types

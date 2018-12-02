@@ -53,7 +53,7 @@ import BuyButton from '../../../components/BuyButton';
 import { floor } from '../utils';
 import CoinSelectable from './CoinSelectable';
 
-const debug = require('debug')('dicoapp:containers:DexPage:AmountSection');
+const debug = require('debug')('atomicapp:containers:DexPage:AmountSection');
 
 const line = (
   <Line

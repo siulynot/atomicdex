@@ -43,7 +43,7 @@ const styles = () => ({
   }
 });
 
-const debug = require('debug')('dicoapp:containers:SeedPage:Passphrase');
+const debug = require('debug')('atomicapp:containers:SeedPage:Passphrase');
 
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types

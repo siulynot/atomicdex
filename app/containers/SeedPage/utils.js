@@ -4,7 +4,7 @@ import shajs from 'sha.js';
 import { choice } from '../../utils/random';
 import wordlist from './wordlist';
 
-const debug = require('debug')('dicoapp:containers:SeedPage:utils');
+const debug = require('debug')('atomicapp:containers:SeedPage:utils');
 
 function toHexString(byteArray) {
   return Array.from(byteArray, byte =>

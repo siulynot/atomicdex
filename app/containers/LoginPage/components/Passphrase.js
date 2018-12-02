@@ -8,7 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 
-const debug = require('debug')('dicoapp:containers:LoginPage:Passphrase');
+const debug = require('debug')('atomicapp:containers:LoginPage:Passphrase');
 
 type Props = {
   loading: boolean,

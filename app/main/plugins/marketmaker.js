@@ -7,7 +7,7 @@ import killProcess from './killprocess';
 import getConfig from '../config';
 
 // const { marketmakerCrashedDialog } = require('../dialogs');
-const debug = require('debug')('dicoapp:plugins:marketmaker');
+const debug = require('debug')('atomicapp:plugins:marketmaker');
 
 const config = getConfig();
 

@@ -1,7 +1,7 @@
 // @flow
 import WebSocket from 'faye-websocket';
 
-const debug = require('debug')('dicoapp:utils:barter-dex-socket');
+const debug = require('debug')('atomicapp:utils:barter-dex-socket');
 
 function BarterDexWebsocket() {
   // constructor

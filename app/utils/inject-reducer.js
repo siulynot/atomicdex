@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import getInjectors from './reducer-injectors';
 
-const debug = require('debug')('dicoapp:utils:inject-reducer');
+const debug = require('debug')('atomicapp:utils:inject-reducer');
 
 /**
  * Dynamically injects a reducer

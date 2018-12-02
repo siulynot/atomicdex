@@ -22,7 +22,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { showLogoutDialog } from '../LogoutDialog/actions';
 import routes from '../../constants/routes.json';
 
-const debug = require('debug')('dicoapp:containers:Drawer');
+const debug = require('debug')('atomicapp:containers:Drawer');
 
 const drawerWidth = 240;
 

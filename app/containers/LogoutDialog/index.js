@@ -18,7 +18,7 @@ import { cancelLogoutDialog, agreeLogoutDialog } from './actions';
 import { makeSelectLogoutState } from './selectors';
 import { APP_STATE_NAME } from './constants';
 
-const debug = require('debug')('dicoapp:containers:LogoutDialog');
+const debug = require('debug')('atomicapp:containers:LogoutDialog');
 
 type Props = {
   show: boolean,

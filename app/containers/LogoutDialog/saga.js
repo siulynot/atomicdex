@@ -3,7 +3,7 @@ import { fork, take, put } from 'redux-saga/effects';
 import { AGREE_LOGOUT_DIALOG } from './constants';
 import { logout } from '../App/actions';
 
-const debug = require('debug')('dicoapp:containers:LogoutDialog:saga');
+const debug = require('debug')('atomicapp:containers:LogoutDialog:saga');
 
 export function* logoutFlow() {
   debug(`logout flow`);

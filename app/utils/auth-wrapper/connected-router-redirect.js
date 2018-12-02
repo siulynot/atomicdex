@@ -7,7 +7,7 @@ const connectedDefaults = {
   reRunWhenStateChanges: false
 };
 
-// const debug = require('debug')('dicoapp:utils:connected-router-redirect');
+// const debug = require('debug')('atomicapp:utils:connected-router-redirect');
 
 const connectedRouterRedirect = args => {
   const allArgs = { ...connectedDefaults, ...args };

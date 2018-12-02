@@ -7,7 +7,9 @@ export const initialState = fromJS({
   isStartWebsocket: false
 });
 
-const debug = require('debug')('dicoapp:containers:WebSocketComponent:reducer');
+const debug = require('debug')(
+  'atomicapp:containers:WebSocketComponent:reducer'
+);
 
 const webSocketReducer = handleActions(
   {

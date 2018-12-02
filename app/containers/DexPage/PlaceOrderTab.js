@@ -21,7 +21,7 @@ import CurrencySection from './components/CurrencySection';
 import PaymentSection from './components/PaymentSection';
 import { loadPrices } from './actions';
 
-const debug = require('debug')('dicoapp:containers:DexPage:PlaceOrder');
+const debug = require('debug')('atomicapp:containers:DexPage:PlaceOrder');
 
 const styles = () => ({
   container: {

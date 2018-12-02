@@ -19,7 +19,7 @@ import {
 import type { SelectCoinPayload } from '../schema';
 import CoinSelectable from './CoinSelectable';
 
-const debug = require('debug')('dicoapp:containers:DexPage:PaymentSection');
+const debug = require('debug')('atomicapp:containers:DexPage:PaymentSection');
 
 const line = (
   <Line

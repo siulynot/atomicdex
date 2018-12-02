@@ -8,7 +8,9 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { getMonth } from '../utils';
 import { getCoinIcon } from '../../../components/CryptoIcons';
 
-const debug = require('debug')('dicoapp:containers:DexPage:TransactionRecord');
+const debug = require('debug')(
+  'atomicapp:containers:DexPage:TransactionRecord'
+);
 
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types

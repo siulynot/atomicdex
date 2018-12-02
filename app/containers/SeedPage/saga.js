@@ -4,7 +4,7 @@ import { makeSelectWifExpansion, makeSelectPassphrase } from './selectors';
 import { generateWif } from './utils';
 import { generateWif as generateWifAction } from './actions';
 
-const debug = require('debug')('dicoapp:containers:SeedPage:saga');
+const debug = require('debug')('atomicapp:containers:SeedPage:saga');
 
 export function* generateWifProcessWithPassPhrase(action) {
   try {

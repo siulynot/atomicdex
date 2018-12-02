@@ -9,7 +9,7 @@ const defaults = {
   wrapperDisplayName: 'AuthWrapper'
 };
 
-const debug = require('debug')('dicoapp:utils:auth-wrapper');
+const debug = require('debug')('atomicapp:utils:auth-wrapper');
 
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types

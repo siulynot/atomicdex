@@ -75,7 +75,7 @@ const styles = () => ({
   }
 });
 
-const debug = require('debug')('dicoapp:containers:SeedPage');
+const debug = require('debug')('atomicapp:containers:SeedPage');
 
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
