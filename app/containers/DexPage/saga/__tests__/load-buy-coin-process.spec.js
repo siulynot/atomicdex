@@ -196,7 +196,7 @@ describe('containers/DexPage/saga/load-buy-coin-process', () => {
           error: {
             message: 'Please try a different amount to pay (1/2 or 2x)'
           },
-          type: 'dicoapp/DexPage/LOAD_BUY_COIN_ERROR'
+          type: 'atomicapp/DexPage/LOAD_BUY_COIN_ERROR'
         }
       ]);
 

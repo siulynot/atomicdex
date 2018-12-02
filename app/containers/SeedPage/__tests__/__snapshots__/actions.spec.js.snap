@@ -2,7 +2,7 @@
 
 exports[`containers/SeedPage/actions/closeWifExpansion should closeWifExpansion should closeWifExpansion action 1`] = `
 Object {
-  "type": "dicoapp/SeedPage/CLOSE_WIF_EXPANSION",
+  "type": "atomicapp/SeedPage/CLOSE_WIF_EXPANSION",
 }
 `;
 
@@ -11,7 +11,7 @@ Object {
   "payload": Object {
     "passphrase": "passphrase",
   },
-  "type": "dicoapp/SeedPage/GENERATE_PASSPHRASE",
+  "type": "atomicapp/SeedPage/GENERATE_PASSPHRASE",
 }
 `;
 
@@ -20,12 +20,12 @@ Object {
   "payload": Object {
     "wif": "wif",
   },
-  "type": "dicoapp/SeedPage/GENERATE_WIF",
+  "type": "atomicapp/SeedPage/GENERATE_WIF",
 }
 `;
 
 exports[`containers/SeedPage/actions/openWifExpansion should openWifExpansion should generateWif action 1`] = `
 Object {
-  "type": "dicoapp/SeedPage/OPEN_WIF_EXPANSION",
+  "type": "atomicapp/SeedPage/OPEN_WIF_EXPANSION",
 }
 `;

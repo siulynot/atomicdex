@@ -2,13 +2,13 @@
 
 exports[`containers/WalletPage/actions/closeDepositModal should loadTransactionsSuccess should create closeDepositModal action 1`] = `
 Object {
-  "type": "dicoapp/WalletPage/DEPOSIT_MODAL_CLOSE",
+  "type": "atomicapp/WalletPage/DEPOSIT_MODAL_CLOSE",
 }
 `;
 
 exports[`containers/WalletPage/actions/closeWithdrawModal should loadTransactionsSuccess should create closeWithdrawModal action 1`] = `
 Object {
-  "type": "dicoapp/WalletPage/WITHDRAW_MODAL_CLOSE",
+  "type": "atomicapp/WalletPage/WITHDRAW_MODAL_CLOSE",
 }
 `;
 
@@ -20,25 +20,25 @@ Object {
     "result": "success",
     "status": "queued",
   },
-  "type": "dicoapp/WalletPage/COIN_TRANSACTIONS_LOAD",
+  "type": "atomicapp/WalletPage/COIN_TRANSACTIONS_LOAD",
 }
 `;
 
 exports[`containers/WalletPage/actions/loadTransactions should loadTransactions should create loadTransactions action 1`] = `
 Object {
-  "type": "dicoapp/WalletPage/TRANSACTIONS_LOAD",
+  "type": "atomicapp/WalletPage/TRANSACTIONS_LOAD",
 }
 `;
 
 exports[`containers/WalletPage/actions/loadTransactionsLoop should loadTransactionsLoop should create loadTransactionsLoop action 1`] = `
 Object {
-  "type": "dicoapp/WalletPage/TRANSACTIONS_LOAD_LOOP",
+  "type": "atomicapp/WalletPage/TRANSACTIONS_LOAD_LOOP",
 }
 `;
 
 exports[`containers/WalletPage/actions/loadTransactionsSuccess should loadTransactionsSuccess should create loadTransactionsSuccess action 1`] = `
 Object {
-  "type": "dicoapp/WalletPage/LOAD_TRANSACTIONS_SUCCESS",
+  "type": "atomicapp/WalletPage/LOAD_TRANSACTIONS_SUCCESS",
 }
 `;
 
@@ -47,7 +47,7 @@ Object {
   "payload": Object {
     "coin": "KMD",
   },
-  "type": "dicoapp/WalletPage/DEPOSIT_MODAL_OPEN",
+  "type": "atomicapp/WalletPage/DEPOSIT_MODAL_OPEN",
 }
 `;
 
@@ -56,6 +56,6 @@ Object {
   "payload": Object {
     "coin": "KMD",
   },
-  "type": "dicoapp/WalletPage/WITHDRAW_MODAL_OPEN",
+  "type": "atomicapp/WalletPage/WITHDRAW_MODAL_OPEN",
 }
 `;
