@@ -19,7 +19,7 @@ import BuyButton from '../../../components/BuyButton';
 import validate from '../../../components/Form/validate';
 
 const debug = require('debug')(
-  'dicoapp:containers:WalletPage:WithdrawModalContent'
+  'atomicapp:containers:WalletPage:WithdrawModalContent'
 );
 
 export const lessThan = (

@@ -12,7 +12,7 @@ import { makeSelectPricesEntities } from '../selectors';
 import { APPROPRIATE_ERROR_UTXOS } from '../constants';
 
 const debug = require('debug')(
-  'dicoapp:containers:BuyPage:saga:load-buy-coin-process'
+  'atomicapp:containers:BuyPage:saga:load-buy-coin-process'
 );
 
 const numcoin = 100000000;

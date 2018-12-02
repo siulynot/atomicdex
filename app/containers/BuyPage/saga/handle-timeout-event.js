@@ -14,7 +14,7 @@ import { timeoutSwap } from '../actions';
 import { makeSelectCurrentSwaps } from '../selectors';
 
 const debug = require('debug')(
-  'dicoapp:containers:BuyPage:saga:handle-timeout-event'
+  'atomicapp:containers:BuyPage:saga:handle-timeout-event'
 );
 
 // function* handleTimeoutSwap() {

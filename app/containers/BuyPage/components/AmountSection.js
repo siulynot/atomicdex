@@ -353,7 +353,7 @@ class AmountSection extends React.Component<Props, State> {
     const disabled = paymentCoin === '';
     let label = intl.formatMessage({
       defaultMessage: 'SELECT YOUR PAYMENT',
-      id: 'dicoapp.containers.BuyPage.select_payment'
+      id: 'atomicapp.containers.BuyPage.select_payment'
     });
     if (paymentCoin !== '') {
       label = paymentCoin;

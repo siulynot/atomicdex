@@ -7,7 +7,7 @@ import { getCoin } from '../../../components/CryptoIcons';
 import { covertSymbolToName } from '../../../utils/coin';
 
 const debug = require('debug')(
-  'dicoapp:containers:DexPage:CoinsSelectionModal:ModalContent'
+  'atomicapp:containers:DexPage:CoinsSelectionModal:ModalContent'
 );
 
 type Props = {

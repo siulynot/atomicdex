@@ -9,7 +9,7 @@ const config = getConfig();
 const COIN_BASE = config.get('marketmaker.tokenconfig');
 const numcoin = 100000000;
 const debug = require('debug')(
-  'dicoapp:containers:BuyPage:saga:load-prices-process'
+  'atomicapp:containers:BuyPage:saga:load-prices-process'
 );
 
 export function* loadPrice(coin) {

@@ -7,7 +7,7 @@ import { makeSelectCurrency } from '../selectors';
 
 const numcoin = 100000000;
 const debug = require('debug')(
-  'dicoapp:containers:DexPage:saga:load-prices-process'
+  'atomicapp:containers:DexPage:saga:load-prices-process'
 );
 
 export function* loadPrice(coin) {

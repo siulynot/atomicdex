@@ -26,7 +26,7 @@ import InputSearch from './InputSearch';
 import search from './search-api';
 
 const debug = require('debug')(
-  'dicoapp:containers:DexPage:CoinsSelectionModal'
+  'atomicapp:containers:DexPage:CoinsSelectionModal'
 );
 
 const circle = <Circle />;

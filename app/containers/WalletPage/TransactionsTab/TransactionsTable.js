@@ -15,7 +15,7 @@ import { formatDate } from '../../../lib/date-format';
 import explorer from '../../../lib/explorer';
 
 const debug = require('debug')(
-  'dicoapp:containers:WalletPage:TransactionsTable'
+  'atomicapp:containers:WalletPage:TransactionsTable'
 );
 
 const line60 = (
