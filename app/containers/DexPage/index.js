@@ -62,7 +62,7 @@ class DexPage extends React.Component<Props, State> {
             <MDCAppBar>
               <MDCHeader
                 title={
-                  <FormattedMessage id="dicoapp.containers.DexPage.title">
+                  <FormattedMessage id="atomicapp.containers.DexPage.title">
                     {(...content) => content}
                   </FormattedMessage>
                 }

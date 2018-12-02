@@ -408,7 +408,7 @@ class AmountSection extends React.Component<Props, State> {
             className={classes.amountform__formEndItem}
             onClick={this.onClickBuyCoinButton}
           >
-            <FormattedMessage id="dicoapp.containers.BuyPage.execute_buy">
+            <FormattedMessage id="atomicapp.containers.BuyPage.execute_buy">
               {(...content) => `${content} (${COIN_BASE.coin})`}
             </FormattedMessage>
           </BuyButton>
@@ -447,7 +447,7 @@ class AmountSection extends React.Component<Props, State> {
             variant="contained"
             className={classes.amountform__item}
           >
-            <FormattedMessage id="dicoapp.containers.BuyPage.loading">
+            <FormattedMessage id="atomicapp.containers.BuyPage.loading">
               {(...content) => content}
             </FormattedMessage>
           </BuyButton>
@@ -533,7 +533,7 @@ class AmountSection extends React.Component<Props, State> {
             )}
             {swapsLoading && confirmed && (
               <React.Fragment>
-                <FormattedMessage id="dicoapp.containers.BuyPage.swap_successful_message">
+                <FormattedMessage id="atomicapp.containers.BuyPage.swap_successful_message">
                   {(...content) => content}
                 </FormattedMessage>
                 <CircularProgress
@@ -547,7 +547,7 @@ class AmountSection extends React.Component<Props, State> {
               <React.Fragment>Cancel</React.Fragment>
             )}
             {!swapsLoading && !swapsError && (
-              <FormattedMessage id="dicoapp.containers.BuyPage.swap_successful_message">
+              <FormattedMessage id="atomicapp.containers.BuyPage.swap_successful_message">
                 {(...content) => content}
               </FormattedMessage>
             )}

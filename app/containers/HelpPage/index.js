@@ -374,7 +374,7 @@ const Index = () => (
       <MDCAppBar>
         <MDCHeader
           title={
-            <FormattedMessage id="dicoapp.containers.HelpPage.title">
+            <FormattedMessage id="atomicapp.containers.HelpPage.title">
               {(...content) => content}
             </FormattedMessage>
           }

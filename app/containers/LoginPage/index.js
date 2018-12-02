@@ -127,7 +127,7 @@ class LoginPage extends Component<Props, State> {
         'Success',
         intl.formatMessage({
           defaultMessage: 'Login Successful Message',
-          id: 'dicoapp.containers.LoginPage.login_successful_message'
+          id: 'atomicapp.containers.LoginPage.login_successful_message'
         }),
         'success'
       );
@@ -189,13 +189,13 @@ class LoginPage extends Component<Props, State> {
                 className={classes.loginContainer__item}
                 gutterBottom
               >
-                <FormattedMessage id="dicoapp.containers.LoginPage.headline">
+                <FormattedMessage id="atomicapp.containers.LoginPage.headline">
                   {(...content) => content}
                 </FormattedMessage>
               </Typography>
 
               <Typography variant="subtitle1" gutterBottom>
-                <FormattedMessage id="dicoapp.containers.LoginPage.subheading">
+                <FormattedMessage id="atomicapp.containers.LoginPage.subheading">
                   {(...content) => content}
                 </FormattedMessage>
               </Typography>
@@ -219,7 +219,7 @@ class LoginPage extends Component<Props, State> {
                   classes.loginContainer__loginButton
                 )}
               >
-                <FormattedMessage id="dicoapp.containers.LoginPage.submit">
+                <FormattedMessage id="atomicapp.containers.LoginPage.submit">
                   {(...content) => content}
                 </FormattedMessage>
               </Button>
@@ -230,7 +230,7 @@ class LoginPage extends Component<Props, State> {
               className={classes.loginContainer__bottomButton}
               onClick={this.gotoSeedPage}
             >
-              <FormattedMessage id="dicoapp.containers.LoginPage.new_account">
+              <FormattedMessage id="atomicapp.containers.LoginPage.new_account">
                 {(...content) => content}
               </FormattedMessage>
             </Button>

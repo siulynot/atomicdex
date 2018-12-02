@@ -95,7 +95,7 @@ class Wif extends Component<Props, State> {
       <ExpansionPanel expanded={open} onChange={this.onChange}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>
-            <FormattedMessage id="dicoapp.containers.SeedPage.Passphrase.reveal_wif">
+            <FormattedMessage id="atomicapp.containers.SeedPage.Passphrase.reveal_wif">
               {(...content) => content}
             </FormattedMessage>
           </Typography>

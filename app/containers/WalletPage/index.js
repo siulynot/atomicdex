@@ -85,7 +85,7 @@ class WalletPage extends Component<Props, State> {
             <MDCAppBar>
               <MDCHeader
                 title={
-                  <FormattedMessage id="dicoapp.containers.Wallet.title">
+                  <FormattedMessage id="atomicapp.containers.Wallet.title">
                     {(...content) => content}
                   </FormattedMessage>
                 }
@@ -97,7 +97,7 @@ class WalletPage extends Component<Props, State> {
             <TabContainer selected={value === 0} className={classes.container}>
               <PageSectionTitle
                 title={
-                  <FormattedMessage id="dicoapp.containers.Wallet.overview">
+                  <FormattedMessage id="atomicapp.containers.Wallet.overview">
                     {(...content) => content}
                   </FormattedMessage>
                 }
@@ -107,7 +107,7 @@ class WalletPage extends Component<Props, State> {
             <TabContainer selected={value === 1} className={classes.container}>
               <PageSectionTitle
                 title={
-                  <FormattedMessage id="dicoapp.containers.Wallet.last_transactions">
+                  <FormattedMessage id="atomicapp.containers.Wallet.last_transactions">
                     {(...content) => content}
                   </FormattedMessage>
                 }

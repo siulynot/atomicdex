@@ -117,7 +117,7 @@ class PlaceOrder extends Component<Props, State> {
           <CardContent className={classes.cardContent}>
             <PageSectionTitle
               title={
-                <FormattedMessage id="dicoapp.containers.BuyPage.currency">
+                <FormattedMessage id="atomicapp.containers.BuyPage.currency">
                   {(...content) => content}
                 </FormattedMessage>
               }
@@ -128,7 +128,7 @@ class PlaceOrder extends Component<Props, State> {
           <CardContent className={classes.cardContent}>
             <PageSectionTitle
               title={
-                <FormattedMessage id="dicoapp.containers.BuyPage.payment">
+                <FormattedMessage id="atomicapp.containers.BuyPage.payment">
                   {(...content) => content}
                 </FormattedMessage>
               }
@@ -152,7 +152,7 @@ class PlaceOrder extends Component<Props, State> {
           <CardContent className={classes.cardContent}>
             <PageSectionTitle
               title={
-                <FormattedMessage id="dicoapp.containers.BuyPage.amount">
+                <FormattedMessage id="atomicapp.containers.BuyPage.amount">
                   {(...content) => content}
                 </FormattedMessage>
               }

@@ -407,14 +407,14 @@ class AmountSection extends React.Component<Props, State> {
     const disabled = payment.get('symbol') === null;
     let labelForPayment = intl.formatMessage({
       defaultMessage: 'SELECT YOUR PAYMENT',
-      id: 'dicoapp.containers.DexPage.select_payment'
+      id: 'atomicapp.containers.DexPage.select_payment'
     });
     if (payment.get('symbol') !== null) {
       labelForPayment = payment.get('symbol');
     }
     let labelForCurrency = intl.formatMessage({
       defaultMessage: 'SELECT YOUR CURRENCY',
-      id: 'dicoapp.containers.DexPage.select_currency'
+      id: 'atomicapp.containers.DexPage.select_currency'
     });
     if (currency.get('symbol') !== null) {
       labelForCurrency = currency.get('symbol');
@@ -490,7 +490,7 @@ class AmountSection extends React.Component<Props, State> {
           className={classes.amountform__formEndItem}
           onClick={this.onClickBuyCoinButton}
         >
-          <FormattedMessage id="dicoapp.containers.DexPage.execute_buy">
+          <FormattedMessage id="atomicapp.containers.DexPage.execute_buy">
             {(...content) => `${content} (${currency.get('symbol') || NA})`}
           </FormattedMessage>
         </BuyButton>
@@ -542,7 +542,7 @@ class AmountSection extends React.Component<Props, State> {
             variant="contained"
             className={classes.amountform__item}
           >
-            <FormattedMessage id="dicoapp.containers.DexPage.loading">
+            <FormattedMessage id="atomicapp.containers.DexPage.loading">
               {(...content) => content}
             </FormattedMessage>
           </BuyButton>
@@ -628,7 +628,7 @@ class AmountSection extends React.Component<Props, State> {
             )}
             {swapsLoading && confirmed && (
               <React.Fragment>
-                <FormattedMessage id="dicoapp.containers.DexPage.swap_successful_message">
+                <FormattedMessage id="atomicapp.containers.DexPage.swap_successful_message">
                   {(...content) => content}
                 </FormattedMessage>
                 <CircularProgress
@@ -642,7 +642,7 @@ class AmountSection extends React.Component<Props, State> {
               <React.Fragment>Cancel</React.Fragment>
             )}
             {!swapsLoading && !swapsError && (
-              <FormattedMessage id="dicoapp.containers.DexPage.swap_successful_message">
+              <FormattedMessage id="atomicapp.containers.DexPage.swap_successful_message">
                 {(...content) => content}
               </FormattedMessage>
             )}

@@ -61,7 +61,7 @@ class BuyPage extends Component<Props, State> {
             <MDCAppBar>
               <MDCHeader
                 title={
-                  <FormattedMessage id="dicoapp.containers.BuyPage.title">
+                  <FormattedMessage id="atomicapp.containers.BuyPage.title">
                     {(...content) => content}
                   </FormattedMessage>
                 }

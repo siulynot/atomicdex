@@ -124,7 +124,7 @@ class Passphrase extends Component<Props, State> {
             className={classes.passphraseButton}
             onClick={this.handleGenerateSeed}
           >
-            <FormattedMessage id="dicoapp.containers.SeedPage.Passphrase.generate">
+            <FormattedMessage id="atomicapp.containers.SeedPage.Passphrase.generate">
               {(...content) => content}
             </FormattedMessage>
           </Button>
@@ -136,7 +136,7 @@ class Passphrase extends Component<Props, State> {
             className={classes.passphraseButton}
             onClick={this.copySeedToClipboard}
           >
-            <FormattedMessage id="dicoapp.containers.SeedPage.Passphrase.copy_seed">
+            <FormattedMessage id="atomicapp.containers.SeedPage.Passphrase.copy_seed">
               {(...content) => content}
             </FormattedMessage>
           </Button>
