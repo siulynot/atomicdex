@@ -46,7 +46,7 @@ import {
 import BuyButton from '../../../components/BuyButton';
 import CoinSelectable from './CoinSelectable';
 
-const debug = require('debug')('dicoapp:containers:BuyPage:AmountSection');
+const debug = require('debug')('atomicapp:containers:BuyPage:AmountSection');
 
 const config = getConfig();
 const COIN_BASE = config.get('marketmaker.tokenconfig');

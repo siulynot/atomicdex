@@ -4,7 +4,7 @@ import api from '../../../lib/barter-dex-api';
 import { loadWithdrawSuccess, loadWithdrawError } from '../actions';
 
 const debug = require('debug')(
-  'dicoapp:containers:App:saga:load-withdraw-process'
+  'atomicapp:containers:App:saga:load-withdraw-process'
 );
 
 const numcoin = 100000000;

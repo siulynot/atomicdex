@@ -10,7 +10,7 @@ import {
 } from '../actions';
 
 const debug = require('debug')(
-  'dicoapp:containers:App:saga:load-balance-process'
+  'atomicapp:containers:App:saga:load-balance-process'
 );
 
 export function* loadCoinBalanceProcess(coin, address) {
