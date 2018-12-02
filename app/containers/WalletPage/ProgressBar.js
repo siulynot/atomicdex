@@ -8,7 +8,7 @@ import LinearProgress from '../../components/ProgressBar';
 import { makeSelectBalanceLoading } from '../App/selectors';
 import { makeSelectTransactionsLoading } from './selectors';
 
-const debug = require('debug')('dicoapp:containers:BuyPage:ProgressBar');
+const debug = require('debug')('atomicapp:containers:BuyPage:ProgressBar');
 
 type Props = {
   balanceLoading: boolean,

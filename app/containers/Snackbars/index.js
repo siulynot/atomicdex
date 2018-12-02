@@ -14,7 +14,7 @@ import { selectSnackbars } from './selectors';
 import { closeSnackbars } from './actions';
 import reducer from './reducer';
 
-const debug = require('debug')('dicoapp:containers:Snackbars');
+const debug = require('debug')('atomicapp:containers:Snackbars');
 
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types

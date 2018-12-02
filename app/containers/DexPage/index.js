@@ -28,7 +28,7 @@ import handleUpdateSwapEvent from './saga/handle-update-swap-event';
 import saga from './saga';
 import subscribe from './subscribe';
 
-const debug = require('debug')('dicoapp:containers:DexPage');
+const debug = require('debug')('atomicapp:containers:DexPage');
 
 const styles = () => ({});
 
@@ -62,7 +62,7 @@ class DexPage extends React.Component<Props, State> {
             <MDCAppBar>
               <MDCHeader
                 title={
-                  <FormattedMessage id="dicoapp.containers.DexPage.title">
+                  <FormattedMessage id="atomicapp.containers.DexPage.title">
                     {(...content) => content}
                   </FormattedMessage>
                 }

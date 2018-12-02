@@ -22,7 +22,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { showLogoutDialog } from '../LogoutDialog/actions';
 import routes from '../../constants/routes.json';
 
-const debug = require('debug')('dicoapp:containers:Drawer');
+const debug = require('debug')('atomicapp:containers:Drawer');
 
 const drawerWidth = 240;
 
@@ -189,7 +189,7 @@ class DICDrawer extends Component<Props, State> {
               <AccountBalanceWalletIcon />
             </ListItemIcon>
             <span className={classes.drawer__text}>
-              <FormattedMessage id="dicoapp.containers.Drawer.wallet">
+              <FormattedMessage id="atomicapp.containers.Drawer.wallet">
                 {(...content) => content}
               </FormattedMessage>
             </span>
@@ -205,7 +205,7 @@ class DICDrawer extends Component<Props, State> {
               <AddShoppingCartIcon />
             </ListItemIcon>
             <span className={classes.drawer__text}>
-              <FormattedMessage id="dicoapp.containers.Drawer.buy">
+              <FormattedMessage id="atomicapp.containers.Drawer.buy">
                 {(...content) => content}
               </FormattedMessage>
             </span>
@@ -221,7 +221,7 @@ class DICDrawer extends Component<Props, State> {
               <LiveHelpIcon />
             </ListItemIcon>
             <span className={classes.drawer__text}>
-              <FormattedMessage id="dicoapp.containers.Drawer.help">
+              <FormattedMessage id="atomicapp.containers.Drawer.help">
                 {(...content) => content}
               </FormattedMessage>
             </span>

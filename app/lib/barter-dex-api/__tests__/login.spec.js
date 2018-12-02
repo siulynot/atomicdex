@@ -19,7 +19,7 @@ describe('utils/barter-dex-api/login', () => {
           userhome: homeDir,
           method: 'passphrase',
           passphrase,
-          gui: 'dICOapp-cm'
+          gui: 'AtomicDex'
         });
         return Promise.resolve({
           userpass

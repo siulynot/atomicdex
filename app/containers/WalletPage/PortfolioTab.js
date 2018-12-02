@@ -16,7 +16,7 @@ import { loadBalance } from '../App/actions';
 import Asset from './components/Asset';
 import { openWithdrawModal, openDepositModal } from './actions';
 
-const debug = require('debug')('dicoapp:containers:WalletPage:PortfolioTab');
+const debug = require('debug')('atomicapp:containers:WalletPage:PortfolioTab');
 
 const styles = theme => ({
   containerSection: {

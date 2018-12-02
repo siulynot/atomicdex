@@ -18,7 +18,7 @@ import { cancelLogoutDialog, agreeLogoutDialog } from './actions';
 import { makeSelectLogoutState } from './selectors';
 import { APP_STATE_NAME } from './constants';
 
-const debug = require('debug')('dicoapp:containers:LogoutDialog');
+const debug = require('debug')('atomicapp:containers:LogoutDialog');
 
 type Props = {
   show: boolean,
@@ -55,25 +55,25 @@ class LogoutDialog extends Component<Props> {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <FormattedMessage id="dicoapp.containers.LogoutDialog.title">
+          <FormattedMessage id="atomicapp.containers.LogoutDialog.title">
             {(...content) => content}
           </FormattedMessage>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <FormattedMessage id="dicoapp.containers.LogoutDialog.description">
+            <FormattedMessage id="atomicapp.containers.LogoutDialog.description">
               {(...content) => content}
             </FormattedMessage>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={this.onCancelLogoutDialog} color="primary">
-            <FormattedMessage id="dicoapp.containers.LogoutDialog.cancel">
+            <FormattedMessage id="atomicapp.containers.LogoutDialog.cancel">
               {(...content) => content}
             </FormattedMessage>
           </Button>
           <Button onClick={this.onAgreeLogoutDialog} color="primary" autoFocus>
-            <FormattedMessage id="dicoapp.containers.LogoutDialog.submit">
+            <FormattedMessage id="atomicapp.containers.LogoutDialog.submit">
               {(...content) => content}
             </FormattedMessage>
           </Button>

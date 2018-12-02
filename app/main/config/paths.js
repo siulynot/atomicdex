@@ -4,7 +4,7 @@ const { homedir } = require('os');
 const { resolve } = require('path');
 
 const { is } = util;
-// const debug = require('debug')('dicoapp:config:paths');
+// const debug = require('debug')('atomicapp:config:paths');
 
 const marketmakerPlatformPath = binDir => {
   switch (process.platform) {

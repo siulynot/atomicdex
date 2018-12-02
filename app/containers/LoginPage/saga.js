@@ -6,7 +6,7 @@ import { loginSuccess, loginError } from '../App/actions';
 import api from '../../lib/barter-dex-api';
 import getConfig from '../../utils/config';
 
-const debug = require('debug')('dicoapp:containers:LoginPage:saga');
+const debug = require('debug')('atomicapp:containers:LoginPage:saga');
 
 const config = getConfig();
 

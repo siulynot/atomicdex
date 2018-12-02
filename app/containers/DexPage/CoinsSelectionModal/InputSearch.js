@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 import TextField from '@material-ui/core/TextField';
 
 const debug = require('debug')(
-  'dicoapp:containers:DexPage:CoinsSelectionModal:InputSearch'
+  'atomicapp:containers:DexPage:CoinsSelectionModal:InputSearch'
 );
 
 // https://stackoverflow.com/questions/42361485/how-long-should-you-debounce-text-input

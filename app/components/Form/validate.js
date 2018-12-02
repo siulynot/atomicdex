@@ -2,7 +2,7 @@
 // @flow
 import React, { type Node } from 'react';
 
-const debug = require('debug')('dicoapp:components:Form:validate');
+const debug = require('debug')('atomicapp:components:Form:validate');
 
 export default function validate(
   WrappedComponent: Node,

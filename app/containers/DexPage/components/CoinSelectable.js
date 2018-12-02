@@ -7,7 +7,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
-const debug = require('debug')('dicoapp:containers:DexPage:CoinSelectable');
+const debug = require('debug')('atomicapp:containers:DexPage:CoinSelectable');
 
 const styles = () => ({
   btn: {

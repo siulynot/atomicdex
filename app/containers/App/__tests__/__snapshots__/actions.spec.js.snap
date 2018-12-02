@@ -2,13 +2,13 @@
 
 exports[`containers/App/actions/loadBalance should loadBalance should create loadBalance action 1`] = `
 Object {
-  "type": "dicoapp/App/LOAD_BALANCE",
+  "type": "atomicapp/App/LOAD_BALANCE",
 }
 `;
 
 exports[`containers/App/actions/loadBalanceSuccess should loadBalanceSuccess should create loadBalanceSuccess action 1`] = `
 Object {
-  "type": "dicoapp/App/LOAD_BALANCE_SUCCESS",
+  "type": "atomicapp/App/LOAD_BALANCE_SUCCESS",
 }
 `;
 
@@ -107,7 +107,7 @@ Object {
       },
     ],
   },
-  "type": "dicoapp/App/LOAD_COIN_BALANCE_SUCCESS",
+  "type": "atomicapp/App/LOAD_COIN_BALANCE_SUCCESS",
 }
 `;
 
@@ -116,12 +116,12 @@ Object {
   "payload": Object {
     "passphrase": "passphrase",
   },
-  "type": "dicoapp/App/LOGIN",
+  "type": "atomicapp/App/LOGIN",
 }
 `;
 
 exports[`containers/App/actions/logout should logout should create logout action 1`] = `
 Object {
-  "type": "dicoapp/App/LOGOUT",
+  "type": "atomicapp/App/LOGOUT",
 }
 `;

@@ -21,7 +21,7 @@ import { makeSelectCurrentSwaps, makeSelectFinishedSwaps } from './selectors';
 import PageSectionTitle from '../../components/PageSectionTitle';
 import TransactionRecord from './components/TransactionRecord';
 
-const debug = require('debug')('dicoapp:containers:DexPage:MyOrders');
+const debug = require('debug')('atomicapp:containers:DexPage:MyOrders');
 
 const styles = () => ({
   container: {

@@ -10,7 +10,7 @@ import reducer from './reducer';
 import { APP_STATE_NAME } from './constants';
 import { makeSelectIsStartWebsocket } from './selectors';
 
-const debug = require('debug')('dicoapp:containers:WebSocketComponent');
+const debug = require('debug')('atomicapp:containers:WebSocketComponent');
 
 type Props = {
   isStartWebsocket: boolean

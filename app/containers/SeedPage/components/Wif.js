@@ -33,7 +33,7 @@ const styles = () => ({
   }
 });
 
-const debug = require('debug')('dicoapp:containers:SeedPage:Wif');
+const debug = require('debug')('atomicapp:containers:SeedPage:Wif');
 
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
@@ -95,7 +95,7 @@ class Wif extends Component<Props, State> {
       <ExpansionPanel expanded={open} onChange={this.onChange}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>
-            <FormattedMessage id="dicoapp.containers.SeedPage.Passphrase.reveal_wif">
+            <FormattedMessage id="atomicapp.containers.SeedPage.Passphrase.reveal_wif">
               {(...content) => content}
             </FormattedMessage>
           </Typography>

@@ -36,7 +36,7 @@ import CoinSelectable from './components/CoinSelectable';
 import BuyButton from '../../components/BuyButton';
 import { floor } from './utils';
 
-const debug = require('debug')('dicoapp:containers:DexPage:SwapDetailModal');
+const debug = require('debug')('atomicapp:containers:DexPage:SwapDetailModal');
 
 function onOpenEmpty() {
   debug('onOpenEmpty');

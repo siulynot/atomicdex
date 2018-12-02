@@ -18,7 +18,7 @@ import {
 import { closeWithdrawModal } from '../actions';
 import WithdrawModalContent from './WithdrawModalContent';
 
-const debug = require('debug')('dicoapp:containers:WalletPage:WithdrawModal');
+const debug = require('debug')('atomicapp:containers:WalletPage:WithdrawModal');
 
 function onOpenEmpty() {
   debug('onOpenEmpty');

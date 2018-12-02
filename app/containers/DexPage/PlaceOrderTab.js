@@ -21,7 +21,7 @@ import CurrencySection from './components/CurrencySection';
 import PaymentSection from './components/PaymentSection';
 import { loadPrices } from './actions';
 
-const debug = require('debug')('dicoapp:containers:DexPage:PlaceOrder');
+const debug = require('debug')('atomicapp:containers:DexPage:PlaceOrder');
 
 const styles = () => ({
   container: {
@@ -97,7 +97,7 @@ class PlaceOrder extends Component<Props, State> {
           <CardContent className={classes.cardContent}>
             <PageSectionTitle
               title={
-                <FormattedMessage id="dicoapp.containers.DexPage.currency">
+                <FormattedMessage id="atomicapp.containers.DexPage.currency">
                   {(...content) => content}
                 </FormattedMessage>
               }
@@ -108,7 +108,7 @@ class PlaceOrder extends Component<Props, State> {
           <CardContent className={classes.cardContent}>
             <PageSectionTitle
               title={
-                <FormattedMessage id="dicoapp.containers.DexPage.payment">
+                <FormattedMessage id="atomicapp.containers.DexPage.payment">
                   {(...content) => content}
                 </FormattedMessage>
               }
@@ -126,7 +126,7 @@ class PlaceOrder extends Component<Props, State> {
           <CardContent className={classes.cardContent}>
             <PageSectionTitle
               title={
-                <FormattedMessage id="dicoapp.containers.DexPage.amount">
+                <FormattedMessage id="atomicapp.containers.DexPage.amount">
                   {(...content) => content}
                 </FormattedMessage>
               }

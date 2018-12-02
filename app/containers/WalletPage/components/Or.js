@@ -2,7 +2,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-const debug = require('debug')('dicoapp:containers:WalletPage:Or');
+const debug = require('debug')('atomicapp:containers:WalletPage:Or');
 
 const styles = () => ({
   or: {

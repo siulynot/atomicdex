@@ -16,7 +16,7 @@ import MenuBuilder from './main/menu';
 import marketmaker from './main/plugins/marketmaker';
 import getConfig from './main/config';
 
-const debug = require('debug')('dicoapp:main');
+const debug = require('debug')('atomicapp:main');
 
 export default class AppUpdater {
   constructor() {

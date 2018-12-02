@@ -22,7 +22,9 @@ import {
 import { loadTransactions, loadTransactionsLoop } from '../actions';
 import TransactionsTable from './TransactionsTable';
 
-const debug = require('debug')('dicoapp:containers:WalletPage:TransactionsTab');
+const debug = require('debug')(
+  'atomicapp:containers:WalletPage:TransactionsTab'
+);
 
 const styles = theme => ({
   containerSection: {

@@ -5,7 +5,7 @@ import type { Node } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-const debug = require('debug')('dicoapp:components:BuyButton');
+const debug = require('debug')('atomicapp:components:BuyButton');
 
 const styles = () => ({
   buyButton: {

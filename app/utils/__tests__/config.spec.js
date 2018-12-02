@@ -20,7 +20,7 @@ describe('utils/config', () => {
     'should handle getFromIPC correctly',
     async () => {
       const config = getConfig();
-      expect(await config.getFromIPC('APPNAME')).toEqual('dicoapp');
+      expect(await config.getFromIPC('APPNAME')).toEqual('atomicapp');
       expect(await config.getFromIPC('barterdex')).toEqual(
         'http://127.0.0.1:7783'
       );

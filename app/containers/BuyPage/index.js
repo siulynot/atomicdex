@@ -27,7 +27,7 @@ import handleUpdateSwapEvent from './saga/handle-update-swap-event';
 import saga from './saga';
 import subscribe from './subscribe';
 
-const debug = require('debug')('dicoapp:containers:BuyPage');
+const debug = require('debug')('atomicapp:containers:BuyPage');
 
 const styles = () => ({});
 
@@ -61,7 +61,7 @@ class BuyPage extends Component<Props, State> {
             <MDCAppBar>
               <MDCHeader
                 title={
-                  <FormattedMessage id="dicoapp.containers.BuyPage.title">
+                  <FormattedMessage id="atomicapp.containers.BuyPage.title">
                     {(...content) => content}
                   </FormattedMessage>
                 }

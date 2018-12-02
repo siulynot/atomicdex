@@ -10,7 +10,7 @@ import { WEBSOCKET_DAEMON, WEBSOCKET_RESTART_ON_REMOUNT } from './constants';
 
 const allowedModes = [WEBSOCKET_DAEMON, WEBSOCKET_RESTART_ON_REMOUNT];
 
-const debug = require('debug')('dicoapp:utils:websocket-injectors');
+const debug = require('debug')('atomicapp:utils:websocket-injectors');
 
 const checkKey = key =>
   invariant(

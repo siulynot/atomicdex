@@ -12,7 +12,7 @@ import { floor } from '../utils';
 import CoinSelectable from './CoinSelectable';
 import { makeSelectBalanceList, makeSelectPricesEntities } from '../selectors';
 
-const debug = require('debug')('dicoapp:containers:BuyPage:PaymentSection');
+const debug = require('debug')('atomicapp:containers:BuyPage:PaymentSection');
 
 const config = getConfig();
 const COIN_BASE = config.get('marketmaker.tokenconfig');

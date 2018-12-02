@@ -1,6 +1,6 @@
 const def = {
   barterdex: 'http://127.0.0.1:7783',
-  APPNAME: 'dicoapp',
+  APPNAME: 'atomicapp',
   minWindowSize: {
     width: 1156,
     height: process.platform === 'darwin' ? 680 : 730

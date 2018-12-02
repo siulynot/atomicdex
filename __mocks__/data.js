@@ -1,5 +1,5 @@
 module.exports = {
-  APPNAME: 'dicoapp',
+  APPNAME: 'atomicapp',
   barterdex: 'http://127.0.0.1:7783',
   loginWindowSize: {
     height: 680,

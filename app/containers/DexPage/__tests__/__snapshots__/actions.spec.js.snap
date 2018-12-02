@@ -2,13 +2,13 @@
 
 exports[`containers/DexPage/actions/checkTimeoutEvent should checkTimeoutEvent should create checkTimeoutEvent action 1`] = `
 Object {
-  "type": "dicoapp/DexPage/CHECK_TIMEOUT_EVENT",
+  "type": "atomicapp/DexPage/CHECK_TIMEOUT_EVENT",
 }
 `;
 
 exports[`containers/DexPage/actions/checkUpdateSwapEvent should checkUpdateSwapEvent should create checkUpdateSwapEvent action 1`] = `
 Object {
-  "type": "dicoapp/DexPage/CHECK_UPDATE_SWAP_EVENT",
+  "type": "atomicapp/DexPage/CHECK_UPDATE_SWAP_EVENT",
 }
 `;
 
@@ -18,19 +18,19 @@ Object {
     "name": "Komodo",
     "symbol": "KMD",
   },
-  "type": "dicoapp/DexPage/SELECT_COIN_MODAL_CLICK",
+  "type": "atomicapp/DexPage/SELECT_COIN_MODAL_CLICK",
 }
 `;
 
 exports[`containers/DexPage/actions/closeDetailModal should closeDetailModal should create closeDetailModal action 1`] = `
 Object {
-  "type": "dicoapp/DexPage/SWAP_DETAIL_MODAL_CLOSE",
+  "type": "atomicapp/DexPage/SWAP_DETAIL_MODAL_CLOSE",
 }
 `;
 
 exports[`containers/DexPage/actions/closeSelectCoinModal should closeSelectCoinModal should create closeSelectCoinModal action 1`] = `
 Object {
-  "type": "dicoapp/DexPage/SELECT_COIN_MODAL_CLOSE",
+  "type": "atomicapp/DexPage/SELECT_COIN_MODAL_CLOSE",
 }
 `;
 
@@ -50,7 +50,7 @@ Object {
     "rel": "PIZZA",
     "zcredits": 0,
   },
-  "type": "dicoapp/DexPage/LOAD_BEST_PRICE",
+  "type": "atomicapp/DexPage/LOAD_BEST_PRICE",
 }
 `;
 
@@ -61,7 +61,7 @@ Object {
     "basecoin": "BTC",
     "paymentcoin": "KMD",
   },
-  "type": "dicoapp/DexPage/LOAD_BUY_COIN",
+  "type": "atomicapp/DexPage/LOAD_BUY_COIN",
 }
 `;
 
@@ -70,7 +70,7 @@ Object {
   "error": Object {
     "message": "Value is large than balance",
   },
-  "type": "dicoapp/DexPage/LOAD_BUY_COIN_ERROR",
+  "type": "atomicapp/DexPage/LOAD_BUY_COIN_ERROR",
 }
 `;
 
@@ -79,25 +79,25 @@ Object {
   "payload": Object {
     "coin": "coin",
   },
-  "type": "dicoapp/DexPage/LOAD_PRICE",
+  "type": "atomicapp/DexPage/LOAD_PRICE",
 }
 `;
 
 exports[`containers/DexPage/actions/loadPrices should loadPrices should create loadPrices action 1`] = `
 Object {
-  "type": "dicoapp/DexPage/LOAD_PRICES",
+  "type": "atomicapp/DexPage/LOAD_PRICES",
 }
 `;
 
 exports[`containers/DexPage/actions/loadPricesSuccess should loadPricesSuccess should create loadPricesSuccess action 1`] = `
 Object {
-  "type": "dicoapp/DexPage/LOAD_PRICES_SUCCESS",
+  "type": "atomicapp/DexPage/LOAD_PRICES_SUCCESS",
 }
 `;
 
 exports[`containers/DexPage/actions/makeANewSwap should makeANewSwap should create makeANewSwap action 1`] = `
 Object {
-  "type": "dicoapp/DexPage/SWAP_MAKE_A_NEW",
+  "type": "atomicapp/DexPage/SWAP_MAKE_A_NEW",
 }
 `;
 
@@ -106,7 +106,7 @@ Object {
   "payload": Object {
     "uuid": undefined,
   },
-  "type": "dicoapp/DexPage/SWAP_DETAIL_MODAL_OPEN",
+  "type": "atomicapp/DexPage/SWAP_DETAIL_MODAL_OPEN",
 }
 `;
 
@@ -115,13 +115,13 @@ Object {
   "payload": Object {
     "uuid": "uuid",
   },
-  "type": "dicoapp/DexPage/SWAP_DETAIL_MODAL_OPEN",
+  "type": "atomicapp/DexPage/SWAP_DETAIL_MODAL_OPEN",
 }
 `;
 
 exports[`containers/DexPage/actions/openSelectCoinModal should openSelectCoinModal should create openSelectCoinModal action 1`] = `
 Object {
-  "type": "dicoapp/DexPage/SELECT_COIN_MODAL_OPEN",
+  "type": "atomicapp/DexPage/SELECT_COIN_MODAL_OPEN",
 }
 `;
 
@@ -131,7 +131,7 @@ Object {
     "name": "Komodo",
     "symbol": "KMD",
   },
-  "type": "dicoapp/DexPage/COIN_PAYMENT_SELECT",
+  "type": "atomicapp/DexPage/COIN_PAYMENT_SELECT",
 }
 `;
 
@@ -145,6 +145,6 @@ Object {
     "requestid": 0,
     "uuid": "bc5e1509b2aea898b8dff71ecc3fa7d5bc7c361fb14187fe9bc06916fae63811",
   },
-  "type": "dicoapp/DexPage/SWAP_TIMEOUT",
+  "type": "atomicapp/DexPage/SWAP_TIMEOUT",
 }
 `;

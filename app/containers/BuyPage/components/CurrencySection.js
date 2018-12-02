@@ -6,7 +6,7 @@ import { floor } from '../utils';
 import getConfig from '../../../utils/config';
 import CoinSelectable from './CoinSelectable';
 
-const debug = require('debug')('dicoapp:containers:BuyPage:CurrencySection');
+const debug = require('debug')('atomicapp:containers:BuyPage:CurrencySection');
 
 const config = getConfig();
 const COIN_BASE = config.get('marketmaker.tokenconfig');

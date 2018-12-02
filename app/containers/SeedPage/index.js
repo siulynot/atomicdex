@@ -75,7 +75,7 @@ const styles = () => ({
   }
 });
 
-const debug = require('debug')('dicoapp:containers:SeedPage');
+const debug = require('debug')('atomicapp:containers:SeedPage');
 
 type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
@@ -145,7 +145,7 @@ class SeedPage extends Component<Props, State> {
                   className={classes.bottom30}
                   gutterBottom
                 >
-                  <FormattedMessage id="dicoapp.containers.SeedPage.title">
+                  <FormattedMessage id="atomicapp.containers.SeedPage.title">
                     {(...content) => content}
                   </FormattedMessage>
                 </Typography>
@@ -153,7 +153,7 @@ class SeedPage extends Component<Props, State> {
                   gutterBottom
                   className={classNames(classes.description, classes.item)}
                 >
-                  <FormattedMessage id="dicoapp.containers.SeedPage.instructions">
+                  <FormattedMessage id="atomicapp.containers.SeedPage.instructions">
                     {(...content) => content}
                   </FormattedMessage>
                 </Typography>
@@ -162,7 +162,7 @@ class SeedPage extends Component<Props, State> {
                   className={classNames(classes.textLeft, classes.item)}
                   gutterBottom
                 >
-                  <FormattedMessage id="dicoapp.containers.SeedPage.copy">
+                  <FormattedMessage id="atomicapp.containers.SeedPage.copy">
                     {(...content) => content}
                   </FormattedMessage>
                 </Typography>
@@ -180,7 +180,7 @@ class SeedPage extends Component<Props, State> {
                 className={classes.bottomButton}
                 onClick={this.gotoLoginPage}
               >
-                <FormattedMessage id="dicoapp.containers.SeedPage.bottom_button">
+                <FormattedMessage id="atomicapp.containers.SeedPage.bottom_button">
                   {(...content) => content}
                 </FormattedMessage>
               </Button>

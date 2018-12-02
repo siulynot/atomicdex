@@ -10,20 +10,20 @@
  */
 export const APP_STATE_NAME = 'global';
 
-export const LOGIN = 'dicoapp/App/LOGIN';
-export const LOGIN_SUCCESS = 'dicoapp/App/LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'dicoapp/App/LOGIN_ERROR';
+export const LOGIN = 'atomicapp/App/LOGIN';
+export const LOGIN_SUCCESS = 'atomicapp/App/LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'atomicapp/App/LOGIN_ERROR';
 
-export const LOGOUT = 'dicoapp/App/LOGOUT';
+export const LOGOUT = 'atomicapp/App/LOGOUT';
 
-export const LOAD_BALANCE = 'dicoapp/App/LOAD_BALANCE';
-export const LOAD_BALANCE_SUCCESS = 'dicoapp/App/LOAD_BALANCE_SUCCESS';
+export const LOAD_BALANCE = 'atomicapp/App/LOAD_BALANCE';
+export const LOAD_BALANCE_SUCCESS = 'atomicapp/App/LOAD_BALANCE_SUCCESS';
 export const LOAD_COIN_BALANCE_SUCCESS =
-  'dicoapp/App/LOAD_COIN_BALANCE_SUCCESS';
-export const LOAD_BALANCE_ERROR = 'dicoapp/App/LOAD_BALANCE_ERROR';
+  'atomicapp/App/LOAD_COIN_BALANCE_SUCCESS';
+export const LOAD_BALANCE_ERROR = 'atomicapp/App/LOAD_BALANCE_ERROR';
 
-export const LOAD_WITHDRAW = 'dicoapp/App/LOAD_WITHDRAW';
-export const LOAD_WITHDRAW_SUCCESS = 'dicoapp/App/LOAD_WITHDRAW_SUCCESS';
-export const LOAD_WITHDRAW_ERROR = 'dicoapp/App/LOAD_WITHDRAW_ERROR';
+export const LOAD_WITHDRAW = 'atomicapp/App/LOAD_WITHDRAW';
+export const LOAD_WITHDRAW_SUCCESS = 'atomicapp/App/LOAD_WITHDRAW_SUCCESS';
+export const LOAD_WITHDRAW_ERROR = 'atomicapp/App/LOAD_WITHDRAW_ERROR';
 
-export const LOAD_SWAP_SUCCESS = 'dicoapp/App/LOAD_SWAP_SUCCESS';
+export const LOAD_SWAP_SUCCESS = 'atomicapp/App/LOAD_SWAP_SUCCESS';

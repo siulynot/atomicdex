@@ -2,7 +2,7 @@
 
 exports[`containers/BuyPage/actions/closeSnackbars should closeSnackbars should create closeSnackbars action 1`] = `
 Object {
-  "type": "dicoapp/BuyPage/SNACKBARS_CLOSE",
+  "type": "atomicapp/BuyPage/SNACKBARS_CLOSE",
 }
 `;
 
@@ -11,6 +11,6 @@ Object {
   "payload": Object {
     "message": "message",
   },
-  "type": "dicoapp/BuyPage/SNACKBARS_OPEN",
+  "type": "atomicapp/BuyPage/SNACKBARS_OPEN",
 }
 `;

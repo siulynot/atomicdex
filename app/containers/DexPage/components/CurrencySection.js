@@ -11,7 +11,7 @@ import { openSelectCoinModal } from '../actions';
 import { makeSelectCurrency } from '../selectors';
 import CoinSelectable from './CoinSelectable';
 
-const debug = require('debug')('dicoapp:containers:DexPage:CurrencySection');
+const debug = require('debug')('atomicapp:containers:DexPage:CurrencySection');
 
 // const line = (
 //   <Line

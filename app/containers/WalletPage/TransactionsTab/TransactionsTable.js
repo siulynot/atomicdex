@@ -15,7 +15,7 @@ import { formatDate } from '../../../lib/date-format';
 import explorer from '../../../lib/explorer';
 
 const debug = require('debug')(
-  'dicoapp:containers:WalletPage:TransactionsTable'
+  'atomicapp:containers:WalletPage:TransactionsTable'
 );
 
 const line60 = (
@@ -156,19 +156,19 @@ class TransactionsTable extends React.PureComponent<Props> {
           <TableRow>
             <TableCell className={classes.th}>#</TableCell>
             <TableCell className={classes.th}>
-              <FormattedMessage id="dicoapp.containers.Wallet.last_transactions_coin">
+              <FormattedMessage id="atomicapp.containers.Wallet.last_transactions_coin">
                 {(...content) => content}
               </FormattedMessage>
             </TableCell>
             {/* <TableCell className={classes.th}>
-              <FormattedMessage id="dicoapp.containers.Wallet.last_transactions_blockheight">
+              <FormattedMessage id="atomicapp.containers.Wallet.last_transactions_blockheight">
                 {(...content) => content}
               </FormattedMessage>
             </TableCell> */}
             <TableCell className={classes.th}>Amount</TableCell>
             <TableCell className={classes.th}>Date</TableCell>
             <TableCell className={classes.th}>
-              <FormattedMessage id="dicoapp.containers.Wallet.last_transactions_transactionid">
+              <FormattedMessage id="atomicapp.containers.Wallet.last_transactions_transactionid">
                 {(...content) => content}
               </FormattedMessage>
             </TableCell>

@@ -16,7 +16,7 @@ import {
 } from '../constants';
 
 const debug = require('debug')(
-  'dicoapp:containers:DexPage:saga:handle-update-swap-event'
+  'atomicapp:containers:DexPage:saga:handle-update-swap-event'
 );
 
 export function* checkSwap(requestid, quoteid, isPending) {

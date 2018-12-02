@@ -20,7 +20,7 @@ import {
 import { closeDepositModal } from '../actions';
 import DepositContent from './DepositContent';
 
-const debug = require('debug')('dicoapp:containers:WalletPage:DepositModal');
+const debug = require('debug')('atomicapp:containers:WalletPage:DepositModal');
 
 const styles = () => ({
   depositModal__dialogTitle: {

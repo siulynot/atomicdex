@@ -16,7 +16,7 @@ import sendRawTransactionFactory from './send-raw-transaction';
 import swapstatusFactory from './swapstatus';
 import withdrawFactory from './withdraw';
 
-// const debug = require('debug')('dicoapp:utils:barter-dex-api');
+// const debug = require('debug')('atomicapp:utils:barter-dex-api');
 
 // eslint-disable-next-line flowtype/no-weak-types
 function BarterDexAPI(): Object {

@@ -6,7 +6,7 @@ import { LOGOUT, LOAD_BALANCE, LOAD_WITHDRAW } from '../constants';
 import loadBalanceProcess from './load-balance-process';
 import loadWithdrawProcess from './load-withdraw-process';
 
-const debug = require('debug')('dicoapp:containers:App:saga');
+const debug = require('debug')('atomicapp:containers:App:saga');
 
 export function* logoutFlow() {
   debug(`logout flow`);
