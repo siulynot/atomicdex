@@ -310,7 +310,11 @@ class AmountSection extends React.Component<Props, State> {
     if (payment.get('symbol') !== prevProps.payment.get('symbol')) {
       // FIXME: It can be cause an infinite loop. Is there any bestter way?
       // https://reactjs.org/docs/react-component.html#componentdidupdate
-      this.onChangeBaseInput();
+      const baseInput = this.baseInput.current;
+      const base = baseInput.rawvalue();
+      if (base && base !== '') {
+        this.onChangeBaseInput();
+      }
     }
   }
 
