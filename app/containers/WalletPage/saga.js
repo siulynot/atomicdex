@@ -1,10 +1,11 @@
 import { all, call, put, select, cancelled } from 'redux-saga/effects';
-import { CANCEL, delay } from 'redux-saga';
+// import { CANCEL, delay } from 'redux-saga';
+import { CANCEL } from 'redux-saga';
 import takeFirst from '../../utils/sagas/take-first';
 import {
   TRANSACTIONS_LOAD,
-  TRANSACTIONS_LOAD_LOOP,
-  TIME_LOOP
+  TRANSACTIONS_LOAD_LOOP
+  // TIME_LOOP
 } from './constants';
 import { makeSelectCurrentUser } from '../App/selectors';
 import api from '../../lib/barter-dex-api';
@@ -78,11 +79,11 @@ export function* loadTransactionsProcess() {
 }
 
 export function* loadTransactionsLoopProcess() {
-  while (true) {
-    debug('load transactions loop process start');
-    yield put(loadTransactions());
-    yield call(delay, TIME_LOOP);
-  }
+  // while (true) {
+  debug('load transactions loop process start');
+  yield put(loadTransactions());
+  // yield call(delay, TIME_LOOP);
+  // }
 }
 
 /**

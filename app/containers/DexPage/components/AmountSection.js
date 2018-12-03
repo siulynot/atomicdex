@@ -286,6 +286,7 @@ class AmountSection extends React.Component<Props, State> {
     const {
       entity,
       currency,
+      payment,
       dispatchCheckUpdateSwapEvent,
       dispatchCheckTimeoutEvent
     } = this.props;
@@ -305,6 +306,11 @@ class AmountSection extends React.Component<Props, State> {
       // FIXME: It can be cause an infinite loop. Is there any bestter way?
       // https://reactjs.org/docs/react-component.html#componentdidupdate
       this.controlBuyButton(true);
+    }
+    if (payment.get('symbol') !== prevProps.payment.get('symbol')) {
+      // FIXME: It can be cause an infinite loop. Is there any bestter way?
+      // https://reactjs.org/docs/react-component.html#componentdidupdate
+      this.onChangeBaseInput();
     }
   }
 
