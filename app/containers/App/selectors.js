@@ -45,12 +45,20 @@ const makeSelectBalanceError = () =>
 
 const makeSelectBalanceList = () =>
   createSelector(makeSelectBalance(), balanceState =>
-    balanceState.get('coins')
+    balanceState.get('coins').map(e => e.get('symbol'))
   );
 
 const makeSelectBalanceEntities = () =>
   createSelector(makeSelectBalance(), balanceState =>
     balanceState.get('entities')
+  );
+
+const makeSelectBalanceAvailable = () =>
+  createSelector(
+    makeSelectBalanceList(),
+    makeSelectBalanceEntities(),
+    (list, entities) =>
+      list.map(key => entities.get(key)).filter(value => value.get('balance'))
   );
 
 export {
@@ -66,5 +74,6 @@ export {
   makeSelectBalanceInit,
   makeSelectBalanceError,
   makeSelectBalanceList,
-  makeSelectBalanceEntities
+  makeSelectBalanceEntities,
+  makeSelectBalanceAvailable
 };

@@ -24,7 +24,7 @@ export function* loadCoinBalanceProcess(coin, address) {
     request = api.balance(params);
     const data = yield request;
     data.address = address;
-    // const utxo = yield call([api, 'listUnspent'], params);
+    // const utxo = yield call([api, 'listunspent'], params);
     // https://docs.komodoplatform.com/barterDEX/barterDEX-API.html#getfee
     const fee = yield call([api, 'getfee'], {
       coin

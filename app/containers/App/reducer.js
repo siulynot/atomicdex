@@ -12,6 +12,9 @@
  */
 import { fromJS } from 'immutable';
 import { handleActions } from 'redux-actions';
+import each from 'lodash/each';
+import isNumber from 'lodash/isNumber';
+import getConfig from '../../utils/config';
 
 import {
   LOGIN,
@@ -28,6 +31,24 @@ import {
   LOAD_SWAP_SUCCESS
 } from './constants';
 
+const config = getConfig();
+const COIN_DATA = config.get('marketmaker.data');
+
+function getDataMarketcap(data = COIN_DATA) {
+  const result = {};
+  each(data, (e, k) => {
+    if (isNumber(e.market_cap)) {
+      result[e.coin] = {
+        id: k,
+        name: e.name,
+        symbol: e.coin,
+        marketcap: e.market_cap
+      };
+    }
+  });
+  return result;
+}
+
 // The initial state of the App
 export const initialState = fromJS({
   loading: false,
@@ -39,7 +60,8 @@ export const initialState = fromJS({
     error: false,
     coins: [],
     entities: {}
-  }
+  },
+  marketcap: getDataMarketcap()
 });
 
 function initialWalletState(coin) {
@@ -72,8 +94,19 @@ const appReducer = handleActions(
       );
       // step two: add key in coins list
       const coins = state.getIn(['balance', 'coins']);
-      if (!coins.find(obj => obj === payload.coin)) {
-        state = state.setIn(['balance', 'coins'], coins.push(payload.coin));
+      if (!coins.find(obj => obj.get('symbol') === payload.coin)) {
+        state = state.setIn(
+          ['balance', 'coins'],
+          coins
+            .push(
+              fromJS({
+                symbol: payload.coin,
+                marketcap:
+                  state.getIn(['marketcap', payload.coin, 'marketcap']) || 0
+              })
+            )
+            .sort((a, b) => b.get('marketcap') - a.get('marketcap'))
+        );
       }
       return state;
     },

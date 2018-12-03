@@ -121,26 +121,106 @@
       "init": true,
       "loading": false,
       "error": false,
-      "coins": ["BTC", "KMD", "EQL", "LTC", "PIZZA", "COQUI", "BEER"],
+      "coins": [
+        {
+          "symbol": "BTC",
+          "marketcap": 97822306639
+        },
+        {
+          "symbol": "LTC",
+          "marketcap": 2578993869
+        },
+        {
+          "symbol": "KMD",
+          "marketcap": 107340275
+        },
+        {
+          "symbol": "VRSC",
+          "marketcap": 1609044
+        },
+        {
+          "symbol": "CHIPS",
+          "marketcap": 1609044
+        },
+        {
+          "symbol": "EQL",
+          "marketcap": 0
+        },
+        {
+          "symbol": "PIZZA",
+          "marketcap": 0
+        },
+        {
+          "symbol": "BEER",
+          "marketcap": 0
+        },
+        {
+          "symbol": "COQUI",
+          "marketcap": 0
+        }
+      ],
       "entities": {
-        "BTC": {
-          "coin": "BTC",
-          "address": "1HD77JGnkyqtj3ESgqjG18aJkb41aknPyv",
-          "balance": 0,
+        "EQL": {
+          "coin": "EQL",
+          "address": "RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu",
+          "balance": 2.11114249,
+          "fee": 0.00001,
           "loading": false,
           "error": false
         },
         "KMD": {
           "coin": "KMD",
           "address": "RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu",
-          "balance": 3.5524436,
+          "balance": 0.5046568,
+          "fee": 0.00001,
           "loading": false,
           "error": false
         },
-        "EQL": {
-          "coin": "EQL",
+        "CHIPS": {
+          "coin": "CHIPS",
           "address": "RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu",
-          "balance": 2.11114249,
+          "balance": 8.48405383,
+          "fee": 0.0001,
+          "loading": false,
+          "error": false
+        },
+        "PIZZA": {
+          "coin": "PIZZA",
+          "address": "RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu",
+          "balance": 0.67694,
+          "fee": 0.00001,
+          "loading": false,
+          "error": false
+        },
+        "VRSC": {
+          "coin": "VRSC",
+          "address": "1HD77JGnkyqtj3ESgqjG18aJkb41aknPyv",
+          "balance": 0,
+          "fee": 0.00001,
+          "loading": false,
+          "error": false
+        },
+        "BEER": {
+          "coin": "BEER",
+          "address": "RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu",
+          "balance": 6523.80032824,
+          "fee": 0.00001,
+          "loading": false,
+          "error": false
+        },
+        "BTC": {
+          "coin": "BTC",
+          "address": "1HD77JGnkyqtj3ESgqjG18aJkb41aknPyv",
+          "balance": 0,
+          "fee": 0.0002,
+          "loading": false,
+          "error": false
+        },
+        "COQUI": {
+          "coin": "COQUI",
+          "address": "RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu",
+          "balance": 724.69719507,
+          "fee": 0.00001,
           "loading": false,
           "error": false
         },
@@ -148,30 +228,66 @@
           "coin": "LTC",
           "address": "LbS4NWacqe5wyqvbryiZH9e4xoRHk9WNUJ",
           "balance": 0,
-          "loading": false,
-          "error": false
-        },
-        "PIZZA": {
-          "coin": "PIZZA",
-          "address": "RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu",
-          "balance": 0.67699,
-          "loading": false,
-          "error": false
-        },
-        "COQUI": {
-          "coin": "COQUI",
-          "address": "RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu",
-          "balance": 293.71689487,
-          "loading": false,
-          "error": false
-        },
-        "BEER": {
-          "coin": "BEER",
-          "address": "RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu",
-          "balance": 7546.5974814,
+          "fee": 0.001,
           "loading": false,
           "error": false
         }
+      }
+    },
+    "marketcap": {
+      "EQL": {
+        "id": 2,
+        "name": "Equaliser",
+        "symbol": "EQL",
+        "marketcap": 0
+      },
+      "KMD": {
+        "id": 0,
+        "name": "Komodo",
+        "symbol": "KMD",
+        "marketcap": 107340275
+      },
+      "CHIPS": {
+        "id": 7,
+        "name": "Chips",
+        "symbol": "CHIPS",
+        "marketcap": 1609044
+      },
+      "PIZZA": {
+        "id": 4,
+        "name": "Pizza",
+        "symbol": "PIZZA",
+        "marketcap": 0
+      },
+      "VRSC": {
+        "id": 8,
+        "name": "VerusCoin",
+        "symbol": "VRSC",
+        "marketcap": 1609044
+      },
+      "BEER": {
+        "id": 5,
+        "name": "Beer",
+        "symbol": "BEER",
+        "marketcap": 0
+      },
+      "BTC": {
+        "id": 1,
+        "name": "Bitcoin",
+        "symbol": "BTC",
+        "marketcap": 97822306639
+      },
+      "COQUI": {
+        "id": 6,
+        "name": "Coqui Cash",
+        "symbol": "COQUI",
+        "marketcap": 0
+      },
+      "LTC": {
+        "id": 3,
+        "name": "Litecoin",
+        "symbol": "LTC",
+        "marketcap": 2578993869
       }
     }
   },

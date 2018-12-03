@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect';
 import { getCoinIcon } from '../../../components/CryptoIcons';
 import { Line, Circle } from '../../../components/placeholder';
 import { covertSymbolToName } from '../../../utils/coin';
-import { makeSelectBalanceList } from '../../App/selectors';
+import { makeSelectBalanceAvailable } from '../../App/selectors';
 import { floor } from '../utils';
 import { selectCoinPayment, loadPrice } from '../actions';
 import {
@@ -64,11 +64,10 @@ type Props = {
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchSelectCoinPayment: Function,
   // eslint-disable-next-line flowtype/no-weak-types
-  balance: Object,
-  entities: Map<*, *>,
-  list: List<*>,
+  pricesEntities: Map<*, *>,
   currency: Map<*, *>,
-  payment: Map<*, *>
+  payment: Map<*, *>,
+  balanceAvailable: List<*>
 };
 
 class PaymentSection extends React.PureComponent<Props> {
@@ -86,16 +85,10 @@ class PaymentSection extends React.PureComponent<Props> {
     }
   };
 
-  renderPaymentCoin = symbol => {
-    const {
-      payment,
-      entities,
-      balance,
-      dispatchLoadPrice,
-      currency
-    } = this.props;
-    const c = entities.get(symbol);
-    const b = balance.get(symbol);
+  renderPaymentCoin = b => {
+    const { payment, pricesEntities, dispatchLoadPrice, currency } = this.props;
+    const symbol = b.get('coin');
+    const c = pricesEntities.get(symbol);
     const icon = getCoinIcon(symbol);
     const name = covertSymbolToName(symbol);
     if (!c) {
@@ -143,11 +136,11 @@ class PaymentSection extends React.PureComponent<Props> {
 
   render() {
     debug(`render`);
-    const { list, loading } = this.props;
-    if (loading && list.size === 0) {
+    const { balanceAvailable, loading } = this.props;
+    if (loading && balanceAvailable.size === 0) {
       return this.renderLoading();
     }
-    return list.map(this.renderPaymentCoin);
+    return balanceAvailable.map(this.renderPaymentCoin);
   }
 }
 
@@ -163,10 +156,10 @@ export function mapDispatchToProps(dispatch: Dispatch<Object>) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  list: makeSelectBalanceList(),
-  entities: makeSelectPricesEntities(),
+  pricesEntities: makeSelectPricesEntities(),
   currency: makeSelectCurrency(),
-  payment: makeSelectPayment()
+  payment: makeSelectPayment(),
+  balanceAvailable: makeSelectBalanceAvailable()
 });
 
 const withConnect = connect(
