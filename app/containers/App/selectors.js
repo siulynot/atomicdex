@@ -53,6 +53,14 @@ const makeSelectBalanceEntities = () =>
     balanceState.get('entities')
   );
 
+const makeSelectBalanceAvailable = () =>
+  createSelector(
+    makeSelectBalanceList(),
+    makeSelectBalanceEntities(),
+    (list, entities) =>
+      list.map(key => entities.get(key)).filter(value => value.get('balance'))
+  );
+
 export {
   selectGlobal,
   makeSelectCurrentUser,
@@ -66,5 +74,6 @@ export {
   makeSelectBalanceInit,
   makeSelectBalanceError,
   makeSelectBalanceList,
-  makeSelectBalanceEntities
+  makeSelectBalanceEntities,
+  makeSelectBalanceAvailable
 };

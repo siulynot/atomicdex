@@ -675,7 +675,7 @@ class AmountSection extends React.Component<Props, State> {
             )}
           >
             <div className={classes.amountform__infoItem}>
-              <Typography variant="subtitle1">Deposit Min</Typography>
+              <Typography variant="subtitle1">Min Volume</Typography>
               <span className={classes.amountform__infosubtitle2}>
                 {price ? `${price.get('avevolume')} ${price.get('base')}` : NA}
               </span>
@@ -686,7 +686,7 @@ class AmountSection extends React.Component<Props, State> {
                 classes.amountform__infoItem
               )}
             >
-              <Typography variant="subtitle1">Deposit Max</Typography>
+              <Typography variant="subtitle1">Max Volume</Typography>
               <span className={classes.amountform__infosubtitle2}>
                 {price ? `${price.get('maxvolume')} ${price.get('base')}` : NA}
               </span>

@@ -12,6 +12,8 @@
  */
 import { fromJS } from 'immutable';
 import { handleActions } from 'redux-actions';
+// import isNumber from 'lodash/isNumber';
+// import getConfig from '../../utils/config';
 
 import {
   LOGIN,
@@ -27,6 +29,17 @@ import {
   LOAD_WITHDRAW_ERROR,
   LOAD_SWAP_SUCCESS
 } from './constants';
+
+// const config = getConfig();
+// const COIN_DATA = config.get('marketmaker.data');
+// const data = COIN_DATA.map((e, k) => ({
+//   id: k,
+//   name: e.name,
+//   symbol: e.coin,
+//   market_cap: e.market_cap
+// }))
+//   .filter(e => isNumber(e.market_cap))
+//   .sort((a, b) => b.market_cap - a.market_cap);
 
 // The initial state of the App
 export const initialState = fromJS({

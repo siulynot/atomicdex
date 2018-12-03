@@ -121,7 +121,7 @@ class PlaceOrder extends Component<Props, State> {
               <Icon>cached</Icon>
             </IconButton>
             {/* <Divider className={classes.hr} /> */}
-            <PaymentSection balance={balance} loading={balanceLoading} />
+            <PaymentSection loading={balanceLoading} />
           </CardContent>
           <CardContent className={classes.cardContent}>
             <PageSectionTitle
