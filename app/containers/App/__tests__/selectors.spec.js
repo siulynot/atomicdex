@@ -8,7 +8,7 @@ import {
 } from '../selectors';
 import data from '../../__tests__/app-state.json';
 
-describe('containers/DexPage/selectors/selectGlobal', () => {
+describe('containers/App/selectors/selectGlobal', () => {
   it('should select the buy state', () => {
     const mockedState = fromJS({
       [APP_STATE_NAME]: initialState
@@ -17,7 +17,7 @@ describe('containers/DexPage/selectors/selectGlobal', () => {
   });
 });
 
-describe('containers/DexPage/selectors/makeSelectLocation', () => {
+describe('containers/App/selectors/makeSelectLocation', () => {
   it('should select the buy state', () => {
     const mockedState = fromJS(data);
     const selectLocation = makeSelectLocation();
@@ -29,14 +29,14 @@ describe('containers/DexPage/selectors/makeSelectLocation', () => {
   });
 });
 
-describe('containers/DexPage/selectors/makeSelectBalanceAvailable', () => {
+describe('containers/App/selectors/makeSelectBalanceAvailable', () => {
   it('should select the buy state', () => {
     const mockedState = fromJS(data);
     const selectBalanceAvailable = makeSelectBalanceAvailable();
     expect(selectBalanceAvailable(mockedState)).toEqual(
       fromJS(
         data.global.balance.coins
-          .map(e => data.global.balance.entities[e])
+          .map(e => data.global.balance.entities[e.symbol])
           .filter(e => e.balance)
       )
     );

@@ -105,7 +105,7 @@ const appReducer = handleActions(
                   state.getIn(['marketcap', payload.coin, 'marketcap']) || 0
               })
             )
-            .sort((a, b) => a.get('marketcap') - b.get('marketcap'))
+            .sort((a, b) => b.get('marketcap') - a.get('marketcap'))
         );
       }
       return state;
