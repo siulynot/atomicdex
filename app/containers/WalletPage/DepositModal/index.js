@@ -78,7 +78,7 @@ export class DepositModal extends React.PureComponent<Props> {
     evt.target.focus();
   };
 
-  renderQRCode = () => {
+  renderDepositContent = () => {
     const { coin } = this.props;
 
     return (
@@ -100,7 +100,7 @@ export class DepositModal extends React.PureComponent<Props> {
         onClose={onClose}
       >
         {!coin && this.renderEmptyState()}
-        {coin && this.renderQRCode()}
+        {coin && this.renderDepositContent()}
       </Dialog>
     );
   }

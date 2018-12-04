@@ -130,16 +130,10 @@ class Asset extends PureComponent<Props> {
           subheader={data.get('coin')}
         />
         <CardContent className={classes.wallet__content}>
-          <Typography
-            variant="h1"
-            // style={{
-            //   display: 'inline'
-            // }}
-            className={classes.wallet__balance}
-          >
+          <Typography variant="h1" className={classes.wallet__balance}>
             {data.get('balance')} {data.get('coin')}
           </Typography>
-          <Button
+          {/* <Button
             className={ClassNames(classes.wallet__button)}
             size="small"
             color="primary"
@@ -148,7 +142,7 @@ class Asset extends PureComponent<Props> {
             }}
           >
             UTXOs
-          </Button>
+          </Button> */}
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <Button
