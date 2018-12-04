@@ -299,18 +299,23 @@ class AmountSection extends React.Component<Props, State> {
       dispatchCheckUpdateSwapEvent();
       dispatchCheckTimeoutEvent();
     }
-    if (currency.get('symbol') !== prevProps.currency.get('symbol')) {
+    const baseInput = this.baseInput.current;
+    if (
+      currency.get('symbol') !== prevProps.currency.get('symbol') &&
+      baseInput
+    ) {
       // reset value when user change currency
-      const baseInput = this.baseInput.current;
       baseInput.reset();
       // FIXME: It can be cause an infinite loop. Is there any bestter way?
       // https://reactjs.org/docs/react-component.html#componentdidupdate
       this.controlBuyButton(true);
     }
-    if (payment.get('symbol') !== prevProps.payment.get('symbol')) {
+    if (
+      payment.get('symbol') !== prevProps.payment.get('symbol') &&
+      baseInput
+    ) {
       // FIXME: It can be cause an infinite loop. Is there any bestter way?
       // https://reactjs.org/docs/react-component.html#componentdidupdate
-      const baseInput = this.baseInput.current;
       const base = baseInput.rawvalue();
       if (base && base !== '') {
         this.onChangeBaseInput();

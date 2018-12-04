@@ -20,6 +20,7 @@ import HeaderTabs from './components/HeaderTabs';
 import TransactionsTab from './TransactionsTab';
 import WithdrawModal from './WithdrawModal';
 import DepositModal from './DepositModal';
+import UtxosModal from './UtxosModal';
 import PortfolioTab from './PortfolioTab';
 import ProgressBar from './ProgressBar';
 import reducer from './reducer';
@@ -120,6 +121,7 @@ class WalletPage extends Component<Props, State> {
         </NavigationLayout>
         <WithdrawModal />
         <DepositModal />
+        <UtxosModal />
       </React.Fragment>
     );
   }
