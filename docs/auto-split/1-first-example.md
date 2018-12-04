@@ -1,10 +1,10 @@
-** Params **
+**Params**
 
 ```js
 {"coin":"COQUI","outputs":[{"RRVJBpA5MoeTo3beA1iP6euWWrWcJdJtXu":300}]}
 ```
 
-** Result **
+**Result**
 
 ```js
 let first = [
