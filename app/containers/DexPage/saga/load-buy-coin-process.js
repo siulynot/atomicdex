@@ -1,4 +1,4 @@
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 // import { put, call, select, cancel, cancelled } from 'redux-saga/effects';
 import { put, call, select, cancelled } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
@@ -7,9 +7,10 @@ import {
   makeSelectCurrentUser,
   makeSelectBalanceEntities
 } from '../../App/selectors';
-import { loadBuyCoinError, loadBuyCoinSuccess } from '../actions';
+// import { loadBuyCoinError, loadBuyCoinSuccess } from '../actions';
+import { loadBuyCoinError } from '../actions';
 import { makeSelectPricesEntities } from '../selectors';
-import { APPROPRIATE_ERROR_UTXOS } from '../constants';
+// import { APPROPRIATE_ERROR_UTXOS } from '../constants';
 
 const debug = require('debug')(
   'atomicapp:containers:DexPage:saga:load-buy-coin-process'
@@ -26,12 +27,13 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
     if (!user) {
       throw new Error('not found user');
     }
-    const { basecoin, paymentcoin, amount } = payload;
+    // const { basecoin, paymentcoin, amount } = payload;
+    const { paymentcoin, amount } = payload;
 
     const userpass = user.get('userpass');
     const coins = user.get('coins');
     const paymentsmartaddress = coins.find(c => c.get('coin') === paymentcoin);
-    const basesmartaddress = coins.find(c => c.get('coin') === basecoin);
+    // const basesmartaddress = coins.find(c => c.get('coin') === basecoin);
 
     // step two: load balance
     const balances = yield select(makeSelectBalanceEntities());
@@ -50,7 +52,7 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
       throw new Error('Not enough balance!');
     }
 
-    let isSplittingTheFund = false;
+    // let isSplittingTheFund = false;
     // const startTime = Date.now();
 
     while (true) {
@@ -67,6 +69,9 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
         address: paymentsmartaddress.get('smartaddress')
       });
 
+      console.log(unspent, 'unspent');
+
+      /*
       if (unspent.length < 2) {
         // splitting utxos
         debug('splitting utxos');
@@ -123,6 +128,8 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
           return yield put(loadBuyCoinSuccess(result.pending));
         }
       }
+      */
+
       yield call(delay, time);
     }
   } catch (err) {

@@ -24,6 +24,7 @@ export const CHECK_UPDATE_SWAP_EVENT =
 export const AUTO_HIDE_SNACKBAR_TIME = 6000;
 export const TIME_LOOP = 20 * 1000;
 export const STATE_SWAPS = [
+  // 'Splitting UTXOs',
   'Confirming',
   'My Fee',
   'Bob Deposit',
