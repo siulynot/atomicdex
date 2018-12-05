@@ -224,7 +224,8 @@ export default merge.smart(baseConfig, {
      * 'staging', for example, by changing the ENV variables in the npm scripts
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+      NODE_ENV: 'development',
+      DEBUG: process.env.DEBUG
     }),
 
     new webpack.LoaderOptionsPlugin({

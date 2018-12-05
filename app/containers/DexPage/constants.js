@@ -62,4 +62,5 @@ export const NA = 'N/A';
 
 export const DEXFEE = 777;
 export const NUMCOIN = 100000000;
-export const BUFF_PRICES = 1.01 * NUMCOIN; // 1%
+// export const BUFF_PRICES = 1.01 * NUMCOIN; // 1%
+export const BUFF_PRICES = 1.0 * NUMCOIN; // 0%
