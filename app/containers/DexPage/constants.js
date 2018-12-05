@@ -61,3 +61,5 @@ export const SWAP_WARNING_MESSAGE =
 export const NA = 'N/A';
 
 export const DEXFEE = 777;
+export const NUMCOIN = 100000000;
+export const BUFF_PRICES = 1.01 * NUMCOIN; // 1%

@@ -11,12 +11,12 @@ import {
 import { loadBuyCoinError } from '../actions';
 import { makeSelectPricesEntities } from '../selectors';
 // import { APPROPRIATE_ERROR_UTXOS } from '../constants';
+import { NUMCOIN } from '../constants';
 
 const debug = require('debug')(
   'atomicapp:containers:DexPage:saga:load-buy-coin-process'
 );
 
-const numcoin = 100000000;
 const txfee = 10000;
 const intervalTime = 45 * 1000; // 45s
 
@@ -38,6 +38,7 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
     // step two: load balance
     const balances = yield select(makeSelectBalanceEntities());
     const balance = balances.find(c => c.get('coin') === paymentcoin);
+    console.log(balance.toJS(), 'balance');
 
     // step three: load best price
     const prices = yield select(makeSelectPricesEntities());
@@ -45,9 +46,10 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
 
     // step four: check balance
     const relvolume = Number(amount * price.get('price'));
+    const dexfee = relvolume / 777;
     if (
-      relvolume * numcoin + txfee >=
-      Number(balance.get('balance') * numcoin).toFixed(0)
+      relvolume * NUMCOIN + txfee >=
+      Number(balance.get('balance') * NUMCOIN).toFixed(0)
     ) {
       throw new Error('Not enough balance!');
     }
@@ -63,14 +65,19 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
       // }
 
       // step five: get listunspent data
-      const unspent = yield call([api, 'listunspent'], {
+      let unspent = yield call([api, 'listunspent'], {
         userpass,
         coin: paymentcoin,
         address: paymentsmartaddress.get('smartaddress')
       });
 
+      unspent = unspent.map(e => {
+        e.value /= NUMCOIN;
+        return e;
+      });
       console.log(unspent, 'unspent');
-
+      console.log(dexfee, 'dexfee');
+      console.log(relvolume, 'relvolume');
       /*
       if (unspent.length < 2) {
         // splitting utxos
