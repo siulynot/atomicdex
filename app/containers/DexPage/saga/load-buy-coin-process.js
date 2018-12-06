@@ -46,6 +46,7 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
     // step four: check balance
     const relvolume = floor(Number(amount * price.get('price')), 8);
     const dexfee = floor(relvolume / 777, 8);
+
     if (
       relvolume * NUMCOIN + 2 * dexfee * NUMCOIN + fee * NUMCOIN >=
       Number(balance.get('balance') * NUMCOIN).toFixed(0)
@@ -71,7 +72,6 @@ export default function* loadBuyCoinProcess({ payload, time = intervalTime }) {
         coin: paymentcoin,
         address: paymentsmartaddress.get('smartaddress')
       });
-
       unspent = unspent.map(e => {
         e.value /= NUMCOIN;
         return e;
