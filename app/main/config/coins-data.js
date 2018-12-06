@@ -92,7 +92,7 @@ const data = [
       }
     ],
     active: 1,
-    market_cap: 0
+    market_cap: -2 // NOTE: we should display test coin at end of the list
   },
   {
     coin: 'BEER',
@@ -110,7 +110,7 @@ const data = [
       }
     ],
     active: 1,
-    market_cap: 0
+    market_cap: -1 // NOTE: we should display test coin at end of the list
   },
   {
     coin: 'COQUI',

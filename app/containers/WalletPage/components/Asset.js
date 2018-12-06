@@ -130,13 +130,19 @@ class Asset extends PureComponent<Props> {
           subheader={data.get('coin')}
         />
         <CardContent className={classes.wallet__content}>
-          <Typography
-            variant="h1"
-            gutterBottom
-            className={classes.wallet__balance}
-          >
+          <Typography variant="h1" className={classes.wallet__balance}>
             {data.get('balance')} {data.get('coin')}
           </Typography>
+          {/* <Button
+            className={ClassNames(classes.wallet__button)}
+            size="small"
+            color="primary"
+            style={{
+              marginLeft: -10
+            }}
+          >
+            UTXOs
+          </Button> */}
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <Button
@@ -159,6 +165,17 @@ class Asset extends PureComponent<Props> {
           >
             Withdraw
           </Button>
+          {/* <Button
+            className={classes.wallet__button}
+            size="small"
+            color="primary"
+            style={{
+              flex: 1,
+              textAlign: 'right'
+            }}
+          >
+            UTXOS
+          </Button> */}
         </CardActions>
       </Card>
     );

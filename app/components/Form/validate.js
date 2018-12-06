@@ -120,6 +120,11 @@ export default function validate(
       }
     };
 
+    rawvalue = () => {
+      const { value } = this.state;
+      return value;
+    };
+
     render() {
       debug(`render`);
 

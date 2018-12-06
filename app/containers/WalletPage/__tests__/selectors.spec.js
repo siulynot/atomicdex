@@ -14,7 +14,7 @@ import {
   makeSelectCoinWithdrawModal,
   makeSelectCoinDepositModal
 } from '../selectors';
-import data from './fake-data';
+import data from '../../__tests__/app-state.json';
 
 describe('containers/WalletPage/selectors/selectWallet', () => {
   it('should select the wallet state', () => {

@@ -37,6 +37,10 @@ export const initialState = fromJS({
   depositModal: {
     open: false,
     coin: null
+  },
+  utxosModal: {
+    open: false,
+    coin: null
   }
 });
 

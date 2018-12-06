@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import walletSubscribe from '../subscribe';
 import { APP_STATE_NAME } from '../constants';
 import { loadCoinTransactionsSuccess } from '../actions';
-import data from './fake-data';
+import data from '../../__tests__/app-state.json';
 
 const fakeDataFromSocket = {
   queueid: '10',
