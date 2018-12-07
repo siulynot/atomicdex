@@ -3,7 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import type { Dispatch } from 'redux';
 import { loadSwapSuccess } from '../../../App/actions';
-import { loadBuyCoinSuccess, loadRecentSwapsCoin } from '../../actions';
+import {
+  // loadBuyCoin,
+  loadBuyCoinSuccess,
+  loadRecentSwapsCoin
+} from '../../actions';
 import {
   SWAP_STATE_ZERO,
   SWAP_STATE_ONE,
@@ -13,10 +17,13 @@ import {
   SWAP_STATE_FIVE,
   LOAD_SWAP_SUCCESS
 } from '../../../__tests__/fake-data';
+// import type { BuyCoinPayload } from '../../schema';
 
 const debug = require('debug')('atomicapp:containers:DexPage:TestSwap');
 
 type Props = {
+  // eslint-disable-next-line flowtype/no-weak-types
+  // dispatchLoadBuyCoin: Function,
   // eslint-disable-next-line flowtype/no-weak-types
   dispatchLoadBuyCoinSuccess: Function,
   // eslint-disable-next-line flowtype/no-weak-types
@@ -38,6 +45,7 @@ class TestSwap extends React.PureComponent<Props> {
 
   componentDidMount = () => {
     const {
+      // dispatchLoadBuyCoin,
       dispatchLoadBuyCoinSuccess,
       dispatchLoadRecentSwapsCoinOne,
       dispatchLoadRecentSwapsCoinTwo,
@@ -46,7 +54,7 @@ class TestSwap extends React.PureComponent<Props> {
       dispatchLoadRecentSwapsCoinFive,
       dispatchLoadSwapSuccess
     } = this.props;
-
+    // window.dispatchLoadBuyCoin = dispatchLoadBuyCoin;
     window.dispatchLoadBuyCoinSuccess = dispatchLoadBuyCoinSuccess;
     window.dispatchLoadRecentSwapsCoinOne = dispatchLoadRecentSwapsCoinOne;
     window.dispatchLoadRecentSwapsCoinTwo = dispatchLoadRecentSwapsCoinTwo;
@@ -67,6 +75,12 @@ TestSwap.displayName = 'TestSwap';
 // eslint-disable-next-line flowtype/no-weak-types
 export function mapDispatchToProps(dispatch: Dispatch<Object>) {
   return {
+    // dispatchLoadBuyCoin: () =>
+    //   dispatch(loadBuyCoin({
+    //     basecoin: 'COQUI',
+    //     paymentcoin: 'BEER',
+    //     amount: 8.61671724
+    //   })),
     dispatchLoadSwapSuccess: () => dispatch(loadSwapSuccess(LOAD_SWAP_SUCCESS)),
     dispatchLoadBuyCoinSuccess: () =>
       dispatch(

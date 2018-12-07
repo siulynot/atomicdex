@@ -86,7 +86,7 @@ const TextInput = ({ onChange, value, error, isError, ...props }) => (
   />
 );
 
-export const lessThan = (value: mixed, props: mixed) =>
+export const lessThanBlance = (value: mixed, props: mixed) =>
   new Promise((resolve, reject) => {
     const { balance } = props;
     const n = Number(value);
@@ -97,13 +97,32 @@ export const lessThan = (value: mixed, props: mixed) =>
     return resolve(true);
   });
 
-const ValidationBaseInput = validate(TextInput, [requiredNumber], {
-  onChange: true
-});
+export const lessThanMaxvolume = (value: mixed, props: mixed) =>
+  new Promise((resolve, reject) => {
+    const { maxvolume } = props;
+    const n = Number(value);
+    const b = Number(maxvolume);
+    if (n >= b) {
+      return reject(new Error('Value is large than max volume'));
+    }
+    return resolve(true);
+  });
 
-const ValidationPaymentInput = validate(TextInput, [requiredNumber, lessThan], {
-  onChange: true
-});
+const ValidationBaseInput = validate(
+  TextInput,
+  [requiredNumber, lessThanMaxvolume],
+  {
+    onChange: true
+  }
+);
+
+const ValidationPaymentInput = validate(
+  TextInput,
+  [requiredNumber, lessThanBlance],
+  {
+    onChange: true
+  }
+);
 
 const styles = theme => ({
   amountform__itemCenter: {
@@ -417,7 +436,14 @@ class AmountSection extends React.Component<Props, State> {
   };
 
   renderSubmitForm = () => {
-    const { classes, payment, buyingLoading, intl, currency } = this.props;
+    const {
+      classes,
+      payment,
+      buyingLoading,
+      intl,
+      currency,
+      price
+    } = this.props;
     const { disabledBuyButton, dexfee } = this.state;
     const disabled = payment.get('symbol') === null;
     let labelForPayment = intl.formatMessage({
@@ -449,10 +475,11 @@ class AmountSection extends React.Component<Props, State> {
             margin="dense"
           />
         )}
-        {currency.get('symbol') && (
+        {payment.get('symbol') && currency.get('symbol') && (
           <ValidationBaseInput
             label={labelForCurrency}
             id={labelForCurrency}
+            maxvolume={price.get('maxvolume')}
             type="number"
             disabled={disabled}
             className={classes.amountform__formFirstItem}
@@ -477,7 +504,7 @@ class AmountSection extends React.Component<Props, State> {
             margin="dense"
           />
         )}
-        {payment.get('symbol') && (
+        {payment.get('symbol') && currency.get('symbol') && (
           <ValidationPaymentInput
             label={labelForPayment}
             id={labelForPayment}
@@ -607,7 +634,7 @@ class AmountSection extends React.Component<Props, State> {
         <Grid item xs={12} className={classes.amountform__itemCenter}>
           <Typography variant="body2" gutterBottom>
             Step {entity.get('sentflags').size + 1}
-            /6: {STATE_SWAPS[entity.get('sentflags').size]}
+            /6: {STATE_SWAPS[entity.get('sentflags').size + 1]}
           </Typography>
           <LinearProgress
             color="primary"

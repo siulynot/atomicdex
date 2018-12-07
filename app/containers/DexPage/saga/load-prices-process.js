@@ -4,8 +4,8 @@ import api from '../../../lib/barter-dex-api';
 import { makeSelectBalanceList } from '../../App/selectors';
 import { loadBestPrice, loadPricesSuccess, loadPricesError } from '../actions';
 import { makeSelectCurrency } from '../selectors';
+import { BUFF_PRICES, NUMCOIN } from '../constants';
 
-const numcoin = 100000000;
 const debug = require('debug')(
   'atomicapp:containers:DexPage:saga:load-prices-process'
 );
@@ -17,7 +17,6 @@ export function* loadPrice(coin) {
     base: currency.get('symbol'),
     rel: coin
   };
-  const buf = 1.08 * numcoin;
   let bestprice = 0;
   let request = null;
   try {
@@ -33,14 +32,14 @@ export function* loadPrice(coin) {
     if (!ask) {
       throw new Error('not found the best price');
     }
-    bestprice = Number((ask.price * numcoin).toFixed(0));
+    bestprice = Number((ask.price * NUMCOIN).toFixed(0));
     bestprice = Number(
-      (((buf / numcoin) * bestprice) / numcoin).toFixed(8) * numcoin
+      (((BUFF_PRICES / NUMCOIN) * bestprice) / NUMCOIN).toFixed(8) * NUMCOIN
     ).toFixed(0);
     debug(`best prices:`, ask);
     return yield put(
       loadBestPrice({
-        bestPrice: Number(bestprice / numcoin),
+        bestPrice: Number(bestprice / NUMCOIN),
         price: ask.price,
         avevolume: ask.avevolume,
         maxvolume: ask.maxvolume,
