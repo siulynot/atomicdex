@@ -274,7 +274,9 @@
     "sha.js": "^2.4.11",
     "source-map-support": "^0.5.9",
     "split2": "^3.0.0",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "winston": "^3.1.0",
+    "winston-syslog": "^2.0.0"
   },
   "engines": {
     "node": ">=10.x <11",

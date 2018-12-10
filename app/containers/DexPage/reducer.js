@@ -1,6 +1,8 @@
 /* eslint-disable no-case-declarations, no-param-reassign */
 import { fromJS } from 'immutable';
 import { handleActions } from 'redux-actions';
+import { LOGOUT } from '../App/constants';
+import logger from '../../logger';
 import {
   LOAD_PRICES,
   LOAD_BEST_PRICE,
@@ -23,8 +25,6 @@ import {
   SELECT_COIN_MODAL_CLICK,
   COIN_PAYMENT_SELECT
 } from './constants';
-
-import { LOGOUT } from '../App/constants';
 
 // The initial state of the App
 export const initialState = fromJS({
@@ -377,6 +377,19 @@ const buyReducer = handleActions(
       if (status === 'finished' && processingList.contains(uuid)) {
         processingList = processingList.filter(o => o !== uuid);
         finishedList = finishedList.push(uuid);
+        logger.info({
+          alice: entity.get('alice'),
+          aliceamount: entity.get('aliceamount'),
+          bob: entity.get('bob'),
+          bobamount: entity.get('bobamount'),
+          alicesmartaddress: entity.get('alicesmartaddress'),
+          bobsmartaddress: entity.get('bobsmartaddress'),
+          expiration: entity.get('expiration'),
+          quoteid: entity.get('quoteid'),
+          requestid: entity.get('requestid'),
+          uuid: entity.get('uuid'),
+          status: 'finished'
+        });
         return state
           .setIn(['swaps', 'processingList'], processingList)
           .setIn(['swaps', 'finishedList'], finishedList)
@@ -512,6 +525,7 @@ const buyReducer = handleActions(
       if (status === 'finished' && processingList.contains(uuid)) {
         processingList = processingList.filter(o => o !== uuid);
         finishedList = finishedList.push(uuid);
+
         return state
           .setIn(['swaps', 'processingList'], processingList)
           .setIn(['swaps', 'finishedList'], finishedList)
@@ -553,7 +567,21 @@ const buyReducer = handleActions(
           )
           .set('status', 'finished');
         entities = entities.set(uuid, entity);
+        logger.info({
+          alice: entity.get('alice'),
+          aliceamount: entity.get('aliceamount'),
+          bob: entity.get('bob'),
+          bobamount: entity.get('bobamount'),
+          alicesmartaddress: entity.get('alicesmartaddress'),
+          bobsmartaddress: entity.get('bobsmartaddress'),
+          expiration: entity.get('expiration'),
+          quoteid: entity.get('quoteid'),
+          requestid: entity.get('requestid'),
+          uuid: entity.get('uuid'),
+          status: 'failed'
+        });
       }
+
       return state
         .setIn(['swaps', 'finishedList'], finishedList)
         .setIn(['swaps', 'processingList'], processingList)
