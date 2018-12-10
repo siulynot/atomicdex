@@ -6,7 +6,8 @@ import { runSaga } from 'redux-saga';
 import api from '../../../../lib/barter-dex-api';
 import loadBuyCoinProcess from '../load-buy-coin-process';
 import { LOAD_BUY_COIN_SUCCESS } from '../../constants';
-import data, {
+import data from '../../../__tests__/app-state.json';
+import {
   listunspentstep1,
   listunspentstep2,
   buy1,

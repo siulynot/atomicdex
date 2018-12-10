@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import buySubscribe from '../subscribe';
 import { LOAD_RECENT_SWAPS_DATA_FROM_WEBSOCKET } from '../constants';
 import { LOAD_SWAP_SUCCESS } from '../../App/constants';
-import data from '../saga/__tests__/fake-data';
+import data from '../../__tests__/app-state.json';
 import {
   WEBSOCKET_STATE_ZERO,
   WEBSOCKET_STATE_ONE,

@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 import { runSaga } from 'redux-saga';
-import data from './fake-data';
+import data from '../../../__tests__/app-state.json';
 import { checkTimeoutEvent } from '../handle-timeout-event';
 import { CHECK_TIMEOUT_EVENT, SWAP_TIMEOUT } from '../../constants';
 import { SWAP_STATE_ZERO } from '../../../__tests__/fake-data';

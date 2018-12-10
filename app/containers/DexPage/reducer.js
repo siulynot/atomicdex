@@ -377,19 +377,7 @@ const buyReducer = handleActions(
       if (status === 'finished' && processingList.contains(uuid)) {
         processingList = processingList.filter(o => o !== uuid);
         finishedList = finishedList.push(uuid);
-        logger.info({
-          alice: entity.get('alice'),
-          aliceamount: entity.get('aliceamount'),
-          bob: entity.get('bob'),
-          bobamount: entity.get('bobamount'),
-          alicesmartaddress: entity.get('alicesmartaddress'),
-          bobsmartaddress: entity.get('bobsmartaddress'),
-          expiration: entity.get('expiration'),
-          quoteid: entity.get('quoteid'),
-          requestid: entity.get('requestid'),
-          uuid: entity.get('uuid'),
-          status: 'finished'
-        });
+
         return state
           .setIn(['swaps', 'processingList'], processingList)
           .setIn(['swaps', 'finishedList'], finishedList)
@@ -525,7 +513,19 @@ const buyReducer = handleActions(
       if (status === 'finished' && processingList.contains(uuid)) {
         processingList = processingList.filter(o => o !== uuid);
         finishedList = finishedList.push(uuid);
-
+        logger.info({
+          alice: entity.get('alice'),
+          aliceamount: entity.get('aliceamount'),
+          bob: entity.get('bob'),
+          bobamount: entity.get('bobamount'),
+          alicesmartaddress: entity.get('alicesmartaddress'),
+          bobsmartaddress: entity.get('bobsmartaddress'),
+          expiration: entity.get('expiration'),
+          quoteid: entity.get('quoteid'),
+          requestid: entity.get('requestid'),
+          uuid: entity.get('uuid'),
+          status: 'finished'
+        });
         return state
           .setIn(['swaps', 'processingList'], processingList)
           .setIn(['swaps', 'finishedList'], finishedList)
