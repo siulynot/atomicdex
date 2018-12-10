@@ -464,7 +464,7 @@ class AmountSection extends React.Component<Props, State> {
     return (
       <Grid item xs={12} className={classes.amountform__itemCenter}>
         {/* <form className={classes.withdraw__form}> */}
-        {!currency.get('symbol') && (
+        {(!price || !currency.get('symbol')) && (
           <ValidationBaseInput
             label={labelForCurrency}
             id={labelForCurrency}
@@ -475,7 +475,7 @@ class AmountSection extends React.Component<Props, State> {
             margin="dense"
           />
         )}
-        {payment.get('symbol') && currency.get('symbol') && (
+        {price && currency.get('symbol') && (
           <ValidationBaseInput
             label={labelForCurrency}
             id={labelForCurrency}
@@ -504,7 +504,7 @@ class AmountSection extends React.Component<Props, State> {
             margin="dense"
           />
         )}
-        {payment.get('symbol') && currency.get('symbol') && (
+        {payment.get('symbol') && (
           <ValidationPaymentInput
             label={labelForPayment}
             id={labelForPayment}

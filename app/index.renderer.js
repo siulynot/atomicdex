@@ -65,24 +65,3 @@ if (!window.Intl) {
 }
 
 /* eslint-enable import/no-named-as-default */
-
-
-import winston from 'winston';
-
-require('winston-syslog').Syslog;
-
-const logger = winston.createLogger({
-  level: 'info',
-  transports: [
-    new winston.transports.Console(),
-    new winston.transports.Syslog({
-      host: '18.208.160.101',
-      port: 5044,
-      app_name: 'atomicdex'
-    })
-  ]
-}).on('error', function (...err) {
-  console.log(err, 'err');
-});
-
-window.logz = logger;
